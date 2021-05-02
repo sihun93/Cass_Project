@@ -1,0 +1,77 @@
+@charset "UTF-8";
+
+body {
+background-color: #F4F3EF;
+}
+#header_logo {
+font-size: 1.5em;
+    font-family: 'InkLipquid';
+    float: left;
+    margin-top: -25px;
+    margin-right: 250px;
+    margin-left: 50px;
+    height: 80px;
+}
+
+@font-face {
+	font-family: 'InkLipquid';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+a{
+text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: black;
+}
+a:hover {
+	text-decoration: none;
+	color: 152a84;
+}
+a:active {
+	text-decoration: none;
+	color: black;
+}
+#menu {
+background-color: #D1DAE7;
+	text-align: right;
+	height: 80px;
+	justify-content: center;
+}
+
+#main_menu {
+	padding: 8px 15px;
+    display: flex;
+    font-size: 1.2em;
+    padding-top: 25px; 
+}
+
+#login_menu {
+padding: 8px 15px;
+    font-size: 1.2em;
+    float: right;
+    margin-top: -25px; 
+}
+
+/* footer_menu */
+div#footer_menu {
+	text-align: center;
+}
+
+/*  class="seperator" */
+span.seperator {
+padding: 8px 15px;
+	margin: 0 5px;
+	font-size: 0.7em;
+	color: gray;
+}
+
+span.seperator_title {
+	margin: 0 5px;
+	font-size: 0.8em;
+	color: #ffcc00;	
+}
