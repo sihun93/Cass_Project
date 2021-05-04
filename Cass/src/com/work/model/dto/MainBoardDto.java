@@ -1,9 +1,8 @@
+
 /**
  * 
  */
 package com.work.model.dto;
-
-import java.util.ArrayList;
 
 /**
  * @author 김성재
@@ -22,151 +21,18 @@ public class MainBoardDto {
 	private String	mboardTitle;
 	/** 평점*/
 	private int	mboardScore;
-	/** 내용*/
-	private StringBuffer mboardContent;
-	/** 사업자 홈페이지*/
-	private String businessHomepage;
-	/** 이미지 주소 저장*/
-	private ArrayList<String> mboardImg;
-	/** 회사 소개*/
-	private String	mboardInfo;
+	/** 회사 이미지*/
+	private String mboardImg;
+	/** 회사 정보*/
+	private String mboardInfo;
+	/** 메인서비스 내용*/
+	private String mboardContent;
+	
 	public MainBoardDto() {
 	}
-	/**
-	 * @return the mboardNum
-	 */
-	public String getMboardNum() {
-		return mboardNum;
-	}
-	/**
-	 * @param mboardNum the mboardNum to set
-	 */
-	public void setMboardNum(String mboardNum) {
-		this.mboardNum = mboardNum;
-	}
-	/**
-	 * @return the businessId
-	 */
-	public String getBusinessId() {
-		return businessId;
-	}
-	/**
-	 * @param businessId the businessId to set
-	 */
-	public void setBusinessId(String businessId) {
-		this.businessId = businessId;
-	}
-	/**
-	 * @return the mcategoryNum
-	 */
-	public String getMcategoryNum() {
-		return mcategoryNum;
-	}
-	/**
-	 * @param mcategoryNum the mcategoryNum to set
-	 */
-	public void setMcategoryNum(String mcategoryNum) {
-		this.mcategoryNum = mcategoryNum;
-	}
-	/**
-	 * @return the scategoryNum
-	 */
-	public String getScategoryNum() {
-		return scategoryNum;
-	}
-	/**
-	 * @param scategoryNum the scategoryNum to set
-	 */
-	public void setScategoryNum(String scategoryNum) {
-		this.scategoryNum = scategoryNum;
-	}
-	/**
-	 * @return the mboardTitle
-	 */
-	public String getMboardTitle() {
-		return mboardTitle;
-	}
-	/**
-	 * @param mboardTitle the mboardTitle to set
-	 */
-	public void setMboardTitle(String mboardTitle) {
-		this.mboardTitle = mboardTitle;
-	}
-	/**
-	 * @return the mboardScore
-	 */
-	public int getMboardScore() {
-		return mboardScore;
-	}
-	/**
-	 * @param mboardScore the mboardScore to set
-	 */
-	public void setMboardScore(int mboardScore) {
-		this.mboardScore = mboardScore;
-	}
-	/**
-	 * @return the mboardContent
-	 */
-	public StringBuffer getMboardContent() {
-		return mboardContent;
-	}
-	/**
-	 * @param mboardContent the mboardContent to set
-	 */
-	public void setMboardContent(StringBuffer mboardContent) {
-		this.mboardContent = mboardContent;
-	}
-	/**
-	 * @return the businessHomepage
-	 */
-	public String getBusinessHomepage() {
-		return businessHomepage;
-	}
-	/**
-	 * @param businessHomepage the businessHomepage to set
-	 */
-	public void setBusinessHomepage(String businessHomepage) {
-		this.businessHomepage = businessHomepage;
-	}
-	/**
-	 * @return the mboardImg
-	 */
-	public ArrayList<String> getMboardImg() {
-		return mboardImg;
-	}
-	/**
-	 * @param mboardImg the mboardImg to set
-	 */
-	public void setMboardImg(ArrayList<String> mboardImg) {
-		this.mboardImg = mboardImg;
-	}
-	/**
-	 * @return the mboardInfo
-	 */
-	public String getMboardInfo() {
-		return mboardInfo;
-	}
-	/**
-	 * @param mboardInfo the mboardInfo to set
-	 */
-	public void setMboardInfo(String mboardInfo) {
-		this.mboardInfo = mboardInfo;
-	}
-	/**
-	 * @param mboardNum
-	 * @param businessId
-	 * @param mcategoryNum
-	 * @param scategoryNum
-	 * @param mboardTitle
-	 * @param mboardScore
-	 * @param mboardContent
-	 * @param businessHomepage
-	 * @param mboardImg
-	 * @param mboardInfo
-	 */
+	
 	public MainBoardDto(String mboardNum, String businessId, String mcategoryNum, String scategoryNum,
-			String mboardTitle, int mboardScore, StringBuffer mboardContent, String businessHomepage,
-			ArrayList<String> mboardImg, String mboardInfo) {
+			String mboardTitle, int mboardScore, String mboardImg, String mboardInfo, String mboardContent) {
 		super();
 		this.mboardNum = mboardNum;
 		this.businessId = businessId;
@@ -174,36 +40,110 @@ public class MainBoardDto {
 		this.scategoryNum = scategoryNum;
 		this.mboardTitle = mboardTitle;
 		this.mboardScore = mboardScore;
-		this.mboardContent = mboardContent;
-		this.businessHomepage = businessHomepage;
 		this.mboardImg = mboardImg;
 		this.mboardInfo = mboardInfo;
+		this.mboardContent = mboardContent;
 	}
+
+	public String getMboardNum() {
+		return mboardNum;
+	}
+
+	public void setMboardNum(String mboardNum) {
+		this.mboardNum = mboardNum;
+	}
+
+	public String getBusinessId() {
+		return businessId;
+	}
+
+	public void setBusinessId(String businessId) {
+		this.businessId = businessId;
+	}
+
+	public String getMcategoryNum() {
+		return mcategoryNum;
+	}
+
+	public void setMcategoryNum(String mcategoryNum) {
+		this.mcategoryNum = mcategoryNum;
+	}
+
+	public String getScategoryNum() {
+		return scategoryNum;
+	}
+
+	public void setScategoryNum(String scategoryNum) {
+		this.scategoryNum = scategoryNum;
+	}
+
+	public String getMboardTitle() {
+		return mboardTitle;
+	}
+
+	public void setMboardTitle(String mboardTitle) {
+		this.mboardTitle = mboardTitle;
+	}
+
+	public int getMboardScore() {
+		return mboardScore;
+	}
+
+	public void setMboardScore(int mboardScore) {
+		this.mboardScore = mboardScore;
+	}
+
+	public String getMboardImg() {
+		return mboardImg;
+	}
+
+	public void setMboardImg(String mboardImg) {
+		this.mboardImg = mboardImg;
+	}
+
+	public String getMboardInfo() {
+		return mboardInfo;
+	}
+
+	public void setMboardInfo(String mboardInfo) {
+		this.mboardInfo = mboardInfo;
+	}
+
+	public String getMboardContent() {
+		return mboardContent;
+	}
+
+	public void setMboardContent(String mboardContent) {
+		this.mboardContent = mboardContent;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("[mboardNum=");
+		builder.append("MainBoardDto [mboardNum=");
 		builder.append(mboardNum);
-		builder.append(", businessId=");
+		builder.append("\n, businessId=");
 		builder.append(businessId);
-		builder.append(", mcategoryNum=");
+		builder.append("\n, mcategoryNum=");
 		builder.append(mcategoryNum);
-		builder.append(", scategoryNum=");
+		builder.append("\n, scategoryNum=");
 		builder.append(scategoryNum);
-		builder.append(", mboardTitle=");
+		builder.append("\n, mboardTitle=");
 		builder.append(mboardTitle);
-		builder.append(", mboardScore=");
+		builder.append("\n, mboardScore=");
 		builder.append(mboardScore);
-		builder.append(", mboardContent=");
-		builder.append(mboardContent);
-		builder.append(", businessHomepage=");
-		builder.append(businessHomepage);
-		builder.append(", mboardImg=");
+		builder.append("\n, mboardImg=");
 		builder.append(mboardImg);
-		builder.append(", mboardInfo=");
+		builder.append("\n, mboardInfo=");
 		builder.append(mboardInfo);
+		builder.append("\n, mboardContent=");
+		builder.append(mboardContent);
 		builder.append("]");
 		return builder.toString();
 	}
 
+
+	
+	
+	
 }
