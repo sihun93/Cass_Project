@@ -10,8 +10,8 @@ public class MemberDto {
 	private String memberEmail;
 	private String memberMobile;
 	private String memberBirth;
-	private int point;
 	private String grade;
+	private int point;
 	private String sex;
 	
 	public MemberDto() {}
