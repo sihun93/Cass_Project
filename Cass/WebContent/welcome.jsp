@@ -79,7 +79,7 @@ $(function () {
   			<td><a href="#">반려동물 서비스</a></td>
   		</tr>
   		<tr>
-  			<td><a href="${CONTEXT_PATH}/cass/frontController?action=qboardList">Q&A게시판</a></td>
+  			<td><a href="${CONTEXT_PATH}/cass/qboardController?action=qboardList">Q&A게시판</a></td>
   		</tr>
   		<tr>
   			<td><a href="#">마일리지 상품</a></td>

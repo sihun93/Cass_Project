@@ -4,7 +4,7 @@
     	<div id="header_logo"><h1>CASS</h1></div>
     	<div id="main_menu">
    			<a href="">반려동물 서비스</a><span class="seperator">|</span>
-   			<a href="${CONTEXT_PATH}/cass/frontController?action=qboardList">Q&A 게시판</a><span class="seperator">|</span>
+   			<a href="${CONTEXT_PATH}/cass/qboardController?action=qboardList">Q&A 게시판</a><span class="seperator">|</span>
    			<a href="">마일리지 상품</a> <span class="seperator">|</span>
    			<a href="">데이터</a> <span class="seperator"></span>
 
