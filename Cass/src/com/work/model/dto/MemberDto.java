@@ -10,8 +10,8 @@ public class MemberDto {
 	private String memberEmail;
 	private String memberMobile;
 	private String memberBirth;
-	private int point;
 	private String grade;
+	private int point;
 	private String sex;
 	
 	public MemberDto() {}
@@ -28,7 +28,7 @@ public class MemberDto {
 	 * @param sex
 	 */
 	public MemberDto(String memberId, String memberPw, String memberAddr, String memberEmail, String memberMobile,
-			String memberBirth, int point, String grade, String sex) {
+			String memberBirth, String grade, int point, String sex) {
 		super();
 		this.memberId = memberId;
 		this.memberPw = memberPw;
@@ -36,8 +36,8 @@ public class MemberDto {
 		this.memberEmail = memberEmail;
 		this.memberMobile = memberMobile;
 		this.memberBirth = memberBirth;
-		this.point = point;
 		this.grade = grade;
+		this.point = point;
 		this.sex = sex;
 	}
 

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.work.model.biz.DataCenterBiz;
+import com.work.model.biz.QboardBiz;
+import com.work.model.dto.QboardDto;
 
 /**
  * Servlet implementation class FrontControllerServlet
@@ -40,6 +42,9 @@ public class FrontControllerServlet extends HttpServlet {
 		switch(action) {
 		case "dataCenter":
 			dataCenter(request, response);
+			break;
+		case "qboardList":
+			qboardList(request, response);
 			break;
 		}
 	}
@@ -78,6 +83,19 @@ public class FrontControllerServlet extends HttpServlet {
 			response.sendRedirect(CONTEXT_PATH + "/dataCenter.jsp"); 
 		}
 	}
+	
+	protected void qboardList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+
+		response.setContentType("text/html; charset=UTF-8");
+
+		QboardBiz biz = new QboardBiz();
+
+		ArrayList<QboardDto> list = biz.getQboardList();
+		request.setAttribute("qboardList", list);
+		request.getRequestDispatcher("/qboardList.jsp").forward(request, response);
+	}
+	
 	
 
 }
