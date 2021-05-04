@@ -3,7 +3,6 @@
  */
 package com.work.model.dto;
 
-import java.util.ArrayList;
 
 /**
  * @author 백시훈
@@ -13,12 +12,29 @@ public class PointDto {
 	private String pboardNum;
 	private String mcategoryNum;
 	private String pboardTitle;
-	private ArrayList<String> pboardImg;
+	private String pboardImg;
 	private StringBuffer pboardContent;
 	private int pboardPrice;
 	public PointDto() {
 	}
 	
+	
+	/**
+	 * @return the pboardImg
+	 */
+	public String getPboardImg() {
+		return pboardImg;
+	}
+
+
+	/**
+	 * @param pboardImg the pboardImg to set
+	 */
+	public void setPboardImg(String pboardImg) {
+		this.pboardImg = pboardImg;
+	}
+
+
 	/**
 	 * @return the pboardNum
 	 */
@@ -62,20 +78,6 @@ public class PointDto {
 	}
 
 	/**
-	 * @return the pboardImg
-	 */
-	public ArrayList<String> getPboardImg() {
-		return pboardImg;
-	}
-
-	/**
-	 * @param pboardImg the pboardImg to set
-	 */
-	public void setPboardImg(ArrayList<String> pboardImg) {
-		this.pboardImg = pboardImg;
-	}
-
-	/**
 	 * @return the pboardContent
 	 */
 	public StringBuffer getPboardContent() {
@@ -111,7 +113,7 @@ public class PointDto {
 	 * @param pboardContent
 	 * @param pboardPrice
 	 */
-	public PointDto(String pboardNum, String mcategoryNum, String pboardTitle, ArrayList<String> pboardImg,
+	public PointDto(String pboardNum, String mcategoryNum, String pboardTitle, String pboardImg,
 			StringBuffer pboardContent, int pboardPrice) {
 		super();
 		this.pboardNum = pboardNum;
