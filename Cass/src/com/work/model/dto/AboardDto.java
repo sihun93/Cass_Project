@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class AboardDto {
 	private String qboardNum;
 	private String aboardWriter;
-	private StringBuffer aboardContent;
+	private String aboardContent;
 	private String aboardDate;
 	
 	public AboardDto() {
@@ -23,7 +23,7 @@ public class AboardDto {
 	 * @param aboardContent
 	 * @param aboardDate
 	 */
-	public AboardDto(String qboardNum, String aboardWriter, StringBuffer aboardContent, String aboardDate) {
+	public AboardDto(String qboardNum, String aboardWriter, String aboardContent, String aboardDate) {
 		super();
 		this.qboardNum = qboardNum;
 		this.aboardWriter = aboardWriter;
@@ -62,14 +62,14 @@ public class AboardDto {
 	/**
 	 * @return the aboardContent
 	 */
-	public StringBuffer getAboardContent() {
+	public String getAboardContent() {
 		return aboardContent;
 	}
 
 	/**
 	 * @param aboardContent the aboardContent to set
 	 */
-	public void setAboardContent(StringBuffer aboardContent) {
+	public void setAboardContent(String aboardContent) {
 		this.aboardContent = aboardContent;
 	}
 

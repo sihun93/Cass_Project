@@ -11,11 +11,11 @@ import java.util.ArrayList;
  */
 public class ReviewDto {
 	private int reviewNum;
-	private int mboardNum;
+	private String mboardNum;
 	private String memberId;
 	private int score;
-	private StringBuffer reviewContent;
-	private ArrayList<String> reviewImg;
+	private String reviewContent;
+	private String reviewImg;
 	private String reviewDate;
 	
 	public ReviewDto() {
@@ -38,14 +38,14 @@ public class ReviewDto {
 	/**
 	 * @return the mboardNum
 	 */
-	public int getMboardNum() {
+	public String getMboardNum() {
 		return mboardNum;
 	}
 
 	/**
 	 * @param mboardNum the mboardNum to set
 	 */
-	public void setMboardNum(int mboardNum) {
+	public void setMboardNum(String mboardNum) {
 		this.mboardNum = mboardNum;
 	}
 
@@ -80,28 +80,28 @@ public class ReviewDto {
 	/**
 	 * @return the reviewContent
 	 */
-	public StringBuffer getReviewContent() {
+	public String getReviewContent() {
 		return reviewContent;
 	}
 
 	/**
 	 * @param reviewContent the reviewContent to set
 	 */
-	public void setReviewContent(StringBuffer reviewContent) {
+	public void setReviewContent(String reviewContent) {
 		this.reviewContent = reviewContent;
 	}
 
 	/**
 	 * @return the reviewImg
 	 */
-	public ArrayList<String> getReviewImg() {
+	public String getReviewImg() {
 		return reviewImg;
 	}
 
 	/**
 	 * @param reviewImg the reviewImg to set
 	 */
-	public void setReviewImg(ArrayList<String> reviewImg) {
+	public void setReviewImg(String reviewImg) {
 		this.reviewImg = reviewImg;
 	}
 
@@ -128,8 +128,8 @@ public class ReviewDto {
 	 * @param reviewImg
 	 * @param reviewDate
 	 */
-	public ReviewDto(int reviewNum, int mboardNum, String memberId, int score, StringBuffer reviewContent,
-			ArrayList<String> reviewImg, String reviewDate) {
+	public ReviewDto(int reviewNum, String mboardNum, String memberId, int score, String reviewContent,
+			String reviewImg, String reviewDate) {
 		super();
 		this.reviewNum = reviewNum;
 		this.mboardNum = mboardNum;
