@@ -155,16 +155,10 @@ public class MemberFrontControllerServlet extends HttpServlet {
 			MemberDto dto = new MemberDto();
 			dto.setMemberId(memberId);
 			dto.setMemberPw(memberPw);
-
-			System.out.println("memberId : [" + memberId + "]");
-			System.out.println("memberPw : [" + memberPw + "]");
 			biz.login(dto);
 				if (dto.getGrade() != null) {
 					HttpSession session = request.getSession(true);
-					session.setAttribute("memberId", memberId);
-					session.setAttribute("grade", dto.getGrade());
 					session.setAttribute("dto", dto);
-					
 					MessageEntity messageEntity = new MessageEntity("success", 1);
 					messageEntity.setLinkTitle("메인페이지");
 					messageEntity.setUrl(CONTEXT_PATH +"/welcome.jsp");

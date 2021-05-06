@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Companion Animal Service Site</title>
+<link type="text/css" rel="stylesheet" href="css/common.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-analytics.js"></script>
@@ -19,7 +20,6 @@ $(function () {
 });
 
 </script>
-<link type="text/css" rel="stylesheet" href="css/common.css">
 <link type="text/css" rel="stylesheet" href="css/welcome.css">
 <style type="text/css">
 
@@ -55,20 +55,12 @@ $(function () {
 	font-family:'InkLipquid';
 	font-size:5em;
 	}
-	#main_menu{
-	position:absolute;
-	font-size:1.2em;
-	padding-top:33px;
-	padding-left:320px;
-	}
 	
 </style>
 </head>
 <body>
 <div id="wrapper">
 	<jsp:include page="/inc/header_menu.jsp" />
-	
-	
    <div id="container">
   <div class="sky">
   	<table>
@@ -76,16 +68,16 @@ $(function () {
   			<td><a href="#">▲ 위로</a></td>
   		</tr>
   		<tr>
-  			<td><a href="#">메인 카테고리1</a></td>
+  			<td><a href="#">반려동물 서비스</a></td>
   		</tr>
   		<tr>
-  			<td><a href="#">메인 카테고리2</a></td>
+  			<td><a href="${CONTEXT_PATH}/cass/qboardController?action=qboardList">Q & A 게시판</a></td>
   		</tr>
   		<tr>
-  			<td><a href="#">메인 카테고리3</a></td>
+  			<td><a href="${CONTEXT_PATH}/point/pointController?action=pointMain">포인트 샵</a></td>
   		</tr>
   		<tr>
-  			<td><a href="#">메인 카테고리4</a></td>
+  			<td><a href="${CONTEXT_PATH}/cass/frontController?action=dataCenter">데이터 센터</a></td>
   		</tr>
   	</table>
   </div>
@@ -188,7 +180,7 @@ $(function () {
   <div class="info">
   	 Companion Animal Service Site<br>
   	 반려동물 플랫폼 사이트
-  	 <h6><a href="">+더 알아보기</a></h6>
+  	 <h6><a href="intro.jsp">+더 알아보기</a></h6>
   </div>
    </div>
 

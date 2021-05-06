@@ -7,7 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Q&A 게시판</title>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <style type="text/css">
 body {
 	line-height: 2em;
@@ -100,85 +101,6 @@ ul, li {
 .left {
 	text-align: left;
 }
-html,body {
-	margin:50;
-	padding:0;
-	height:150%;
-	}
-#wrapper{
-	position:relative;
-	min-height:100%;
-	}
-#header{
-	margin-top:30px;
-	height:90px;
-	background-color:#D1DAE7;
-	}
-#container{
-	padding:20px;
-	}
-#footer{
-	position:absolute;
-	bottom:0;
-	left:0;
-	right:0;
-	background-color:#D1DAE7;
-	font-size:1.2em;
-	height:100px;
-	text-align:center;
-	}
-#main_menu{
-	display:flex;
-	font-size:1.2em;
-	padding-top:33px;
-	padding-left:320px;
-	}
-body{
-	background-color:#F4F3EF;
-	}
-#header_logo{
-	font-size:1.5em;
-	font-family:'InkLipquid';
-	float:left;
-	margin-top:-15px;
-	margin-right:250px;
-	margin-left:50px;
-	height: 80px;
-	}
-@font-face{
-	font-family:'InkLipquid';
-	font-weight:normal;
-	font-style:normal;
-	font-color:white;
-    src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff')format('woff');
-    }
-a{
-	text-decoration:none;
-	}
-a:visited{
-	text-decoration:none;
-	color:black;
-	}
-a:hover{
-	text-decoration:none;
-	color:152a84;
-	}
-a:active{
-	text-decoration:none;
-	color:black;
-	}
-#login_menu{
-	padding:8px 15px;
-	font-size: 1.2em;
-	float:right;
-	margin-top:-35px; 
-	}
-span.seperator{
-	padding:0px 10px;
-	margin:0 5px;
-	font-size:1.0em;
-	color:gray;
-	}
 </style>
 </head>
 <body>
