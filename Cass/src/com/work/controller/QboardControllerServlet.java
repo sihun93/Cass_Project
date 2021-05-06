@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.work.model.biz.QboardBiz;
+import com.work.model.dto.AboardDto;
 import com.work.model.dto.QboardDto;
 
 /**
- * Servlet implementation class QboardControllerServlet
+ * @author 박민주
+ * Q&A 게시판 관리 서블릿
  */
-@WebServlet(urlPatterns = {"/cass/qboardController"}, loadOnStartup = 1)
+@WebServlet(urlPatterns = {"/cass/qboardController"})
 public class QboardControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -26,7 +28,6 @@ public class QboardControllerServlet extends HttpServlet {
 	public void init() {
 		application = getServletContext();
 		CONTEXT_PATH = application.getContextPath();
-		System.out.println("[loadOnStartup]CONTEXT_PATH : " + CONTEXT_PATH);
 		application.setAttribute("CONTEXT_PATH", CONTEXT_PATH);
 	}
 	
@@ -37,6 +38,27 @@ public class QboardControllerServlet extends HttpServlet {
 		switch(action) {
 		case "qboardList":
 			qboardList(request, response);
+			break;
+		case "qboardDetail":
+			qboardDetail(request, response);
+			break;
+		case "addQboard":
+			addQboard(request, response);
+			break;
+		case "deleteQboard":
+			deleteQboard(request, response);
+			break;
+		case "searchQboard":
+			searchQboard(request, response);
+			break;
+		case "updateQboard":
+			updateQboard(request, response);
+			break;
+		case "updateQboard2":
+			updateQboard2(request, response);
+			break;
+		case "addAboard":
+			addAboard(request, response);
 			break;
 		}
 	}
@@ -49,6 +71,7 @@ public class QboardControllerServlet extends HttpServlet {
 		process(request, response);
 	}
 	
+	/** Q&A 게시판 게시글 전체 조회*/
 	protected void qboardList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 
@@ -58,8 +81,129 @@ public class QboardControllerServlet extends HttpServlet {
 
 		ArrayList<QboardDto> list = biz.getQboardList();
 		request.setAttribute("qboardList", list);
-		request.getRequestDispatcher("/qboardList.jsp").forward(request, response);
+		request.getRequestDispatcher("/qnaBoard/qboardList.jsp").forward(request, response);
 	}
 	
+	/** Q&A 게시판 게시글 상세 조회*/
+	protected void qboardDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=UTF-8");
+		String qboardNum = request.getParameter("qboardNum");
+		QboardBiz biz = new QboardBiz();
 
+		ArrayList<QboardDto> list = biz.getQboardDetail(qboardNum);
+		ArrayList<AboardDto> list2 = biz.getAboardList(qboardNum);
+		request.setAttribute("qboardDetail", list);
+		request.setAttribute("aboardList", list2);
+		request.getRequestDispatcher("/qnaBoard/qboardDetail.jsp").forward(request, response);
+	}
+	
+	/** Q&A 게시판 답글 등록*/
+	protected void addAboard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=UTF-8");
+		String qboardNum = request.getParameter("qboardNum");
+		String aboardContent = request.getParameter("reply");
+		QboardBiz biz = new QboardBiz();
+
+		ArrayList<QboardDto> list = biz.getQboardDetail(qboardNum);
+		ArrayList<AboardDto> list3 = biz.addAboard(qboardNum, aboardContent);
+		ArrayList<AboardDto> list2 = biz.getAboardList(qboardNum);
+		if(list3!= null) {
+			request.setAttribute("qboardDetail", list);
+			request.setAttribute("aboardList", list2);
+			request.getRequestDispatcher("/qnaBoard/qboardDetail.jsp").forward(request, response);	
+		}
+	}
+	
+	/** Q&A 게시판 게시글 등록*/
+	protected void addQboard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=UTF-8");
+		String qboardTitle = request.getParameter("qboardTitle");
+		String qboardContent = request.getParameter("qboardContent");
+		String qboardImg = request.getParameter("qboardImg");
+		String memberId="money99";		
+		QboardBiz biz = new QboardBiz();
+		
+		int result=biz.addQboard(qboardTitle, qboardContent, qboardImg, memberId);
+		
+		if(result == 1) {
+			ArrayList<QboardDto> list = biz.getQboardList();
+			request.setAttribute("qboardList", list);
+			request.getRequestDispatcher("/qnaBoard/qboardList.jsp").forward(request, response);
+		}
+	}
+	
+	/** Q&A 게시판 게시글 삭제*/
+	protected void deleteQboard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=UTF-8");
+		String qboardNum = request.getParameter("qboardNum");
+		QboardBiz biz = new QboardBiz();
+		
+		int result = biz.deleteQboard(qboardNum);
+		
+		if(result == 1) {
+			ArrayList<QboardDto> list = biz.getQboardList();
+			request.setAttribute("qboardList", list);
+			request.getRequestDispatcher("/qnaBoard/qboardList.jsp").forward(request, response);
+		}
+
+	}
+	
+	/** Q&A 게시판 게시글 검색(제목+내용, 제목, 내용)*/
+	protected void searchQboard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=UTF-8");
+		String selSearchOption = request.getParameter("selSearchOption");
+		String txtKeyWord = request.getParameter("txtKeyWord");
+		QboardBiz biz = new QboardBiz();
+
+		if(selSearchOption.equals("A")) {
+			ArrayList<QboardDto> list = biz.getQboardByA(txtKeyWord);
+			request.setAttribute("qboardList", list);
+			request.getRequestDispatcher("/qnaBoard/qboardList.jsp").forward(request, response);
+			
+		}else if(selSearchOption.equals("T")) {
+			ArrayList<QboardDto> list = biz.getQboardByT(txtKeyWord);
+			request.setAttribute("qboardList", list);
+			request.getRequestDispatcher("/qnaBoard/qboardList.jsp").forward(request, response);
+			
+		}else if(selSearchOption.equals("C")) {
+			ArrayList<QboardDto> list = biz.getQboardByC(txtKeyWord);
+			request.setAttribute("qboardList", list);
+			request.getRequestDispatcher("/qnaBoard/qboardList.jsp").forward(request, response);
+		}
+	}
+	
+	/** Q&A 게시판 게시글 수정하기 위해 게시글 불러오기*/
+	protected void updateQboard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=UTF-8");
+		String qboardNum = request.getParameter("qboardNum");
+		QboardBiz biz = new QboardBiz();
+
+		ArrayList<QboardDto> list = biz.getQboardDetail(qboardNum);
+		request.setAttribute("qboardDetailUpdate", list);
+		request.getRequestDispatcher("/qnaBoard/qboardUpdate.jsp").forward(request, response);
+	}
+	
+	/** Q&A 게시판 게시글 수정*/
+	protected void updateQboard2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=UTF-8");
+		String qboardNum = request.getParameter("qboardNum");
+		String qboardTitle = request.getParameter("qboardTitle");
+		String qboardContent = request.getParameter("qboardContent");
+		String qboardImg = request.getParameter("qboardImg");
+		QboardBiz biz = new QboardBiz();
+
+		int result = biz.updateQboard(qboardNum, qboardTitle, qboardContent, qboardImg);
+		if(result == 1) {
+			ArrayList<QboardDto> list = biz.getQboardList();
+			request.setAttribute("qboardList", list);
+			request.getRequestDispatcher("/qnaBoard/qboardList.jsp").forward(request, response);
+		}
+	}
 }

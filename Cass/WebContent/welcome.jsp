@@ -5,8 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Companion Animal Service Site</title>
-<link type="text/css" rel="stylesheet" href="css/common.css">
+<title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-analytics.js"></script>
@@ -20,6 +19,7 @@ $(function () {
 });
 
 </script>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <link type="text/css" rel="stylesheet" href="css/welcome.css">
 <style type="text/css">
 
@@ -40,7 +40,7 @@ $(function () {
 	font-size:1.8em;
 }
  .table{
-    	margin-top:500px;
+    	margin-top:5%;
 		margin-left:500px;
 		font-family:'InkLipquid';
 		font-size:1.8em;
@@ -55,12 +55,22 @@ $(function () {
 	font-family:'InkLipquid';
 	font-size:5em;
 	}
-	
+	.dropdown{
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	}
+	.review_{
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	}
+	img[src^="img/img"]{
+		width:400px; height:400px;
+	}
 </style>
 </head>
 <body>
 <div id="wrapper">
 	<jsp:include page="/inc/header_menu.jsp" />
+	
+	
    <div id="container">
   <div class="sky">
   	<table>
@@ -71,27 +81,16 @@ $(function () {
   			<td><a href="#">반려동물 서비스</a></td>
   		</tr>
   		<tr>
-  			<td><a href="${CONTEXT_PATH}/cass/qboardController?action=qboardList">Q & A 게시판</a></td>
+  			<td><a href="${CONTEXT_PATH}/cass/qboardController?action=qboardList">Q&A 게시판</a></td>
   		</tr>
   		<tr>
-  			<td><a href="${CONTEXT_PATH}/point/pointController?action=pointMain">포인트 샵</a></td>
+  			<td><a href="#">포인트 샵</a></td>
   		</tr>
   		<tr>
-  			<td><a href="${CONTEXT_PATH}/cass/frontController?action=dataCenter">데이터 센터</a></td>
+  			<td><a href="#">데이터</a></td>
   		</tr>
   	</table>
   </div>
-   
-   <div class="slide">
-    	<ul>
-      <li><a href=""><img src="img/img11.PNG"></a></li>
-      <li><img src="img/img2.PNG"></li>
-      <li><img src="img/img12.PNG"></li>
-      <li><img src="img/img4.PNG"></li>
-      <li><img src="img/img13.PNG"></li>
-    	</ul>
-  </div>
-  <br>
   <div class="table">
   <h1>Service</h1>
   <table>
@@ -102,42 +101,19 @@ $(function () {
   		<td><a href=""><img src="img/service/private.jpg"></a></td>
   	</tr>
   	<tr>
-  		<th class="dropdown">▼  뷰티샵
+  	<c:forEach var="mainCategoryList" items="${mainCategoryList}">
+  		<th class="dropdown">▼  ${mainCategoryList.mcategoryName }
   			<div class="drop">
   			<div class="dropdown-content">
-  			<a href="#">서브1</a>
-    		<a href="#">서브2</a>
-    		<a href="#">서브3</a>
+  			<c:forEach var="subCategoryList" items="${subCategoryList}">
+  			<c:if test="${mainCategoryList.mcategoryNum eq subCategoryList.mcategoryNum}">
+  			<a href="#">${subCategoryList.scategoryName }</a>
+  			</c:if>
+    		</c:forEach>
   			</div>
   			</div>
   		</th>
-  		<th class="dropdown">▼  놀이터
-  			<div class="drop">
-  			<div class="dropdown-content">
-  			<a href="#">서브</a>
-    		<a href="#">서브</a>
-    		<a href="#">서브</a>
-  			</div>
-  			</div>
-  		</th>
-  		<th class="dropdown">▼  병원/장례
-  			<div class="drop">
-  			<div class="dropdown-content">
-  			<a href="#">서브1</a>
-    		<a href="#">서브2</a>
-    		<a href="#">서브3</a>
-  			</div>
-  			</div>
-  		</th>
-  		<th class="dropdown">▼  애완용품
-  			<div class="drop">
-  			<div class="dropdown-content">
-  			<a href="#">서브1</a>
-    		<a href="#">서브2</a>
-    		<a href="#">서브3</a>
-  			</div>
-  			</div>
-  		</th>
+  		</c:forEach>
   	</tr> 	
   </table>
   </div>
@@ -146,33 +122,20 @@ $(function () {
   <hr>
   <div class="review">
   <h1>Best Review</h1>
+  <c:forEach var="bestReviewList" items="${bestReviewList}">
   	<table>
-  		<tr>
-  			<td><img src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainPage%2Fimg05.jpeg?alt=media"></td>
-  			<td>리뷰 내용</td>
+  		<tr class="review_">
+  			<td><img src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/review%2F${bestReviewList.reviewImg}?alt=media" width="150px" height="150px"></td>
+  			<td>${bestReviewList.reviewContent }</td>
   		</tr>
   		<tr>
-  			<td>회원 ID</td>
-  		</tr>
-  	</table>
-  		<table>
-  		<tr>
-  			<td><img src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainPage%2Fimg05.jpeg?alt=media"></td>
-  			<td>리뷰 내용</td>
+  			<td>${bestReviewList.memberId}님의 후기</td>
   		</tr>
   		<tr>
-  			<td>회원 ID</td>
+  			<td>평점 : ${bestReviewList.score}</td>
   		</tr>
   	</table>
-  		<table>
-  		<tr>
-  			<td><img src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainPage%2Fimg05.jpeg?alt=media"></td>
-  			<td>리뷰 내용 </td>
-  		</tr>
-  		<tr>
-  			<td>회원 ID</td>
-  		</tr>
-  	</table>
+  	</c:forEach>
   </div>
   <br>
   <br>
@@ -180,7 +143,7 @@ $(function () {
   <div class="info">
   	 Companion Animal Service Site<br>
   	 반려동물 플랫폼 사이트
-  	 <h6><a href="intro.jsp">+더 알아보기</a></h6>
+  	 <h6><a href="">+더 알아보기</a></h6>
   </div>
    </div>
 

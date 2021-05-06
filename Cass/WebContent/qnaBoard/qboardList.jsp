@@ -7,28 +7,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Q&A 게시판</title>
+<title>Insert title here</title>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <style type="text/css">
 body {
-	line-height: 2em;
-	font-family: "맑은 고딕";
+	line-height: 2.4em;
 }
 
 ul, li {
+	text-align:center;
 	list-style: none;
-	text-align: center;
 	padding: 0;
 	margin: 0;
 }
 
 #mainWrapper {
-	width: 800px;
+	width: 900px;
 	margin: 0 auto; /*가운데 정렬*/
 }
 
 #mainWrapper>ul>li:first-child {
-	text-align: center;
 	font-size: 14pt;
 	height: 40px;
 	vertical-align: middle;
@@ -42,7 +40,6 @@ ul, li {
 #ulTable>li:first-child>ul>li {
 	background-color: #c9c9c9;
 	font-weight: bold;
-	text-align: center;
 }
 
 #ulTable>li>ul {
@@ -61,16 +58,16 @@ ul, li {
 
 #ulTable>li>ul>li:first-child {
 	width: 10%;
-} /*No 열 크기*/
+}
 #ulTable>li>ul>li:first-child+li {
 	width: 45%;
-} /*제목 열 크기*/
+}
 #ulTable>li>ul>li:first-child+li+li {
 	width: 20%;
-} /*작성일 열 크기*/
+} 
 #ulTable>li>ul>li:first-child+li+li+li {
 	width: 20%;
-} /*작성자 열 크기*/
+}
 
 #divPaging {
 	clear: both;
@@ -97,9 +94,16 @@ ul, li {
 	width: auto;
 	height: 100px;
 }
-
-.left {
-	text-align: left;
+#btn{
+	background-color:rgba(0, 0, 0, 0);
+	border:1px solid;
+}
+.btn{
+	margin-left:82%;
+	margin-top:-4%;
+}
+#deletebtn{
+	border:none;
 }
 </style>
 </head>
@@ -109,7 +113,7 @@ ul, li {
    <div id="container">
   	<div id="mainWrapper">
 		<ul>
-			<li>Q&A 게시판</li>
+		<li>Q&A게시판</li>
 			<li>
 				<ul id="ulTable">
 					<li>
@@ -118,40 +122,46 @@ ul, li {
 							<li>제목</li>
 							<li>작성자</li>
 							<li>작성일</li>
+							<c:if test="${dto.grade eq 'A'}">
+							<li>삭제</li>
+							</c:if>
 						</ul>
 					</li>
 					<c:forEach var="qboardList" items="${qboardList}">
 					<li>
 						<ul>
 							<li>${qboardList.qboardNum}</li>
-							<li><a href="${CONTEXT_PATH}/cass/frontController?action=qboardDetail&qboardNum=${qboardList.qboardNum}">${qboardList.qboardTitle}</a></li>
+							<li><a href="${CONTEXT_PATH}/cass/qboardController?action=qboardDetail&qboardNum=${qboardList.qboardNum}">${qboardList.qboardTitle}</a></li>
 							<li>${qboardList.memberId}</li>
 							<li>${qboardList.qboardDate}</li>
+							<c:if test="${dto.grade eq 'A'}">
+							<li><form action="${CONTEXT_PATH}/cass/qboardController?action=deleteQboard&qboardNum=${qboardList.qboardNum}" method="post">
+								<input type="submit"  value="삭제" id="deletebtn"/></form></li>
+							</c:if>
 						</ul>
 					</li>
 					</c:forEach>
 				</ul>
 			</li>
-			<li>
-				<div id="divPaging">
-					<div>◀</div>
-					<div>
-					<b>1</b>
-					</div>
-					<div>2</div>
-					<div>3</div>
-					<div>4</div>
-					<div>5</div>
-					<div>▶</div>
-				</div>
-			</li>
+			<br>
 			<li id='liSearchOption'>
 				<div>
-					<select id='selSearchOption'>
-						<option value='A'>제목+내용</option>
-						<option value='T'>제목</option>
-						<option value='C'>내용</option>
-					</select> <input id='txtKeyWord' /> <input type='button' value='검색' />
+				<form action="${CONTEXT_PATH}/cass/qboardController?action=searchQboard" method="post">
+					<select id="selSearchOption" name="selSearchOption">
+						<option value="A">제목+내용</option>
+						<option value="T">제목</option>
+						<option value="C">내용</option>
+					</select> 
+					<input id="txtKeyWord" name="txtKeyWord"/> <input type="submit" value="검색" id="btn"/>
+					</form>
+					<div class="btn">
+					<form action="${CONTEXT_PATH}/qnaBoard/qboardInput.jsp" method="post">
+					<input type="submit" value="글 등록" id="btn"/>
+					</form>
+					</div>
+				</div>
+				<div>
+				
 				</div>
 			</li>
 		</ul>
