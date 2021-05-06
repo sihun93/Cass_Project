@@ -227,7 +227,13 @@ public class PointDao {
 		}
 		
 	}
-
+	/**
+	 * 이름 검색기능 메서드
+	 * @param con
+	 * @param pointlist
+	 * @param searchName
+	 * @throws IOException
+	 */
 	public void titlesearch(Connection con, ArrayList<PointDto> pointlist, String searchName) throws IOException {
 		String sql = "select * from point_board where pboard_title like ?";
 		
