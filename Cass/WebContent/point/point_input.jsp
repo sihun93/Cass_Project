@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CASS 마일리지 상품 등록</title>
-<link type="text/css" rel="stylesheet" href="../css/common.css">
+<title>CASS 포인트 상품 등록</title>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <link type="text/css" rel="stylesheet" href="../css/pointPage.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
@@ -23,16 +23,16 @@
    <jsp:include page="/inc/point_submenu.jsp" />
 	
 	<div class="content_input">
-	<h3>마일리지 상품 등록</h3>
+	<h3>포인트 상품 등록</h3>
 	
-	<form action="/Cass/point/pointController?action=pointInput" method="post" id="inputform">
+	<form action="${CONTEXT_PATH}/point/pointController?action=pointInput" method="post" id="inputform">
 		<table border="1">
 			<tr>
 				<th>메인 카테고리</th>
 				<td><select name="mcategoryNum">
-						<option value="mc5">메인카테고리5</option>
-						<option value="mc6">메인카테고리6</option>
-						<option value="mc7">메인카테고리7</option>
+						<c:forEach var="MainCategoryDto" items="${categorylist}">
+						<option value="${MainCategoryDto.mcategoryNum}">${MainCategoryDto.mcategoryName}</option>
+						</c:forEach>
 				</select></td>
 			</tr>
 			<tr>
@@ -49,7 +49,7 @@
 			</tr>
 			<tr>
 			    <th>상품 이미지</th>
-				<td><input type="file" id="fileimg" name="pboardImg" multiple="multiple"></td>
+				<td><input type="file" id="fileimg" name="pboardImg"></td>
 			</tr>
 			<tr>
 				<th colspan="2">

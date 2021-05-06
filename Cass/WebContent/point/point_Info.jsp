@@ -1,13 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/inc/taglib_menu.jsp" %> 
+<%@ include file="/inc/taglib_menu.jsp" %>
+<%@page import="com.work.util.Utility"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CASS 마일리지 상품 상세조회</title>
-<link type="text/css" rel="stylesheet" href="../css/common.css">
+<title>CASS 포인트 상품 상세조회</title>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <link type="text/css" rel="stylesheet" href="../css/pointPage.css">
+<script type="text/javascript">
+window.onload = function() {
+	var price = document.getElementById('pboardPrice').value;
+	price = parseInt(price);
+	document.getElementById('orderPrice').innerHTML =price.toLocaleString();
+}
+
+function count() {
+		var count = document.getElementById('pboardCount').value;
+		var price = document.getElementById('pboardPrice').value;
+		console.log("구매갯수: " + count + ", " + price);
+		count = parseInt(count);
+		price = parseInt(price);
+		var orderPrice = 0;
+		orderPrice = Number(orderPrice);
+		orderPrice = count * price;
+		console.log('orderPrice:', orderPrice);
+		document.getElementById('orderPrice').innerHTML = orderPrice.toLocaleString();
+		if (count <= 0) {
+			alert("구매가능한 수량이 아닙니다.");
+			document.getElementById('pboardCount').value = 1;
+			document.getElementById('orderPrice').innerHTML =${pointDto.pboardPrice};
+		}
+	}
+</script>
 </head>
 <body>
 <div id="wrapper">
@@ -17,34 +43,40 @@
 			<jsp:include page="/inc/point_submenu.jsp" />
 
 			<div class="content_Info">
-				<div class="info_up_del">
 				<h3>상품 상세조회</h3>
-				<form action="" method="post">
-				<input type="submit" value="수정">
+				<table id="up_del">
+				<tr>
+				<th><form action="${CONTEXT_PATH}/point/pointController?action=pointUpdateForm&pboardNum=${pointDto.pboardNum}" method="post">
+				<input type="submit" id="update" value="수정">
 				</form>
-				<form action="" method="post">
-				<input type="submit" value="삭제">
+				</th>
+				<th><form action="${CONTEXT_PATH}/point/pointController?action=pointDelete&pboardNum=${pointDto.pboardNum}" method="post">
+				<input type="submit" id="delete" value="삭제">
 				</form>
-				</div>
+				</th>
+				</tr>
+				</table>
 				<div id="point_Info">
-					<form action="/Cass/point/pointController?action=pointBuyForm&pboardNum=${pointDto.pboardNum}" method="post">
+					<form action="${CONTEXT_PATH}/point/pointController?action=pointBuyForm&pboardNum=${pointDto.pboardNum}" method="post">
 						<table border="1">
 							<tr>
 								<th rowspan="6" class="img_th"><img class="img_th"
-									src="${url}"></th>
+									src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/point%2Ftest%2F${pointDto.pboardImg}?alt=media"></th>
 								<th>상품명: ${pointDto.pboardTitle}</th>
 							</tr>
 							<tr>
-								<th>상품 가격: ${pointDto.pboardPrice}</th>
+								<th>상품 가격: <div id="orderPrice"></div>
+								<input type="hidden" id="pboardPrice" value="${pointDto.pboardPrice}">
+								</th>
 							</tr>
 							<tr>
 								<th>상품 배송정보</th>
 							</tr>
 							<tr>
-								<td>배송예정: 2021-05-11</td>
+								<td>배송예정: <%= Utility.getCurrentDates() %></td>
 							</tr>
 							<tr>
-								<th>구매수량: <input type="number" name="pboardCount" value="1"></th>
+								<th>구매수량: <input type="number" id="pboardCount" name="pboardCount" value="1" onclick="count()"></th>
 							</tr>
 							<tr>
 								<td><input type="submit" value="구매하기"></td>
@@ -59,7 +91,7 @@
 				<div class="othersInfo">
 					<br> <br> <br>
 					<hr>
-					<h3>다른 마일리지 상품</h3>
+					<h3>다른 포인트 상품</h3>
 					<c:if test="${pointlist != null}">
 						<c:set var="doneLoop" value="false" />
 						<c:forEach items="${pointlist}" var="point" varStatus="list"
@@ -67,15 +99,15 @@
 							<c:if test="${list.count<=3}">
 								<div class="point_tables">
 									<table border="1"
-										onclick="location.href='/Cass/point/pointController?action=pointInfoForm&pboardNum=${point.pboardNum}'">
+										onclick="location.href='${CONTEXT_PATH}/point/pointController?action=pointInfoForm&pboardNum=${point.pboardNum}'">
 										<tr>
-											<th><img class="info_img_th" src="${url}"></th>
+											<th><img class="info_img_th" src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/point%2Ftest%2F${point.pboardImg}?alt=media"></th>
 										</tr>
 										<tr>
-											<th>상품명 : ${point.pboardTitle}</th>
+											<th>상품명 : ${point.pboardTitle.substring(0, 6)}..</th>
 										</tr>
 										<tr>
-											<th>상품가격 : ${point.pboardPrice}</th>
+											<th>상품가격 : <fmt:formatNumber value="${point.pboardPrice}" pattern="###,###" /></th>
 										</tr>
 									</table>
 								</div>
@@ -93,7 +125,6 @@
 
 		<jsp:include page="/inc/footer_menu.jsp"/>
 </div>
-	
 	
 </body>
 </html>
