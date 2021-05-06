@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+input[type=submit] {
+	width: 100%;
+	background-color: #D1DAE7;
+	color: black;
+	padding: 14px 25px;
+	margin: 5px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+input[type=submit]:hover {
+	background-color: #D1DAE9;
+}
+
+select {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+
+#sexPiChart {
+	position: absolute;
+	margin-left: 9%;
+	z-index: 1;
+}
+
+#agePiChart {
+	position: absolute;
+	margin-left: 39%;
+	z-index: 1;
+}
+
+#categoryPiChart {
+	position: absolute;
+	margin-left: 69%;
+	z-index: 1;
+}
+
+#selectPiChart {
+	position: absolute;
+	margin-top: 30%;
+	margin-left: 31%;
+}
+
+#selectForm {
+	margin-left: 80%;
+	margin-top: 35%;
+	position: absolute;
+	z-index: 2;
+	
+}
+
+#jsonDown {
+	width: 50%;
+	margin-top: 68%;
+	margin-left: 24%;
+	position: absolute;
+}

@@ -12,17 +12,17 @@ function drawChart() {
     data.addColumn('string','Foods');
     data.addColumn('number','비중');
     data.addRows([ 
-        ['키테고리1',cateCount1],
-        ['카테고리2',cateCount2],
-        ['카테고리3',cateCount3],
-        ['카테고리4',cateCount4]
+        ['애완용품',cateCount1],
+        ['관리',cateCount2],
+        ['교육',cateCount3],
+        ['사료',cateCount4]
     ]);
     var opt = {
             'title':'인기카테고리',
-            'width':300,
-            'height':300,
+            'width':500,
+            'height':500,
+            is3D:'true',
             pieSliceText:'label',
-            legend:'none', 
 			backgroundColor: '#F4F3EF'
     };
     var chart = new google.visualization.PieChart(document.getElementById('categoryPiChart'));

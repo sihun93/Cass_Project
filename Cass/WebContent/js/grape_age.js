@@ -21,10 +21,10 @@ function drawChart() {
     ]);
     var opt = {
             'title':'이용자 나이',
-            'width':300,
-            'height':300,
+            'width':500,
+            'height':500,
+            is3D:'true',
             pieSliceText:'label',
-            legend:'none', 
 			backgroundColor: '#F4F3EF'
     };
     var chart = new google.visualization.PieChart(document.getElementById('agePiChart'));
