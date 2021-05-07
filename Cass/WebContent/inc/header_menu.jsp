@@ -10,7 +10,8 @@
    		<a href="${CONTEXT_PATH}/point/pointController?action=pointMain">포인트 샵</a> <span class="seperator">|</span>
 	</div>
 	<div id="login_menu">
-   		<a href="${CONTEXT_PATH}/member/frontController?action=loginForm">로그인</a><span class="seperator">|</span>
-   		<a href="${CONTEXT_PATH}/member/frontController?action=memberInputForm">회원가입</a>
-   	</div>
+         <a href="${CONTEXT_PATH}/cassLogin.jsp">로그인</a><span class="seperator">|</span>
+         <a href="${CONTEXT_PATH}/cassInput.jsp">회원가입</a>
+         <a href="${CONTEXT_PATH}/cassFind.jsp">아이디/비밀번호 찾기</a>
+      </div>
 </div>

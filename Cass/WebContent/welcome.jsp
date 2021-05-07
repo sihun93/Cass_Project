@@ -70,8 +70,9 @@ $(function () {
 </style>
 </head>
 <body>
+
 <div id="wrapper">
-	<c:choose>
+<%-- <c:choose>
    <c:when test="${empty grade}">
       <jsp:include page="/inc/header_menu.jsp" />
    </c:when>
@@ -87,9 +88,15 @@ $(function () {
    <c:when test="${grade == 'A'}">
       <jsp:include page="/inc/admin_header_menu.jsp" />
    </c:when>
-</c:choose>
-	
-	
+</c:choose> --%>
+	<c:choose>
+		<c:when test="${empty bdto}">
+			<jsp:include page="/inc/header_menu.jsp" />
+		</c:when>
+		<c:otherwise>
+			<jsp:include page="/inc/business_header_menu.jsp" />
+		</c:otherwise>
+	</c:choose>
    <div id="container">
   <div class="sky">
   	<table>
