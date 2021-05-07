@@ -24,7 +24,11 @@ function bsPwCheck(){
 	var bsPwMsg = document.getElementById("businessPwMessage");
 	var bsPwConMsg = document.getElementById("businessPwConfirmMessage");
 	
-	if (businessPw == null || businessPw == "" || businessPw.length == 0) {
+	var bp1 = bsPw1.value;
+	var bp2 = bsPw2.value;
+	
+	
+	if (bp1 == null || bp1 == "" || bp1.length == 0) {
 		bsPwMsg.style.color = "red";
 		bsPwMsg.innerHTML = "비밀번호를 입력하세요.";
 		bsPw1.focus();
@@ -33,7 +37,7 @@ function bsPwCheck(){
 		bsPwMsg.innerHTML = "";
 	}
 	
-	if (businessPw2 == null || businessPw2 == "" || businessPw2.length == 0) {
+	if (bp2 == null || bp2 == "" || bp2.length == 0) {
 		bsPwConMsg.style.color = "red";
 		bsPwConMsg.innerHTML = "비밀번호확인을 입력하세요.";
 		bsPw2.focus();
@@ -42,7 +46,7 @@ function bsPwCheck(){
 		bsPwConMsg.innerHTML = "";
 	}
 	
-	if (businessPw != businessPw2) {
+	if (bp1 != bp2) {
 		bsPwConMsg.style.color = "red";
 		bsPwConMsg.innerHTML = "비밀번호와 비밀번호확인이 일치하지 않습니다.";
 	} else {

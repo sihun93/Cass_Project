@@ -84,7 +84,7 @@ public class MemberDao {
 			pstmt.setString(8, dto.getGrade());
 			pstmt.setString(9, dto.getSex());
 			pstmt.executeUpdate();
-			con.commit();
+			JdbcTemplate.commit(con);
 		} catch(SQLException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
@@ -100,28 +100,25 @@ public class MemberDao {
 	 * 내정보조회 메서드
 	 */
 	
-	public MemberDto myInfo(String memberId) {
+	public void myInfo(Connection con, MemberDto dto) throws CommonException{
 		String sql = "select * from member where member_Id=?";
-		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			conn = JdbcTemplate.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, memberId);
+			con = JdbcTemplate.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getMemberId());
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				MemberDto dto = new MemberDto();
 				dto.setMemberId(rs.getString("member_Id"));
-				  dto.setMemberPw(rs.getString("member_Pw"));
-				  dto.setMemberAddr(rs.getString("member_Addr"));
-				  dto.setMemberEmail(rs.getString("member_Email"));
-				  dto.setMemberMobile(rs.getString("member_Mobile"));
-				  dto.setMemberBirth(rs.getString("member_Birth"));
-				  dto.setGrade(rs.getString("grade")); 
-				  dto.setPoint(rs.getInt("point"));
-				  dto.setSex(rs.getString("sex"));
-				return dto;
+				dto.setMemberPw(rs.getString("member_Pw"));
+				dto.setMemberAddr(rs.getString("member_Addr"));
+				dto.setMemberEmail(rs.getString("member_Email"));
+				dto.setMemberMobile(rs.getString("member_Mobile"));
+				dto.setMemberBirth(rs.getString("member_Birth"));
+				dto.setGrade(rs.getString("grade"));
+				dto.setPoint(rs.getInt("point"));
+				dto.setSex(rs.getString("sex"));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -129,9 +126,7 @@ public class MemberDao {
 		} finally {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(pstmt);
-			JdbcTemplate.close(conn);
 		}
-		return null;
 	}
 	
 	/**
@@ -141,7 +136,7 @@ public class MemberDao {
 	 * @throws CommonException
 	 */
 	public void updateMyInfo(Connection con, MemberDto dto) throws CommonException{
-		String sql = "update MEMBER set member_Pw = ?, member_Addr = ?, member_Email = ?, member_Mobile = ? where member_Id = ?";
+		String sql = "update MEMBER set member_Pw = ?, member_Addr = ?, member_Email = ?, member_Mobile = ?, point = ? where member_Id = ?";
 		PreparedStatement pstmt = null;
 		
 		try {
@@ -150,7 +145,8 @@ public class MemberDao {
 			pstmt.setString(2, dto.getMemberAddr());
 			pstmt.setString(3, dto.getMemberEmail());
 			pstmt.setString(4, dto.getMemberMobile());
-			pstmt.setString(5, dto.getMemberId());
+			pstmt.setInt(5, dto.getPoint());
+			pstmt.setString(6, dto.getMemberId());
 			int rows = pstmt.executeUpdate();
 			if(rows == 0) {
 				throw new Exception();
@@ -211,7 +207,7 @@ public class MemberDao {
 	 * @param memberMobile
 	 * @return
 	 */
-	public void findIdMember(MemberDto dto) {
+	public String findIdMember(String memberBirth, String memberMobile) {
 		String sql = "select member_Id from MEMBER where member_Birth = ? and member_Mobile = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -220,11 +216,11 @@ public class MemberDao {
 		try {
 			con = JdbcTemplate.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, dto.getMemberBirth());
-			pstmt.setString(2, dto.getMemberMobile());
+			pstmt.setString(1, memberBirth);
+			pstmt.setString(2, memberMobile);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				dto.setMemberId(rs.getString("member_Id"));
+				return rs.getString("member_Id");
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -234,6 +230,7 @@ public class MemberDao {
 			JdbcTemplate.close(pstmt);
 			JdbcTemplate.close(con);
 		}
+		return null;
 	}
 	
 	
@@ -276,61 +273,37 @@ public class MemberDao {
 	 */
 	public int updateMemberPw(String memberId, String memberPw) {
 		String sql = "update MEMBER set member_Pw=? where member_Id=?";
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		try {
-			conn = JdbcTemplate.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, memberPw);
-			pstmt.setString(2, memberId);
-			return pstmt.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-		} finally {
-			JdbcTemplate.close(pstmt);
-			JdbcTemplate.close(conn);
-		}
-		return 0;
-	}
-	
-	
-	/**
-	 * 회원탈퇴 요청시 게시글 전체삭제
-	 * @param memberId
-	 * @return
-	 */
-	public int deleteBoard(String memberId) {
-		String sql = "delete from BOARD where member_Id = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = JdbcTemplate.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, memberId);
-			int rows = pstmt.executeUpdate();
-			JdbcTemplate.commit(con);
-			if(rows == 1) {
-				return rows;
-			}
+			pstmt.setString(1, memberPw);
+			pstmt.setString(2, memberId);
+			
+			return pstmt.executeUpdate();
 		} catch (SQLException e) {
-			JdbcTemplate.rollback(con);
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		} finally {
+			JdbcTemplate.commit(con);
 			JdbcTemplate.close(pstmt);
 			JdbcTemplate.close(con);
 		}
 		return 0;
 	}
 	
+	
+	
+	
 	/**
 	 * 회원탈퇴
+	 * +Q&A게시글 전체삭제가 함께 이루어져야함
 	 * @param memberId
 	 * @return
 	 */
 	public int deleteMember(String memberId) {
-		String sql = "delete from MEMBER where member_Id=?";
+		String sql = "delete from member where member_Id = ?";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -351,5 +324,99 @@ public class MemberDao {
 			JdbcTemplate.close(conn);
 		}
 		return 0;
+	}
+	
+	
+	/**
+	 * 구매후 포인트 변경 (아연)
+	 * @param con
+	 * @param memberId
+	 * @param memberPoint
+	 */
+	public void updatepoint(Connection con, String memberId, int memberPoint) {
+		String sql = "update MEMBER set point = ? where member_Id = ?";
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, memberPoint);
+			pstmt.setString(2, memberId);
+			
+			int rows = pstmt.executeUpdate();
+			if(rows == 0) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		
+		}finally {
+			JdbcTemplate.close(pstmt);
+		}	
+	}
+
+	
+	/**
+	 * 아이디 입력해서 포인트값 가져오기
+	 * @param memberId
+	 * @return
+	 */
+	public MemberDto selectPoint(String memberId) {
+		String sql = "select * from member where member_Id=?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = JdbcTemplate.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				MemberDto dto = new MemberDto();
+				dto.setMemberId(rs.getString("member_Id"));
+				dto.setPoint(rs.getInt("point"));
+				return dto;
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+			JdbcTemplate.close(conn);
+		}
+		return null;
+	}
+	
+	
+	/**
+	 * 포인트 변경
+	 * @param dto
+	 */
+	public void pointModify(MemberDto dto) throws Exception {
+		String sql = "update MEMBER set point = ? where member_Id = ?";
+		
+		PreparedStatement pstmt = null;
+		Connection conn=null;
+		try {
+			conn = JdbcTemplate.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dto.getPoint());
+			pstmt.setString(2, dto.getMemberId());
+			
+			int rows = pstmt.executeUpdate();
+			if(rows == 0) {
+				throw new Exception();
+			}
+			JdbcTemplate.commit(conn);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			JdbcTemplate.rollback(conn);
+			throw e;
+		}finally {
+			JdbcTemplate.close(pstmt);
+			JdbcTemplate.close(conn);
+		}	
 	}
 }
