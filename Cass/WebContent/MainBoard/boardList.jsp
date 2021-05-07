@@ -76,6 +76,9 @@ table#contable{
 
 
 <div id="content">
+<c:if test="${dto.grade eq 'B' }">
+<input type="button" value="게시글 작성" onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=writeForm'">
+</c:if>
 <c:if test="${!empty mainbaordList }">
 <c:forEach items="${mainbaordList}" var="mainbaord">
 <form action="${CONTEXT_PATH}/MainBoard/mainboardController?action=mainbaordDetail&pageNum=1" id="listcolumn" class="${mainbaord.mboardNum }" onclick="fsubmit('${mainbaord.mboardNum }')" method="post">

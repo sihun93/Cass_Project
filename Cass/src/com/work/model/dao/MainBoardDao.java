@@ -20,50 +20,18 @@ public class MainBoardDao {
 	public static MainBoardDao getInstance() {
 		return instance;
 	}
-
-	/**
-	 * 게시글 작성 미사용
-	 * 
-	 * @param dto
-	 */
-	public void boardInput(Connection conn, MainBoardDto dto) {
-		String sql = "insert into mainboard values('mb'||seq_mainboard.nextval,?,?,?,?,?,?,?,?)";
-		PreparedStatement stmt = null;
-		int row = 0;
-		try {
-			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, dto.getBusinessId());
-			stmt.setString(2, dto.getMcategoryNum());
-			stmt.setString(3, dto.getScategoryNum());
-			stmt.setString(4, dto.getMboardTitle());
-			stmt.setInt(5, dto.getMboardScore());
-			stmt.setString(6, dto.getMboardImg());
-			stmt.setString(7, dto.getMboardInfo());
-			stmt.setString(8, dto.getMboardContent());
-			row = stmt.executeUpdate();
-			if (row != 1) {
-				throw new Exception();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			JdbcTemplate.close(stmt);
-		}
-	}
-
+	
 	/**
 	 * 게시글 작성 수정중
 	 * 
 	 * @param dto
 	 * @throws SQLException
 	 */
-	public void boardInput(MainBoardDto dto) throws Exception {
+	public void boardInput(Connection conn, MainBoardDto dto) throws Exception {
 		String sql = "insert into mainboard values('mb'||seq_mainboard.nextval,?,?,?,?,?,?,?,?)";
 		PreparedStatement stmt = null;
-		Connection conn = null;
 		int row = 0;
 		try {
-			conn = JdbcTemplate.getConnection();
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, dto.getBusinessId());
 			stmt.setString(2, dto.getMcategoryNum());
@@ -77,14 +45,11 @@ public class MainBoardDao {
 			if (row != 1) {
 				throw new Exception();
 			}
-			JdbcTemplate.commit(conn);
 		} catch (Exception e) {
 			e.printStackTrace();
-			JdbcTemplate.rollback(conn);
 			throw e;
 		} finally {
 			JdbcTemplate.close(stmt);
-			JdbcTemplate.close(conn);
 		}
 	}
 
@@ -266,21 +231,24 @@ public class MainBoardDao {
 		}
 	}
 
-	/** 게시글 삭제 */
-	public void boardDelete(Connection conn) {
-		String sql = "";
+	/** 게시글 삭제 
+	 * @param dto 
+	 * @throws Exception */
+	public void boardDelete(Connection conn, MainBoardDto dto) throws Exception {
+		String sql = "DELETE MEMBER WHERE mboard_Num =?";
 		PreparedStatement stmt = null;
-		ResultSet rs = null;
+		int row = 0;
 		try {
 			stmt = conn.prepareStatement(sql);
-			rs = stmt.executeQuery();
-			if (rs.next()) {
-
+			stmt.setString(1, dto.getMboardNum());
+			row = stmt.executeUpdate();
+			if(row != 1) {
+				throw new Exception();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 		} finally {
-			JdbcTemplate.close(rs);
 			JdbcTemplate.close(stmt);
 		}
 	}
@@ -431,7 +399,7 @@ public class MainBoardDao {
 	}
 
 	public void inputReview(Connection conn, ReviewDto dto) throws Exception {
-		String sql = "insert into review values('seq_review.nextval,?,?,?,?,?,sysdate)";
+		String sql = "insert into review values(seq_review.nextval,?,?,?,?,?,sysdate)";
 		PreparedStatement stmt = null;
 		int row = 0;
 		try {
@@ -452,6 +420,28 @@ public class MainBoardDao {
 			JdbcTemplate.close(stmt);
 		}
 	}
+
+	public void deletereview(Connection conn, ReviewDto dto) throws Exception {
+		String sql = "DELETE review WHERE mboard_Num =? and Member_Id =? and Review_Num = ?";
+		PreparedStatement stmt = null;
+		int row = 0;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, dto.getMboardNum());
+			stmt.setString(2, dto.getMemberId());
+			stmt.setInt(3, dto.getReviewNum());
+			row = stmt.executeUpdate();
+			if (row != 1) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			JdbcTemplate.close(stmt);
+		}
+	}
+
 
 
 }

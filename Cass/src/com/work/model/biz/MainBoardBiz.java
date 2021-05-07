@@ -23,22 +23,16 @@ public class MainBoardBiz {
 	/** 게시글 작성 
 	 * @param dto */
 	public void boardInput(MainBoardDto dto) {
-//		Connection conn = JdbcTemplate.getConnection();
-//		try {
-//			dao.boardInput(conn,dto);
-//			JdbcTemplate.commit(conn);
-//		} catch (Exception e) {
-//			JdbcTemplate.rollback(conn);
-//			e.printStackTrace();
-//		}finally {
-//			JdbcTemplate.close(conn);
-//		}
-			try {
-				dao.boardInput(dto);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		Connection conn = JdbcTemplate.getConnection();
+		try {
+			dao.boardInput(conn,dto);
+			JdbcTemplate.commit(conn);
+		} catch (Exception e) {
+			JdbcTemplate.rollback(conn);
+			e.printStackTrace();
+		}finally {
+			JdbcTemplate.close(conn);
+		}
 	}
 	/** 메인 카테고리 목록 획득 */
 	public void getMainCategoryList(ArrayList<MainCategoryDto> mainCategorylist) {
@@ -72,8 +66,8 @@ public class MainBoardBiz {
 	public void getBoardList(ArrayList<MainBoardDto> list, int pageNum) {
 		Connection conn = JdbcTemplate.getConnection();
 		if(pageNum != 0) {
-			int firstnum = 10*(pageNum-1)+1;
-			int lastnum = 10*pageNum;
+			int firstnum = 5*(pageNum-1)+1;
+			int lastnum = 5*pageNum;
 			try {
 				dao.getBoardList(conn,list,firstnum,lastnum);
 			} catch (SQLException e) {
@@ -87,8 +81,8 @@ public class MainBoardBiz {
 	public void getBoardListforMc(ArrayList<MainBoardDto> list, int pnum, String mcategoryNum) {
 		Connection conn = JdbcTemplate.getConnection();
 		if(pnum != 0) {
-			int firstnum = 10*(pnum-1)+1;
-			int lastnum = 10*pnum;
+			int firstnum = 5*(pnum-1)+1;
+			int lastnum = 5*pnum;
 			try {
 				dao.getBoardListForMc(conn,list,firstnum,lastnum,mcategoryNum);
 			} catch (SQLException e) {
@@ -102,8 +96,8 @@ public class MainBoardBiz {
 	public void getBoardListforSc(ArrayList<MainBoardDto> list, int pnum, String scategoryNum) {
 		Connection conn = JdbcTemplate.getConnection();
 		if(pnum != 0) {
-			int firstnum = 10*(pnum-1)+1;
-			int lastnum = 10*pnum;
+			int firstnum = 5*(pnum-1)+1;
+			int lastnum = 5*pnum;
 			try {
 				dao.getBoardListForSc(conn,list,firstnum,lastnum,scategoryNum);
 			} catch (SQLException e) {
@@ -130,7 +124,16 @@ public class MainBoardBiz {
 	/** 게시글 삭제 
 	 * @param dto */ 
 	public void boardDelete(MainBoardDto dto) {
-		
+		Connection conn = JdbcTemplate.getConnection();
+		try {
+			dao.boardDelete(conn,dto);
+			JdbcTemplate.commit(conn);
+		} catch (Exception e) {
+			JdbcTemplate.rollback(conn);
+			e.printStackTrace();
+		}finally {
+			JdbcTemplate.close(conn);
+		}
 	}
 	/** 게시글 상세
 	 * @param dto */
@@ -164,6 +167,7 @@ public class MainBoardBiz {
 	public void boardFind() {
 		
 	}
+	
 	/** 해당 페이지 리뷰 목록  */
 	public void getReviewList(ArrayList<ReviewDto> list, int pnum, String mboardNum) {
 		Connection conn = JdbcTemplate.getConnection();
@@ -179,6 +183,7 @@ public class MainBoardBiz {
 			}
 		}
 	}
+	
 	/** 리뷰 갯수  
 	 * @param mboardnum */
 	public void getReviewCounter(int reviewcounter, String mboardNum) {
@@ -192,11 +197,36 @@ public class MainBoardBiz {
 		}
 		
 	}
+	/** 리뷰 작성 */
 	public void inputReview(ReviewDto dto) {
 
 		Connection conn = JdbcTemplate.getConnection();
 		try {
 			dao.inputReview(conn, dto);
+			JdbcTemplate.commit(conn);
+		} catch (Exception e) {
+			e.printStackTrace();
+			JdbcTemplate.rollback(conn);
+		} finally {
+			JdbcTemplate.close(conn);
+		}
+	}
+	public void updatereview(ReviewDto dto) {
+//		Connection conn = JdbcTemplate.getConnection();
+//		try {
+//			dao.updatereview(conn, dto);
+//			JdbcTemplate.commit(conn);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			JdbcTemplate.rollback(conn);
+//		} finally {
+//			JdbcTemplate.close(conn);
+//		}
+	}
+	public void deletereview(ReviewDto dto) {
+		Connection conn = JdbcTemplate.getConnection();
+		try {
+			dao.deletereview(conn, dto);
 			JdbcTemplate.commit(conn);
 		} catch (Exception e) {
 			e.printStackTrace();

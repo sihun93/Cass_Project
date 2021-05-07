@@ -10,68 +10,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript">
-$(function () {
-    $(window).scroll(function () {
-        var curpos = $(window).scrollTop()+180;
-        $(".sky").stop().animate({"top":curpos}); 
-    });
-});
-$("#inputreview").click(function() {
-	var file = $("#reviewimg");
-	var fileName = "not";
-	if(file != null){
-		fileName = file.name
-	}
-	$("#score").val("")
-	$("#reviewtext").val($('#reviewTextarea').val());
-	$("#filename").val(fileName);
-	$("#inputreviewform").submit();
-});
-$(document).ready( function() {
-	 
-    $("#reviewimg").change(function(e) {
-        $("#img0").attr("style", "display: none;");
-        $("#img1").attr("style", "display: none;");
-        $("#img2").attr("style", "display: none;");
-        var files = e.target.files;
-        if(files.length > 3){
-        	alert("이미지는 3장 까지 가능합니다.")
-        	$("#reviewimg").val('');
-        	return;
-        }
-        var fileArr = Array.prototype.slice.call(files)
-        for(index = 0 ;index < files.length;index++){
-        	var imgId = "img"+index;
-            imageLoader(fileArr[index], imgId);
-        }
-
-    });
-
-    imageLoader = function(file,imgname){
-        var reader = new FileReader();
-        reader.onload = function(e){
-          var img = $("#"+imgname)
-          img.attr('src',e.target.result);
-          img.attr("style", "display: inline;");
-        }
-        
-        reader.readAsDataURL(file);
-      }
-
-});
-function mapup(){
-	var hostIndex = location.href.indexOf( location.host ) + location.host.length;
-    var contextpath = location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
-    var url = contextpath+"/MainBoard/map.jsp";
-    var name = "지도";
-    var option = "width = 625, height = 420, top = 100, left = 200, location = no"
-    window.open(url, name, option);
-}	
-
+<script>
+function starcilck(star) {
+	var a = star;
+	$("#reviewscore").val(a.value)
+}
 </script>
 <link type="text/css" rel="stylesheet"href="${pageContext.request.contextPath}/css/common.css">
-<link type="text/css" rel="stylesheet" href="/css/welcome.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/welcome.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/star.css">
 <style type="text/css">
 .sky {
 	font-family: 'InkLipquid';
@@ -107,7 +54,6 @@ table.retable {
 #detailtable{
 	height: 70%;
 }
-
 </style>
 </head>
 <body>
@@ -136,7 +82,9 @@ table.retable {
 					</tr>
 				</table>
 			</div>
-
+			
+<input type="hidden" name="loginId" value="${dto.memberId }">
+<input type="hidden" name="writeId" value="${detaildto.businessId }"> 
 <table 	id="detailtable" class="retable">
 <!-- 회사 정보 -->
 <tr>
@@ -178,7 +126,7 @@ src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainb
 </table>
 <br>
 <!-- 리뷰 입력창 -->
-<form>
+<form id="inputreviewform" method="post" action="${CONTEXT_PATH}/MainBoard/mainboardController?action=inputreview">
 <input type="hidden" name="mboardNum" value="${detaildto.mboardNum }">
 <table id="inputTable" class="retable"  style="width: 50%; height: 100px; margin-left: auto; margin-right: auto; text-align: center;" border="1">
 <thead>
@@ -190,14 +138,56 @@ src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainb
 <img id="img1" width="75px" height="75px" style="display: none;">
 <img id="img2" width="75px" height="75px" style="display: none;">
 </td>
-<td align="center" rowspan="2" width="10%">
+<td align="center" rowspan="2" width="10%" id="inputbtn">
 등록
 </td>
 </tr>
 
 <tr>
 <td align="left" width="50%">
-별점<input name="reviewscore" type="number" min=0 max=10>
+<div class="startRadio">
+  <label class="startRadio__box">
+    <input type="radio" name="star" id="star1" value="1" onclick="starcilck(this)">
+    <span class="startRadio__img"><span class="blind">별 0.5개</span></span>
+  </label>
+  <label class="startRadio__box">
+    <input type="radio" name="star" id="star2" value="2" onclick="starcilck(this)">
+    <span class="startRadio__img"><span class="blind">별 1개</span></span>
+  </label>
+  <label class="startRadio__box">
+    <input type="radio" name="star" id="star3" value="3" onclick="starcilck(this)">
+    <span class="startRadio__img"><span class="blind">별 1.5개</span></span>
+  </label>
+  <label class="startRadio__box">
+    <input type="radio" name="star" id="star4" value="4" onclick="starcilck(this)">
+    <span class="startRadio__img"><span class="blind">별 2개</span></span>
+  </label>
+  <label class="startRadio__box">
+    <input type="radio" name="star" id="star5" value="5" onclick="starcilck(this)">
+    <span class="startRadio__img"><span class="blind">별 2.5개</span></span>
+  </label>
+  <label class="startRadio__box">
+    <input type="radio" name="star" id="star6" value="6" onclick="starcilck(this)">
+    <span class="startRadio__img"><span class="blind">별 3개</span></span>
+  </label>
+  <label class="startRadio__box">
+    <input type="radio" name="star" id="star7" value="7" onclick="starcilck(this)">
+    <span class="startRadio__img"><span class="blind">별 3.5개</span></span>
+  </label>
+  <label class="startRadio__box">
+    <input type="radio" name="star" id="star8" value="8" onclick="starcilck(this)">
+    <span class="startRadio__img"><span class="blind">별 4개</span></span>
+  </label>
+  <label class="startRadio__box">
+    <input type="radio" name="star" id="star9" value="9" onclick="starcilck(this)">
+    <span class="startRadio__img"><span class="blind">별 4.5개</span></span>
+  </label>
+  <label class="startRadio__box">
+    <input type="radio" name="star" id="star10" value="10" onclick="starcilck(this)">
+    <span class="startRadio__img"><span class="blind">별 5개</span></span>
+  </label>
+</div>
+<input id="reviewscore" name="reviewscore" type="hidden" value="1">
 </td>
 <td align="right">
 <input type="file" id="reviewimg" name="reviewimg" multiple="multiple">
@@ -210,7 +200,7 @@ src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainb
 
 <!-- 리뷰 출력 창 -->
 <table class="retable">
-<c:if test="${!empty ReviewList and fn:length(list) !=0 }">
+<c:if test="${!empty ReviewList and fn:length(ReviewList) !=0 }">
 <c:forEach items="${ReviewList }" var="review">
 <tr style="padding: 0">
 
@@ -222,13 +212,15 @@ src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainb
 </td>
 <td align="center" rowspan="2"  width="10%" >
 <c:choose>
-<c:when test="${!empty id }">
-<input id="inputreview" type="button" value="수정"><br><br>
-<input id="inputreview" type="button" value="삭제" >
+<c:when test="${review.memberId eq dto.memberId }">
+<input  type="button" value="수정" 
+onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=updatereview&mboardNum=${review.mboardNum}&reviewNum=${review.reviewNum}&memberId=${review.memberId}'"><br><br>
+<input  type="button" value="삭제" 
+onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=deletereview&mboardNum=${review.mboardNum}&memberId=${review.memberId}&reviewNum=${review.reviewNum}'">
 </c:when>
 <c:otherwise>
-<input id="inputreview" type="button" value="수정" disabled="disabled"><br><br>
-<input id="inputreview" type="button" value="삭제" disabled="disabled">
+<input  type="button" value="수정" disabled="disabled"><br><br>
+<input  type="button" value="삭제" disabled="disabled">
 </c:otherwise>
 </c:choose>
 
@@ -282,8 +274,103 @@ ${review.reviewContent}<br>
 
 		<jsp:include page="/inc/footer_menu.jsp" />
 	</div>
-	<script type="text/javascript">
+	<script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
+	<script
+		src="https://www.gstatic.com/firebasejs/8.4.3/firebase-analytics.js"></script>
+	<script
+		src="https://www.gstatic.com/firebasejs/8.4.3/firebase-storage.js"></script>
+	<script>
+	$(function () {
+	    $(window).scroll(function () {
+	        var curpos = $(window).scrollTop()+180;
+	        $(".sky").stop().animate({"top":curpos}); 
+	    });
+	});
+	$("#inputbtn").click(function() {
+		console.log("클릭");
+		$("#inputreviewform").submit();
+	});
+	$(document).ready( function() {
+		 
+	    $("#reviewimg").change(function(e) {
+	        $("#img0").attr("style", "display: none;");
+	        $("#img1").attr("style", "display: none;");
+	        $("#img2").attr("style", "display: none;");
+	        var files = e.target.files;
+	        if(files.length > 3){
+	        	alert("이미지는 3장 까지 가능합니다.")
+	        	$("#reviewimg").val('');
+	        	return;
+	        }
+	        var fileArr = Array.prototype.slice.call(files)
+	        for(index = 0 ;index < files.length;index++){
+	        	var imgId = "img"+index;
+	            imageLoader(fileArr[index], imgId);
+	        }
+
+	    });
+
+	    imageLoader = function(file,imgname){
+	        var reader = new FileReader();
+	        reader.onload = function(e){
+	          var img = $("#"+imgname)
+	          img.attr('src',e.target.result);
+	          img.attr("style", "display: inline;");
+	        }
+	        reader.readAsDataURL(file);
+	        }
+
+	});
+	function mapup(){
+		var hostIndex = location.href.indexOf( location.host ) + location.host.length;
+	    var contextpath = location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
+	    var url = contextpath+"/MainBoard/map.jsp";
+	    var name = "지도";
+	    var option = "width = 625, height = 420, top = 100, left = 200, location = no"
+	    window.open(url, name, option);
+	}	
+
 	
+		var firebaseConfig = {
+			apiKey : "AIzaSyAqSBsp8MVYfepmDrJH59y_3kDyo2IqUYc",
+			authDomain : "clever-cass.firebaseapp.com",
+			projectId : "clever-cass",
+			storageBucket : "clever-cass.appspot.com",
+			messagingSenderId : "1040299710220",
+			appId : "1:1040299710220:web:ba3a12d171aed2c47ddb29",
+			measurementId : "G-VX528GR619"
+		};
+		firebase.initializeApp(firebaseConfig);
+		firebase.analytics();
+
+		var fileimg1 = document.getElementById('reviewimg');
+		var filebtn = document.getElementById('inputbtn');
+		var files = null;
+		var file2 = null;
+		var storageRef = null;
+		fileimg1.addEventListener('change', function(e) {
+			files = e.target.files;
+		});
+		filebtn.addEventListener('click', function() {
+			if (files != null) {
+		        for(index = 0 ;index < files.length;index++){
+		        	if(index+1 == files.length){
+		        		storageRef = firebase.storage().ref('mainboard/'+$("#writeId").vla()+'/'+ $("#loginId").val() + '/' + files[index].name);
+						storageRef.put(file1).then(function(snapshot) {
+							console.log('Uploaded a blob or file!');
+						});
+		        	}else{
+		        		storageRef = firebase.storage().ref('mainboard/'+$("#writeId").vla()+'/'+ $("#loginId").val() + '/' + files[index].name);
+						storageRef.put(file1).then(function(snapshot) {
+							console.log('Uploaded a blob or filelast!');
+							$("#write").submit();
+						});
+		        	}
+		        }
+			} else {
+				$("#write").submit();
+			}
+		});
 	</script>
 </body>
 </html>
