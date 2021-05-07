@@ -109,7 +109,7 @@ ul, li {
 						<ul>
 							<li>게시글 등록</li>
 							<li>
-							<input type="submit" value="등록" id="btn"/>
+							<input type="button" value="등록" id="btn"/>
 							<input type="reset" value="취소" id="btn"/>
 							</li>					
 						</ul>
