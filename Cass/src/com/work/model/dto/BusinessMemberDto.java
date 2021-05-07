@@ -22,6 +22,7 @@ public class BusinessMemberDto {
 	private String	businessPhone;
 	/** 사업자 홈페이지 */
 	private String	businessHomepage;
+	
 	public BusinessMemberDto() {
 	}
 	

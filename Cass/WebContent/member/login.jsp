@@ -5,11 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 로그인 페이지</title>
+<link type="text/css" rel="stylesheet" href="../css/management.css">
 </head>
 <body>
-<h3>Cass 회원 로그인창</h3>
 <form action="${CONTEXT_PATH}/member/frontController?action=login" method="post">
 <table border="1">
+	<tr>
+		<th colspan="2" id="title">Cass 일반 회원 로그인</th>
+	</tr>
 	<tr>
 		<td>아이디 : </td>
 		<td><input type="text" name="memberId" id="memberId" required="required" placeholder="아이디를 입력하세요."></td>
@@ -27,6 +30,6 @@
 </table>
 </form>
 
-<a href="#">[Cass Main]</a>
+<a href="${CONTEXT_PATH}/welcome.jsp">[Cass Main]</a>
 </body>
 </html>

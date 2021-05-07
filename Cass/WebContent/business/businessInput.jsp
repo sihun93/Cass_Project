@@ -8,6 +8,7 @@
 <title>사업자 등록 페이지</title>
 <script type="text/javascript" src="/Cass/js/business_input.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<link type="text/css" rel="stylesheet" href="../css/management.css">
 
 <script>
 function postcode(){
@@ -23,12 +24,14 @@ function postcode(){
 
 </head>
 <body>
-<h3>사업자 등록</h3>
+<a href="${CONTEXT_PATH }/welcome.jsp">[Cass Main]</a>
 <hr>
 
-<form action="" method="post">
-	<table>
-	
+<form action="${CONTEXT_PATH}/business/frontController?action=businessInput" method="post">
+<table border="1">
+	<tr>
+		<th colspan="2" id="title">Cass 사업자 등록</th>
+	</tr>
 	<tr>
 		<td>아이디 </td>
 		<td>
@@ -72,7 +75,7 @@ function postcode(){
 	<tr>
 		<td>우편번호 </td>
 		<td>
-		<input type="text" naem="addrCode" size="7" id="addrCode" readonly="readonly">
+		<input type="text" name="addrCode" size="7" id="addrCode" readonly="readonly">
 		<input type="button" value="우편번호찾기" onclick="postcode()">
 		</td>
 	</tr>
@@ -86,7 +89,7 @@ function postcode(){
 	</tr>
 	
 	<tr>
-		<td>휴대번호 </td>
+		<td>전화번호 </td>
 		<td>
 			<input type="text" pattern="\d{3}-\d{4}-\d{4}" name="businessPhone" id="businessPhone" required="required" placeholder="ex)010-1111-1111">
 		</td>
@@ -104,7 +107,7 @@ function postcode(){
 			<input type="reset" value="등록취소">
 			</th>
 		</tr>
-	</table>
+</table>
 </form>
 <hr>
 </body>

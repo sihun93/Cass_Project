@@ -7,13 +7,14 @@
 <head>
 <meta charset="UTF-8">
 <title>응답결과 페이지</title>
+<link type="text/css" rel="stylesheet" href="../css/management.css">
 </head>
 <body>
 
-
-<h3>응답처리결과</h3>
-<h3>${requestScope.messageEntity.message}</h3>
-<h3><a href="${messageEntity.url}">${messageEntity.linkTitle}</a></h3>
-
+<table border="1" class="msg">
+<tr><th>응답처리결과</th></tr>
+<tr><th>${requestScope.messageEntity.message}</th></tr>
+<tr><th><a href="${messageEntity.url}">${messageEntity.linkTitle}</a></th></tr>
+</table>
 </body>
 </html>
