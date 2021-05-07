@@ -29,7 +29,7 @@ public class QboardDao {
 	 */
 	public ArrayList<QboardDto> getQboardList() {
 		ArrayList<QboardDto> list = new ArrayList<QboardDto>();
-		String sql = "select * from Q_board";
+		String sql = "select * from Q_board order by qboard_num desc";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -43,7 +43,7 @@ public class QboardDao {
 				dto.setQboardTitle(rs.getString("qboard_title"));
 				dto.setQboardContent(rs.getString("qboard_content"));
 				dto.setQboardDate(rs.getString("Qboard_date"));
-				//dto.setQboardImg(rs.getString("qboard_img"));
+				dto.setQboardImg(rs.getString("qboard_img"));
 				dto.setMemberId(rs.getString("member_id"));
 				list.add(dto);	
 			}

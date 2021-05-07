@@ -40,9 +40,9 @@ public class MainboardController extends HttpServlet {
 	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
-		HttpSession session = request.getSession();
-		BusinessMemberDto dto = new BusinessMemberDto("marineanimal", "marine", "434-12-25460", "바다동물원", "06288/서울특별시 강남구 삼성로 154 ", "070-5431-0364", "https://marineanimal.com");
-		session.setAttribute("dto", dto);
+//		HttpSession session = request.getSession();
+//		BusinessMemberDto dto = new BusinessMemberDto("marineanimal", "marine", "434-12-25460", "바다동물원", "06288/서울특별시 강남구 삼성로 154 ", "070-5431-0364", "https://marineanimal.com");
+		//session.setAttribute("dto", dto);
 		switch (action) {
 		case "write":
 			write(request, response);
