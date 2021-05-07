@@ -23,7 +23,7 @@ import com.work.model.dto.SubCategoryDto;
 /**
  * Servlet implementation class MainboardController
  */
-@WebServlet(urlPatterns = {"/MainBoard/mainboardController"}, loadOnStartup = 1)
+@WebServlet(urlPatterns = {"/MainBoard/mainboardController"})
 public class MainboardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -32,9 +32,7 @@ public class MainboardController extends HttpServlet {
 	
 	public void init() {
 		application = getServletContext();
-		CONTEXT_PATH = application.getContextPath();
-		application.setAttribute("CONTEXT_PATH", CONTEXT_PATH);
-		System.out.println("init실행");
+		CONTEXT_PATH = (String) application.getAttribute("CONTEXT_PATH");
 	}
 	
 	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

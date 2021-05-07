@@ -22,7 +22,7 @@ import com.work.model.dto.MessageEntity;
 /**
  * Servlet implementation class MemberFrontControllerServlet
  */
-@WebServlet(urlPatterns = { "/business/frontController", "/mainboard/frontController" }, loadOnStartup = 1)
+@WebServlet(urlPatterns = { "/business/frontController"})
 public class BusinessFrontControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -31,9 +31,7 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 	
 	public void init() {
 		application = getServletContext();
-		CONTEXT_PATH = application.getContextPath();
-		System.out.println("[loadOnStartup]CONTEXT_PATH : " + CONTEXT_PATH);
-		application.setAttribute("CONTEXT_PATH", CONTEXT_PATH);
+		CONTEXT_PATH = (String) application.getAttribute("CONTEXT_PATH");
 	}
 	
 	/**

@@ -77,7 +77,12 @@ ul, li {
 </head>
 <body>
 <div id="wrapper">
-	<jsp:include page="/inc/header_menu.jsp" />	
+	<c:choose>
+		
+		<c:when test="${!empty  bdto}">
+			<jsp:include page="/inc/business_header_menu.jsp" />
+		</c:when>
+	</c:choose>
    <div id="container">
    <form action="${CONTEXT_PATH}/cass/qboardController?action=addQboard" method="post" id="Inputform">
   	<div id="mainWrapper">
@@ -110,7 +115,7 @@ ul, li {
 						<ul>
 							<li>게시글</li>
 							<li>
-							<input type="submit" value="등록" id="btn"/>
+							<input type="button" value="등록" id="btn"/>
 							<input type="reset" onclick="location.href='${CONTEXT_PATH}/cass/qboardController?action=qboardList'" value="취소" id="btn"/>
 
 							</li>					

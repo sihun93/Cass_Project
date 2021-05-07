@@ -16,17 +16,23 @@
 <script type="text/javascript" src="js/grape_select.js"></script>
 </head>
 <body>
-<%
 
-%>
-<c:if test="${empty dto.businessId}">
+<%-- <c:if test="${empty bdto.businessId}">
 	<script type="text/javascript">
 		alert("이 페이지는 사업자 회원만 사용 가능 합니다.");
 		window.history.back();
 	</script>
-</c:if>
+</c:if> --%>
+
 <div id="wrapper">
-	<jsp:include page="/inc/header_menu.jsp" />
+	<c:choose>
+		<c:when test="${empty bdto}">
+			<jsp:include page="/inc/header_menu.jsp" />
+		</c:when>
+		<c:otherwise>
+			<jsp:include page="/inc/business_header_menu.jsp" />
+		</c:otherwise>
+	</c:choose>
 	<div id="container">
 		<input type="hidden" id="mCount" value="${Count.get(0)}">
 		<input type="hidden" id="fCount" value="${Count.get(1)}">

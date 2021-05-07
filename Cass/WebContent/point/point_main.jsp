@@ -12,22 +12,13 @@
 <body>
 <div id="wrapper">
 	<c:choose>
-	<c:when test="${empty dto.grade}">
-		<jsp:include page="/inc/header_menu.jsp" />
-	</c:when>
-
-	<c:when test="${dto.grade == 'G'}">
-		<jsp:include page="/inc/member_header_menu.jsp" />
-	</c:when>
-
-	<c:when test="${dto.grade == 'B'}">
-		<jsp:include page="/inc/business_header_menu.jsp" />
-	</c:when>
-	
-	<c:when test="${dto.grade == 'A'}">
-		<jsp:include page="/inc/admin_header_menu.jsp" />
-	</c:when>
-</c:choose>
+		<c:when test="${empty bdto}">
+			<jsp:include page="/inc/header_menu.jsp" />
+		</c:when>
+		<c:otherwise>
+			<jsp:include page="/inc/business_header_menu.jsp" />
+		</c:otherwise>
+	</c:choose>
 
 
 		<div id="container">

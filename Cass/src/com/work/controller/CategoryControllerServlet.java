@@ -15,7 +15,7 @@ import com.work.model.dto.SubCategoryDto;
  * @author 박민주
  * 시작 페이지에 카테고리와 후기 데이터를 가져오기 위한 서블릿
  */
-@WebServlet(urlPatterns = { "/cass/categoryController" }, loadOnStartup = 2)
+@WebServlet(urlPatterns = { "/cass/categoryController" }, loadOnStartup = 1)
 public class CategoryControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	 
