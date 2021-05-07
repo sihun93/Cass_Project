@@ -6,9 +6,17 @@
 <meta charset="UTF-8">
 <title>사업자 회원 정보 찾기 페이지</title>
 <link type="text/css" rel="stylesheet" href="../css/management.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+.bTitle{
+	font-family: 'Lobster', cursive;
+}
+</style>
 </head>
 <body>
-<a href="${CONTEXT_PATH }/welcome.jsp">[Cass Main]</a>
+<div id="wrapper">
+      <jsp:include page="/inc/header_menu.jsp" />
+<div class="bTitle"><h1>CASS</h1></div>
 <table border="1">
 <tr>
 <th colspan="2" id="title">원하시는 서비스를 선택해주세요.</th>
@@ -18,5 +26,7 @@
 <th><a href="${CONTEXT_PATH }/business/frontController?action=businessFindPwForm">비밀번호 찾기</a></th>
 </tr>
 </table>
+	<jsp:include page="/inc/footer_menu.jsp"/>
+</div>
 </body>
 </html>

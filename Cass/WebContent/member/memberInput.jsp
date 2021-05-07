@@ -20,6 +20,10 @@ function postcode(){
 		    }
 		}).open();	
 }
+
+function idCheck(){
+	window.open("IdCheckForm.jsp", "IdCheckForm", "width=400", "height=300");
+}
 </script>
 </head>
 <body>
@@ -36,6 +40,7 @@ function postcode(){
 		<td>아이디 </td>
 		<td>
 		<input type="text" name="memberId" id="memberId" autofocus="autofocus" required="required" placeholder="아이디를 입력해주세요">
+		<input type="button" onclick="idCheck()" value="아이디 중복확인">
 		</td>
 	</tr>
 	
