@@ -49,7 +49,7 @@
 			</tr>
 			<tr>
 			    <th>상품 이미지</th>
-				<td><input type="file" id="fileimg" name="pboardImg"></td>
+				<td><input type="file" id="fileimg" value="" name="pboardImg"></td>
 			</tr>
 			<tr>
 				<th colspan="2">
@@ -84,7 +84,12 @@
 		fileimg.addEventListener('change', function(e) {
 			file = e.target.files[0];
 		});
-		filebtn.addEventListener('click', function() {
+		filebtn.addEventListener('click', function() {	
+			if(file==null){	
+			alert("사진을 넣어주세요");
+			console.log(file);
+			return;
+			}
 			storageRef = firebase.storage().ref('point/test/' + file.name);
 			storageRef.put(file).then(function (snapshot) {
 				console.log('업로드');

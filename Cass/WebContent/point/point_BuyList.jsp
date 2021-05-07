@@ -32,7 +32,7 @@
 						<c:when
 							test="${fn:length(pointBuylist)==0 or pointBuylist == null}">
 							<tr>
-								<th colspan="5">구매내역이 없습니다.</th>
+								<th colspan="6">구매내역이 없습니다.</th>
 							</tr>
 						</c:when>
 						<c:otherwise>
