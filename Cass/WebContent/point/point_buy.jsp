@@ -8,8 +8,9 @@
 <meta charset="UTF-8">
 <title>CASS 포인트 상품 구매</title>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
-<link type="text/css" rel="stylesheet" href="../css/pointPage.css">
-<script type="text/javascript" src="../js/pointBuy.js"></script>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/welcome.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/pointPage.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/pointBuy.js"></script>
 </head>
 <body>
 <div id="wrapper">
