@@ -77,12 +77,7 @@ ul, li {
 </head>
 <body>
 <div id="wrapper">
-	<c:choose>
-		
-		<c:when test="${!empty  bdto}">
-			<jsp:include page="/inc/business_header_menu.jsp" />
-		</c:when>
-	</c:choose>
+	<jsp:include page="/inc/header_menu.jsp" />
    <div id="container">
    <form action="${CONTEXT_PATH}/cass/qboardController?action=addQboard" method="post" id="Inputform">
   	<div id="mainWrapper">
