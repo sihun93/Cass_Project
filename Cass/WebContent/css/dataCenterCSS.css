@@ -28,19 +28,16 @@ select {
 #sexPiChart {
 	position: absolute;
 	margin-left: 9%;
-	z-index: 1;
 }
 
 #agePiChart {
 	position: absolute;
 	margin-left: 39%;
-	z-index: 1;
 }
 
 #categoryPiChart {
 	position: absolute;
 	margin-left: 69%;
-	z-index: 1;
 }
 
 #selectPiChart {

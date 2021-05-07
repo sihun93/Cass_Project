@@ -1,125 +1,49 @@
 @charset "UTF-8";
 
-@
-keyframes fadein {
-	from {opacity: 0.1;
-}
-
-to {
-	opacity: 1;
-}
-
-}
-@
--moz-keyframes fadein {
-	from {opacity: 0.1;
-}
-
-to {
-	opacity: 1;
-}
-
-}
-@
--webkit-keyframes fadein {
-	from {opacity: 0.1;
-}
-
-to {
-	opacity: 1;
-}
-
-}
-@
--o-keyframes fadein {
-	from {opacity: 0.1;
-}
-
-to {
-	opacity: 1;
-}
-
-}
-@font-face {
-	font-family: 'InkLipquid';
-	font-weight: normal;
-	font-style: normal;
-	font-color: white;
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff')
-		format('woff');
-}
-
-ul, li {
-	list-style: none;
-}
-
-.slide ul {
-	position: relative;
-}
-
-.slide li {
-	position: absolute;
-	margin-top: 0px;
-	margin-left: 200px;
-	opacity: 0;
-	animation: fade 10s infinite;
-}
-
-.slide li:nth-child(1) {
-	animation-delay: 0s
-}
-
-.slide li:nth-child(2) {
-	animation-delay: 2s
-}
-
-.slide li:nth-child(3) {
-	animation-delay: 4s
-}
-
-.slide li:nth-child(4) {
-	animation-delay: 6s
-}
-
-.slide li:nth-child(5) {
-	animation-delay: 8s
-}
-
-@
-keyframes fade { 0% {
-	opacity: 0;
-}
-
-5
-%
-{
-opacity
-:
-1;
-}
-25
-%
-{
-opacity
-:
-1;
-}
-30
-%
-{
-opacity
-:
-0;
-}
-100
-%
-{
-opacity
-:
-0;
-}
-}
+@keyframes fadein {
+    from {opacity:0.1;}
+    to {opacity:1;}
+	}
+	@-moz-keyframes fadein {
+ 	from{opacity:0.1;}
+    to {opacity:1;}
+	}
+	@-webkit-keyframes fadein {
+    from{opacity:0.1;}
+    to{opacity:1;}
+	}
+	@-o-keyframes fadein {
+    from {opacity:0.1;}
+    to {opacity: 1;}
+	}
+	@font-face{
+	font-family:'InkLipquid';
+	font-weight:normal;
+	font-style:normal;
+	font-color:white;
+    src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff')format('woff');
+    }
+     ul,li{list-style:none;}
+    .slide ul{position:relative;}
+    .slide li{
+    	position:absolute; 
+    	margin-top:0px;
+    	margin-left:200px;
+    	opacity:0;
+    	animation:fade 10s infinite;
+    	}
+    .slide li:nth-child(1){animation-delay:0s}
+    .slide li:nth-child(2){animation-delay:2s}
+    .slide li:nth-child(3){animation-delay:4s}
+    .slide li:nth-child(4){animation-delay:6s}
+    .slide li:nth-child(5){animation-delay:8s}
+    @keyframes fade {
+      0% {opacity:0;}
+      5% {opacity:1;}
+      25% {opacity:1;}
+      30% {opacity:0;}
+      100% {opacity:0;}
+    }
 img[src^="img/img"] {
 	width: 1400px;
 	height: 300px;
@@ -150,6 +74,7 @@ img[src^="img/service"] {
 	padding: 12px 16px;
 	text-decoration: none;
 	display: block;
+	z-index: 1;
 }
 
 .dropdown-content a:hover {
