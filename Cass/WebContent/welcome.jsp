@@ -156,7 +156,7 @@ $(function () {
   <div class="info">
   	 Companion Animal Service Site<br>
   	 반려동물 플랫폼 사이트
-  	 <h6><a href="">+더 알아보기</a></h6>
+  	 <h6><a href="intro.jsp">+더 알아보기</a></h6>
   </div>
    </div>
 

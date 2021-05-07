@@ -47,8 +47,8 @@ public class FrontControllerServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		String action = request.getParameter("action");
 		HttpSession session = request.getSession();
-		BusinessMemberDto dto = new BusinessMemberDto("cathost", "cat77", "245-32-52143", "냥이호텔", "07906/서울특별시 양천구 화곡로12길", "010-0251-3254", "https://cathost.com");
-		session.setAttribute("dto", dto);
+		//BusinessMemberDto dto = new BusinessMemberDto("cathost", "cat77", "245-32-52143", "냥이호텔", "07906/서울특별시 양천구 화곡로12길", "010-0251-3254", "https://cathost.com");
+		//session.setAttribute("dto", dto);
 		System.out.println(action);
 		switch (action) {
 		case "dataCenter":
