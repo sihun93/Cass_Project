@@ -479,17 +479,18 @@ public class PointControllerServlet extends HttpServlet {
 		PointBiz pointBiz = new PointBiz();
 		PointDto pointDto = new PointDto();
 		
-		HttpSession session = request.getSession();
-		MemberDto memberDto  = (MemberDto) session.getAttribute("dto");
-		String memberId = memberDto.getMemberId();
-		MemberBiz memberBiz = new MemberBiz();
-
+		HttpSession session = request.getSession(false);
+		MemberBiz biz = new MemberBiz();
+		MemberDto dto = new MemberDto();
+		String memberId = ((MemberDto)session.getAttribute("dto")).getMemberId();	
+		dto.setMemberId(memberId);
+		System.out.println(memberId);
 		try {			
-			memberDto = memberBiz.myInfo(memberId);
+			biz.myInfo(dto);
 			pointBiz.pointInfo(pointDto, pboardNum);
 			request.setAttribute("pointDto", pointDto);
 			request.setAttribute("pboardCount", pboardCount);
-			request.setAttribute("memberDto", memberDto);
+			session.setAttribute("memberDto", dto);
 			request.getRequestDispatcher("/point/point_buy.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
