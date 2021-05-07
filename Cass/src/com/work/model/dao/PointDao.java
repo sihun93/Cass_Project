@@ -74,7 +74,7 @@ public class PointDao {
 	 * @throws IOException 
 	 */
 	public void pointList(Connection con, ArrayList<PointDto> pointlist) throws IOException {
-		String sql = "select * from point_board"; 
+		String sql = "select * from point_board order by pboard_num desc"; 
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
