@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.work.model.biz.MainCategoryBiz;
 import com.work.model.biz.MemberBiz;
@@ -271,6 +272,9 @@ public class PointControllerServlet extends HttpServlet {
 	 * @throws ServletException 
 	 */
 	private void pointInfoForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		MemberDto memberDto  = (MemberDto) session.getAttribute("dto");
+		
 		String pboardNum = request.getParameter("pboardNum");
 		PointBiz pointBiz = new PointBiz();
 		PointDto pointDto = new PointDto();
@@ -281,6 +285,7 @@ public class PointControllerServlet extends HttpServlet {
 			pointBiz.pointList(pointlist);
 			request.setAttribute("pointDto", pointDto);
 			request.setAttribute("pointlist", pointlist);
+			request.setAttribute("memberDto", memberDto);
 			request.getRequestDispatcher("/point/point_Info.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -343,12 +348,16 @@ public class PointControllerServlet extends HttpServlet {
 	 * @throws ServletException 
 	 */
 	private void pointInputForm(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		HttpSession session = request.getSession();
+		MemberDto memberDto  = (MemberDto) session.getAttribute("dto");
+		
 		ArrayList<MainCategoryDto> categorylist = new ArrayList<MainCategoryDto>();
 		MainCategoryBiz mainCategoryBiz = new MainCategoryBiz();
 		
 		try {
 			mainCategoryBiz.categoryList(categorylist);
 			request.setAttribute("categorylist", categorylist);
+			request.setAttribute("memberDto", memberDto);
 			request.getRequestDispatcher("/point/point_input.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -389,7 +398,9 @@ public class PointControllerServlet extends HttpServlet {
 	 * @throws ServletException 
 	 */
 	private void pointBuyList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String memberId = "snssnskssk";
+		HttpSession session = request.getSession();
+		MemberDto memberDto  = (MemberDto) session.getAttribute("dto");
+		String memberId = memberDto.getMemberId();
 				
 		PointBuyBiz pointBuyBiz = new PointBuyBiz();
 
@@ -409,8 +420,10 @@ public class PointControllerServlet extends HttpServlet {
 	 * 포인트 상품 구매 요청
 	 * @param request
 	 * @param response
+	 * @throws IOException 
+	 * @throws ServletException 
 	 */
-	private void pointBuy(HttpServletRequest request, HttpServletResponse response) {
+	private void pointBuy(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String pboardNum = request.getParameter("pboardNum");
 		String pboardTitle = request.getParameter("pboardTitle");
 		String pboardImg = request.getParameter("pboardImg");
@@ -422,8 +435,10 @@ public class PointControllerServlet extends HttpServlet {
 		int price = Integer.parseInt(pboardPrice);
 		int points = Integer.parseInt(point);
 		int memberPoint = (points-price);
-		String memberId = "snssnskssk";
 		
+		HttpSession session = request.getSession();
+		MemberDto memberDto  = (MemberDto) session.getAttribute("dto");
+		String memberId = memberDto.getMemberId();
 		MemberBiz memberBiz = new MemberBiz();
 		
 		PointBuyBiz pointBuyBiz = new PointBuyBiz();
@@ -464,9 +479,10 @@ public class PointControllerServlet extends HttpServlet {
 		PointBiz pointBiz = new PointBiz();
 		PointDto pointDto = new PointDto();
 		
-		String memberId = "snssnskssk";
+		HttpSession session = request.getSession();
+		MemberDto memberDto  = (MemberDto) session.getAttribute("dto");
+		String memberId = memberDto.getMemberId();
 		MemberBiz memberBiz = new MemberBiz();
-		MemberDto memberDto = new MemberDto();
 
 		try {			
 			memberDto = memberBiz.myInfo(memberId);

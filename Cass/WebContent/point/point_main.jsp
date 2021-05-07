@@ -11,7 +11,23 @@
 </head>
 <body>
 <div id="wrapper">
-	<jsp:include page="/inc/header_menu.jsp" />
+	<c:choose>
+	<c:when test="${empty dto.grade}">
+		<jsp:include page="/inc/header_menu.jsp" />
+	</c:when>
+
+	<c:when test="${dto.grade == 'G'}">
+		<jsp:include page="/inc/member_header_menu.jsp" />
+	</c:when>
+
+	<c:when test="${dto.grade == 'B'}">
+		<jsp:include page="/inc/business_header_menu.jsp" />
+	</c:when>
+	
+	<c:when test="${dto.grade == 'A'}">
+		<jsp:include page="/inc/admin_header_menu.jsp" />
+	</c:when>
+</c:choose>
 
 
 		<div id="container">

@@ -37,13 +37,31 @@ function count() {
 </head>
 <body>
 <div id="wrapper">
-	<jsp:include page="/inc/header_menu.jsp" />
+	<c:choose>
+	<c:when test="${empty dto.grade}">
+		<jsp:include page="/inc/header_menu.jsp" />
+	</c:when>
+
+	<c:when test="${dto.grade == 'G'}">
+		<jsp:include page="/inc/member_header_menu.jsp" />
+	</c:when>
+
+	<c:when test="${dto.grade == 'B'}">
+		<jsp:include page="/inc/business_header_menu.jsp" />
+	</c:when>
+	
+	<c:when test="${dto.grade == 'A'}">
+		<jsp:include page="/inc/admin_header_menu.jsp" />
+	</c:when>
+</c:choose>
 
 		<div id="container">
 			<jsp:include page="/inc/point_submenu.jsp" />
 
 			<div class="content_Info">
 				<h3>상품 상세조회</h3>
+				<c:choose>
+				<c:when test="${memberDto.grade == 'A'}">
 				<table id="up_del">
 				<tr>
 				<th><form action="${CONTEXT_PATH}/point/pointController?action=pointUpdateForm&pboardNum=${pointDto.pboardNum}" method="post">
@@ -56,6 +74,8 @@ function count() {
 				</th>
 				</tr>
 				</table>
+				</c:when>
+				</c:choose>
 				<div id="point_Info">
 					<form action="${CONTEXT_PATH}/point/pointController?action=pointBuyForm&pboardNum=${pointDto.pboardNum}" method="post">
 						<table border="1">
