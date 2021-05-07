@@ -16,7 +16,7 @@
 			</tr>
 			<tr>
 				<td>아이디 :</td>
-				<td><input type="text" name="businessId" id="businessId"
+				<td><input type="text" name="memberId" id="memberId"
 					required="required" placeholder="아이디를 입력하세요."></td>
 			</tr>
 			<tr>

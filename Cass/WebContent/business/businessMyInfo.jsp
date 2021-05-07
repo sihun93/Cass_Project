@@ -23,16 +23,16 @@ function postcode(){
 		}).open();	
 }
 
-function businessDelete(businessId){
+function businessDelete(memberId){
 
 	if(confirm("정말 탈퇴하시겠습니까?")){
-		document.businessDeleteForm.businessId.value = businessId;
+		document.businessDeleteForm.memberId.value = memberId;
 		document.businessDeleteForm.submit();
 	}
 }
 </script>
 <% 
-	String businessAddr = ((BusinessMemberDto)session.getAttribute("bdto")).getBusinessAddr();
+	String businessAddr = ((BusinessMemberDto)session.getAttribute("dto")).getBusinessAddr();
 	String[] addrSplit = new String[3];
 	String[] bsp = businessAddr.split("/");
 	if(bsp.length == 2){
@@ -48,7 +48,7 @@ function businessDelete(businessId){
 <a href="${CONTEXT_PATH }/welcome.jsp">[Cass Main]</a>
 <hr>
 <form name="businessDeleteForm" id="businessDeleteForm" action="${CONTEXT_PATH}/business/frontController?action=businessDelete" method="post">
-<input type="hidden" name="businessId" value="">
+<input type="hidden" name="memberId" value="">
 <input type="hidden" name="gubun" value="info">
 </form>
 <form action="${CONTEXT_PATH}/business/frontController?action=businessInfoUpdate" method="post">
@@ -59,14 +59,14 @@ function businessDelete(businessId){
 	<tr>
 		<td>아이디 </td>
 		<td>
-		<input type="text" name="businessId" id="businessId" value="${bdto.businessId }" autofocus="autofocus" readonly="readonly" >
+		<input type="text" name="memberId" id="memberId" value="${dto.memberId }" autofocus="autofocus" readonly="readonly" >
 		</td>
 	</tr>
 	
 	<tr>
 		<td>비밀번호 </td>
 		<td>
-		<input type="password" name="businessPw" id="businessPw" value="${bdto.businessPw }" required="required" placeholder="비밀번호를 입력해주세요">
+		<input type="password" name="businessPw" id="businessPw" value="${dto.businessPw }" required="required" placeholder="비밀번호를 입력해주세요">
 		<span id="businessPwMessage"></span>
 		</td>
 	</tr>
@@ -74,7 +74,7 @@ function businessDelete(businessId){
 	<tr>
 		<td>비밀번호 확인</td>
 		<td>
-		<input type="password" name="businessPw2" id="businessPw2" value="${bdto.businessPw }" required="required" placeholder="비밀번호 재확인입니다" onblur="bsPwCheck()">
+		<input type="password" name="businessPw2" id="businessPw2" value="${dto.businessPw }" required="required" placeholder="비밀번호 재확인입니다" onblur="bsPwCheck()">
 		<input type="checkbox" name="businessPwShow" id="businessPwShow" onclick="showBusinessPw()">비밀번호 보이기
 		<div id="businessPwConfirmMessage"></div>
 		</td>
@@ -83,14 +83,14 @@ function businessDelete(businessId){
 	<tr>
 		<td>사업자번호</td>
 		<td>
-			<input type="text" pattern="\d{3}-\d{2}-\d{5}" value="${bdto.businessNum }" name="businessNum" id="businessNum" readonly="readonly">
+			<input type="text" pattern="\d{3}-\d{2}-\d{5}" value="${dto.businessNum }" name="businessNum" id="businessNum" readonly="readonly">
 		</td>
 	</tr>
 	
 	<tr>
 		<td>상호명</td>
 		<td>
-			<input type="text" name="businessTitle" id="businessTitle" value="${bdto.businessTitle }" required="required" placeholder="상호명을 입력해주세요.">		
+			<input type="text" name="businessTitle" id="businessTitle" value="${dto.businessTitle }" required="required" placeholder="상호명을 입력해주세요.">		
 		</td>
 	</tr>
 	
@@ -114,14 +114,14 @@ function businessDelete(businessId){
 	<tr>
 		<td>휴대번호 </td>
 		<td>
-			<input type="text" pattern="\d{3}-\d{4}-\d{4}" value="${bdto.businessPhone }" name="businessPhone" id="businessPhone" required="required" placeholder="ex)010-1111-1111">
+			<input type="text" pattern="\d{3}-\d{4}-\d{4}" value="${dto.businessPhone }" name="businessPhone" id="businessPhone" required="required" placeholder="ex)010-1111-1111">
 		</td>
 	</tr>
 
 			<tr>
 				<td>사업자 홈페이지 </td>
 				<td>
-					<input type="text" size="70" value="${bdto.businessHomepage }" name="businessHomepage" id="businessHomepage" required="required" placeholder="홈페이지 메인 주소를 입력해주세요">
+					<input type="text" size="70" value="${dto.businessHomepage }" name="businessHomepage" id="businessHomepage" required="required" placeholder="홈페이지 메인 주소를 입력해주세요">
 				</td>
 			</tr>
 			<tr>
@@ -134,7 +134,7 @@ function businessDelete(businessId){
 </form>
 <table border="1">
 <tr>
-	<th><button onclick="javascript:businessDelete('${bdto.businessId}');">회원탈퇴</button></th>
+	<th><button onclick="javascript:businessDelete('${dto.memberId}');">회원탈퇴</button></th>
 </tr>
 </table>
 </body>
