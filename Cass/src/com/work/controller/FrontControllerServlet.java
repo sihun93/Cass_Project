@@ -25,7 +25,7 @@ import com.work.model.dto.DataDto;
 /**
  * Servlet implementation class FrontControllerServlet
  */
-@WebServlet(urlPatterns = { "/cass/frontController" }, loadOnStartup = 1)
+@WebServlet(urlPatterns = { "/cass/frontController" })
 public class FrontControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -34,9 +34,7 @@ public class FrontControllerServlet extends HttpServlet {
 
 	public void init() {
 		application = getServletContext();
-		CONTEXT_PATH = application.getContextPath();// /ucamp33
-		System.out.println("[loadOnStartup]CONTEXT_PATH : " + CONTEXT_PATH);
-		application.setAttribute("CONTEXT_PATH", CONTEXT_PATH);
+		CONTEXT_PATH = (String) application.getAttribute("CONTEXT_PATH");
 	}
 
 	/**

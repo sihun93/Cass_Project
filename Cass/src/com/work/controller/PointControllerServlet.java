@@ -38,7 +38,6 @@ public class PointControllerServlet extends HttpServlet {
 	public void init() {
 		application = getServletContext();
 		CONTEXT_PATH = (String) application.getAttribute("CONTEXT_PATH");
-		System.out.println("CONTEXT_PATH : "+ CONTEXT_PATH);
 	}
 	 
 

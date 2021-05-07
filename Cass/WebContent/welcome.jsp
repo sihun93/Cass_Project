@@ -20,7 +20,7 @@ $(function () {
 
 </script>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
-<link type="text/css" rel="stylesheet" href="css/welcome.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/welcome.css">
 <style type="text/css">
 
 .sky {
@@ -61,7 +61,7 @@ $(function () {
 	.review_{
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 	}
-	img[src^="img/"]{
+	img[src*="img/service"]{
 		width:200px; height:200px;
 	}
 	table{
@@ -114,10 +114,10 @@ $(function () {
   <h1>Service</h1>
   <table>
   	<tr>
-  		<td><a href=""><img src="img/service/play.jpg"></a></td>
-  		<td><a href=""><img src="img/service/beauty.jpg"></a></td>
-  		<td><a href=""><img src="img/service/hospital.jpg"></a></td>
-  		<td><a href=""><img src="img/service/playground.jpg"></a></td>
+  		<td><a href=""><img src="${CONTEXT_PATH}/img/service/play.jpg"></a></td>
+  		<td><a href=""><img src="${CONTEXT_PATH}/img/service/beauty.jpg"></a></td>
+  		<td><a href=""><img src="${CONTEXT_PATH}/img/service/school.jpg"></a></td>
+  		<td><a href=""><img src="${CONTEXT_PATH}/img/service/food.jpeg"></a></td>
   	</tr>
   	<tr>
   	<c:forEach var="mainCategoryList" items="${mainCategoryList}">

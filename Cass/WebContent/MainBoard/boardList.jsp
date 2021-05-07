@@ -50,7 +50,14 @@ table#contable{
 </head>
 <body>
 	<div id="wrapper">
-		<jsp:include page="/inc/header_menu.jsp" />
+		<c:choose>
+		<c:when test="${empty bdto}">
+			<jsp:include page="/inc/header_menu.jsp" />
+		</c:when>
+		<c:otherwise>
+			<jsp:include page="/inc/business_header_menu.jsp" />
+		</c:otherwise>
+	</c:choose>
 
 
 		<div id="container">

@@ -22,7 +22,7 @@ import com.work.util.Utility;
 /**
  * Servlet implementation class MemberFrontControllerServlet
  */
-@WebServlet(urlPatterns = { "/member/frontController", "/board/frontController" }, loadOnStartup = 1)
+@WebServlet(urlPatterns = { "/member/frontController"})
 public class MemberFrontControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -31,9 +31,7 @@ public class MemberFrontControllerServlet extends HttpServlet {
 	
 	public void init() {
 		application = getServletContext();
-		CONTEXT_PATH = application.getContextPath();
-		System.out.println("[loadOnStartup]CONTEXT_PATH : " + CONTEXT_PATH);
-		application.setAttribute("CONTEXT_PATH", CONTEXT_PATH);
+		CONTEXT_PATH = (String) application.getAttribute("CONTEXT_PATH");
 	}
 	
 	/**

@@ -110,7 +110,14 @@ ul, li {
 </head>
 <body>
 <div id="wrapper">
-	<jsp:include page="/inc/header_menu.jsp" />	
+	<c:choose>
+		<c:when test="${empty bdto}">
+			<jsp:include page="/inc/header_menu.jsp" />
+		</c:when>
+		<c:otherwise>
+			<jsp:include page="/inc/business_header_menu.jsp" />
+		</c:otherwise>
+	</c:choose>
    <div id="container">
   	<div id="mainWrapper">
 		<ul>
@@ -123,7 +130,6 @@ ul, li {
 							<li>제목</li>
 							<li>작성자</li>
 							<li>작성일</li>
-							<li>삭제</li>
 						</ul>
 					</li>
 					<c:forEach var="qboardList" items="${qboardList}">
