@@ -22,7 +22,7 @@
 
 			<tr>
 				<td>아이디</td>
-				<td><input type="text" name="businessId" id="businessId" required="required">
+				<td><input type="text" name="memberId" id="memberId" required="required">
 				</td>
 			</tr>
 			

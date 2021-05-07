@@ -22,27 +22,28 @@ public class BusinessDao {
 	/**
 	 * 사업자회원 로그인
 	 * @param con
-	 * @param bdto
+	 * @param dto
 	 * @throws CommonException
 	 */
-	public void businessLogin(Connection con, BusinessMemberDto bdto) throws CommonException{
+	public void businessLogin(Connection con, BusinessMemberDto dto) throws CommonException{
 		String sql = "select * from BUSINESS where business_Id = ? and business_Pw = ?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			con = JdbcTemplate.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bdto.getMemberId());
-			pstmt.setString(2, bdto.getBusinessPw());
+			pstmt.setString(1, dto.getMemberId());
+			pstmt.setString(2, dto.getBusinessPw());
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
-				bdto.setMemberId(rs.getString("business_Id"));
-				bdto.setBusinessPw(rs.getString("business_Pw"));
-				bdto.setBusinessNum(rs.getString("business_Num"));
-				bdto.setBusinessTitle(rs.getString("business_Title"));
-				bdto.setBusinessAddr(rs.getString("business_Addr"));
-				bdto.setBusinessPhone(rs.getString("business_Phone"));
-				bdto.setBusinessHomepage(rs.getString("business_Homepage"));
+				dto.setMemberId(rs.getString("business_Id"));
+				dto.setBusinessPw(rs.getString("business_Pw"));
+				dto.setBusinessNum(rs.getString("business_Num"));
+				dto.setBusinessTitle(rs.getString("business_Title"));
+				dto.setBusinessAddr(rs.getString("business_Addr"));
+				dto.setBusinessPhone(rs.getString("business_Phone"));
+				dto.setBusinessHomepage(rs.getString("business_Homepage"));
+				dto.setGrade(rs.getString("grade"));
 			}
 		}catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -57,21 +58,21 @@ public class BusinessDao {
 	/**
 	 * 사업자 회원가입 메서드
 	 * @param con
-	 * @param bdto
+	 * @param dto
 	 * @throws CommonException
 	 */
-	public void addBusiness(Connection con, BusinessMemberDto bdto) throws CommonException{
-		String sql = "insert into BUSINESS VALUES(?,?,?,?,?,?,?)";
+	public void addBusiness(Connection con, BusinessMemberDto dto) throws CommonException{
+		String sql = "insert into BUSINESS VALUES(?,?,?,?,?,?,?,'B')";
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bdto.getMemberId());
-			pstmt.setString(2, bdto.getBusinessPw());
-			pstmt.setString(3, bdto.getBusinessNum());
-			pstmt.setString(4, bdto.getBusinessTitle());
-			pstmt.setString(5, bdto.getBusinessAddr());
-			pstmt.setString(6, bdto.getBusinessPhone());
-			pstmt.setString(7, bdto.getBusinessHomepage());
+			pstmt.setString(1, dto.getMemberId());
+			pstmt.setString(2, dto.getBusinessPw());
+			pstmt.setString(3, dto.getBusinessNum());
+			pstmt.setString(4, dto.getBusinessTitle());
+			pstmt.setString(5, dto.getBusinessAddr());
+			pstmt.setString(6, dto.getBusinessPhone());
+			pstmt.setString(7, dto.getBusinessHomepage());
 			pstmt.executeUpdate();
 			JdbcTemplate.commit(con);
 		} catch(SQLException e) {
@@ -88,26 +89,27 @@ public class BusinessDao {
 	/**
 	 * 사업자 회원 정보 조회
 	 * @param con
-	 * @param bdto
+	 * @param dto
 	 * @throws CommonException
 	 */
-	public void businessInfo(Connection con, BusinessMemberDto bdto) throws CommonException{
+	public void businessInfo(Connection con, BusinessMemberDto dto) throws CommonException{
 		String sql = "select * from business where business_Id = ?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			con = JdbcTemplate.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bdto.getMemberId());
+			pstmt.setString(1, dto.getMemberId());
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				bdto.setMemberId(rs.getString("business_Id"));
-				bdto.setBusinessPw(rs.getString("business_Pw"));
-				bdto.setBusinessNum(rs.getString("business_Num"));
-				bdto.setBusinessTitle(rs.getString("business_Title"));
-				bdto.setBusinessAddr(rs.getString("business_Addr"));
-				bdto.setBusinessPhone(rs.getString("business_Phone"));
-				bdto.setBusinessHomepage(rs.getString("business_Homepage"));
+				dto.setMemberId(rs.getString("business_Id"));
+				dto.setBusinessPw(rs.getString("business_Pw"));
+				dto.setBusinessNum(rs.getString("business_Num"));
+				dto.setBusinessTitle(rs.getString("business_Title"));
+				dto.setBusinessAddr(rs.getString("business_Addr"));
+				dto.setBusinessPhone(rs.getString("business_Phone"));
+				dto.setBusinessHomepage(rs.getString("business_Homepage"));
+				dto.setGrade(rs.getString("grade"));
 			}
 		}catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -121,20 +123,20 @@ public class BusinessDao {
 	/**
 	 * 사업자 정보 수정
 	 * @param con
-	 * @param bdto
+	 * @param dto
 	 * @throws CommonException
 	 */
-	public void updateBusinessInfo(Connection con, BusinessMemberDto bdto) throws CommonException{
+	public void updateBusinessInfo(Connection con, BusinessMemberDto dto) throws CommonException{
 		String sql = "update BUSINESS set business_Pw = ?, business_Title = ?, business_Addr = ?, business_Phone = ?, business_Homepage = ? where business_Id = ?";
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bdto.getBusinessPw());
-			pstmt.setString(2, bdto.getBusinessTitle());
-			pstmt.setString(3, bdto.getBusinessAddr());
-			pstmt.setString(4, bdto.getBusinessPhone());
-			pstmt.setString(5, bdto.getBusinessHomepage());
-			pstmt.setString(6, bdto.getMemberId());
+			pstmt.setString(1, dto.getBusinessPw());
+			pstmt.setString(2, dto.getBusinessTitle());
+			pstmt.setString(3, dto.getBusinessAddr());
+			pstmt.setString(4, dto.getBusinessPhone());
+			pstmt.setString(5, dto.getBusinessHomepage());
+			pstmt.setString(6, dto.getMemberId());
 			int rows=pstmt.executeUpdate();
 			if(rows == 0) {
 				throw new Exception();
@@ -163,17 +165,18 @@ public class BusinessDao {
 		try {
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			BusinessMemberDto bdto = null;
+			BusinessMemberDto dto = null;
 			while(rs.next()) {
-				bdto = new BusinessMemberDto();
-				bdto.setMemberId(rs.getString("business_Id"));
-				bdto.setBusinessPw(rs.getString("business_Pw"));
-				bdto.setBusinessNum(rs.getString("business_Num"));
-				bdto.setBusinessTitle(rs.getString("business_Title"));
-				bdto.setBusinessAddr(rs.getString("business_Addr"));
-				bdto.setBusinessPhone(rs.getString("business_Phone"));
-				bdto.setBusinessHomepage(rs.getString("business_Homepage"));
-				list.add(bdto);
+				dto = new BusinessMemberDto();
+				dto.setMemberId(rs.getString("business_Id"));
+				dto.setBusinessPw(rs.getString("business_Pw"));
+				dto.setBusinessNum(rs.getString("business_Num"));
+				dto.setBusinessTitle(rs.getString("business_Title"));
+				dto.setBusinessAddr(rs.getString("business_Addr"));
+				dto.setBusinessPhone(rs.getString("business_Phone"));
+				dto.setBusinessHomepage(rs.getString("business_Homepage"));
+				dto.setGrade(rs.getString("grade"));
+				list.add(dto);
 			}
 		} catch(SQLException e) {
 			System.out.println(e.getMessage());
@@ -220,11 +223,11 @@ public class BusinessDao {
 	
 	/**
 	 * 사업자회원 비밀번호 찾기
-	 * @param businessId
+	 * @param memberId
 	 * @param businessPhone
 	 * @return
 	 */
-	public boolean findPwBusiness(String businessId, String businessPhone) {
+	public boolean findPwBusiness(String memberId, String businessPhone) {
 		String sql = "select business_Pw from BUSINESS where business_Id = ? and business_Phone = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -232,7 +235,7 @@ public class BusinessDao {
 		try {
 			con = JdbcTemplate.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, businessId);
+			pstmt.setString(1, memberId);
 			pstmt.setString(2, businessPhone);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -256,7 +259,7 @@ public class BusinessDao {
 	 * @param memberPw
 	 * @return
 	 */
-	public int updatebusinessPw(String businessId, String businessPw) {
+	public int updatebusinessPw(String memberId, String businessPw) {
 		String sql = "update BUSINESS set business_Pw = ? where business_Id = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -264,7 +267,7 @@ public class BusinessDao {
 			con = JdbcTemplate.getConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, businessPw);
-			pstmt.setString(2, businessId);
+			pstmt.setString(2, memberId);
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -280,17 +283,17 @@ public class BusinessDao {
 	
 	/**
 	 * 사업자 회원탈퇴
-	 * @param businessId
+	 * @param memberId
 	 * @return
 	 */
-	public int deleteBusiness(String businessId) {
+	public int deleteBusiness(String memberId) {
 		String sql = "delete from business where business_id = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = JdbcTemplate.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, businessId);
+			pstmt.setString(1, memberId);
 			int rows = pstmt.executeUpdate();
 			JdbcTemplate.commit(con);
 			if(rows == 1) {

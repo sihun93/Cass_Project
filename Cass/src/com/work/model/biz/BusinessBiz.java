@@ -11,18 +11,18 @@ import com.work.util.Utility;
 
 public class BusinessBiz {
 
-	private BusinessDao bdao = BusinessDao.getInstance();
+	private BusinessDao dao = BusinessDao.getInstance();
 	
 	
 	/**
 	 * 사업자로그인 biz
-	 * @param bdto
+	 * @param dto
 	 * @throws CommonException
 	 */
-	public void bsLogin(BusinessMemberDto bdto) throws CommonException{
+	public void bsLogin(BusinessMemberDto dto) throws CommonException{
 		Connection con = JdbcTemplate.getConnection();
 		try {
-			bdao.businessLogin(con, bdto);
+			dao.businessLogin(con, dto);
 		}catch(CommonException e) {
 			throw e;
 		}finally {
@@ -32,13 +32,13 @@ public class BusinessBiz {
 	
 	/**
 	 * 사업자 회원가입
-	 * @param bdto
+	 * @param dto
 	 * @throws CommonException
 	 */
-	public void addBusiness(BusinessMemberDto bdto) throws CommonException{
+	public void addBusiness(BusinessMemberDto dto) throws CommonException{
 		Connection con = JdbcTemplate.getConnection();
 		try {
-			bdao.addBusiness(con, bdto);
+			dao.addBusiness(con, dto);
 		}catch(CommonException e) {
 			throw e;
 		}finally {
@@ -49,13 +49,13 @@ public class BusinessBiz {
 	
 	/**
 	 * 사업자 내정보조회
-	 * @param bdto
+	 * @param dto
 	 * @throws CommonException
 	 */
-	public void businessInfo(BusinessMemberDto bdto) throws CommonException{
+	public void businessInfo(BusinessMemberDto dto) throws CommonException{
 		Connection con = JdbcTemplate.getConnection();
 		try {
-			bdao.businessInfo(con, bdto);
+			dao.businessInfo(con, dto);
 		} catch(CommonException e) {
 			throw e;
 		} finally {
@@ -66,13 +66,13 @@ public class BusinessBiz {
 	
 	/**
 	 * 사업자 내정보수정
-	 * @param bdto
+	 * @param dto
 	 * @throws CommonException
 	 */
-	public void bsUpdateInfo(BusinessMemberDto bdto) throws CommonException {
+	public void bsUpdateInfo(BusinessMemberDto dto) throws CommonException {
 		Connection con = JdbcTemplate.getConnection();
 		try {
-			bdao.updateBusinessInfo(con, bdto);
+			dao.updateBusinessInfo(con, dto);
 			JdbcTemplate.commit(con);
 		}catch(CommonException e) {
 			e.printStackTrace();
@@ -91,7 +91,7 @@ public class BusinessBiz {
 	public void businessList(ArrayList<BusinessMemberDto> list) throws CommonException {
 		Connection con = JdbcTemplate.getConnection();
 		try {
-			bdao.businessList(con, list);
+			dao.businessList(con, list);
 		}catch(CommonException e) {
 			e.printStackTrace();
 			throw e;
@@ -108,24 +108,24 @@ public class BusinessBiz {
 	 * @return
 	 */
 	public String findBsId(String businessNum, String businessPhone) {
-		String businessId = bdao.findIdBusiness(businessNum, businessPhone);
-		return businessId;
+		String memberId = dao.findIdBusiness(businessNum, businessPhone);
+		return memberId;
 	}
 	
 	
 	/**
 	 * 사업자 비밀번호 찾기
-	 * @param businessId
+	 * @param memberId
 	 * @param businessPhone
 	 * @return
 	 */
-	public String findBsPw(String businessId, String businessPhone) {
-		boolean bPw = bdao.findPwBusiness(businessId, businessPhone);
+	public String findBsPw(String memberId, String businessPhone) {
+		boolean bPw = dao.findPwBusiness(memberId, businessPhone);
 		if(!bPw) {
 			return null;
 		}
 		String businessPw = Utility.getSecureNumberAndString(8);
-		int result = bdao.updatebusinessPw(businessId, businessPw);
+		int result = dao.updatebusinessPw(memberId, businessPw);
 		if(result == 1) {
 			return businessPw;
 		}
@@ -134,11 +134,11 @@ public class BusinessBiz {
 	
 	/**
 	 * 사업자 회원탈퇴
-	 * @param businessId
+	 * @param memberId
 	 * @return
 	 */
-	public int deleteBusiness(String businessId) {
-		return bdao.deleteBusiness(businessId);
+	public int deleteBusiness(String memberId) {
+		return dao.deleteBusiness(memberId);
 	}
 	
 }

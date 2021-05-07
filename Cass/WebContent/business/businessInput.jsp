@@ -35,7 +35,7 @@ function postcode(){
 	<tr>
 		<td>아이디 </td>
 		<td>
-		<input type="text" name="businessId" id="businessId" autofocus="autofocus" required="required" placeholder="아이디를 입력해주세요">
+		<input type="text" name="memberId" id="memberId" autofocus="autofocus" required="required" placeholder="아이디를 입력해주세요">
 		</td>
 	</tr>
 	

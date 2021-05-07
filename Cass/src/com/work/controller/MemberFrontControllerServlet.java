@@ -287,17 +287,27 @@ public class MemberFrontControllerServlet extends HttpServlet {
 					point, sex);
 			MemberBiz biz = new MemberBiz();
 
+			MemberDto chkDto = new MemberDto();
 			try {
-				biz.addMember(dto);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/member/login.jsp");
-				dispatcher.forward(request, response);
+				chkDto.setMemberId(memberId);
+				biz.myInfo(chkDto);
+				if (chkDto.getMemberPw() != null) { // 가입된 아이디인 경우
+
+					MessageEntity messageEntity = new MessageEntity("validation", 8);
+					messageEntity.setLinkTitle("회원가입 재시도");
+					messageEntity.setUrl(CONTEXT_PATH + "/member/frontController?action=memberInputForm");
+					request.setAttribute("messageEntity", messageEntity);
+					request.getRequestDispatcher("/message/message.jsp").forward(request, response);
+				} else {
+					biz.addMember(dto);
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/member/login.jsp");
+					dispatcher.forward(request, response);
+				}
 			} catch (CommonException e) {
 				e.printStackTrace();
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/message/message.jsp");
-				dispatcher.forward(request, response);
-				MessageEntity messageEntity = e.getMessageEntity();
-				messageEntity.setUrl(CONTEXT_PATH + "/member/frontController?action=memberInputForm");
+				MessageEntity messageEntity = new MessageEntity("error", 0);
 				messageEntity.setLinkTitle("회원가입 재시도");
+				messageEntity.setUrl(CONTEXT_PATH + "/member/frontController?action=memberInputForm");
 				request.setAttribute("message", messageEntity);
 				request.getRequestDispatcher("/message/message.jsp").forward(request, response);
 			}

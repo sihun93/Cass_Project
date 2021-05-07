@@ -81,8 +81,8 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 		case "businessList":
 			businessList(request, response);
 			break;
-		case "businessIdFind":
-			businessIdFind(request, response);
+		case "memberIdFind":
+			memberIdFind(request, response);
 			break;
 		case "businessPwFind":
 			businessPwFind(request, response);
@@ -189,10 +189,10 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 		 * @throws CommonException
 		 */
 		protected void bsLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, CommonException {
-			String businessId = request.getParameter("businessId");
+			String memberId = request.getParameter("memberId");
 			String businessPw = request.getParameter("businessPw");
 			
-			if(businessId.isEmpty()) {
+			if(memberId.isEmpty()) {
 				MessageEntity messageEntity = new MessageEntity("validation", 0);
 				messageEntity.setLinkTitle("로그인");
 				messageEntity.setUrl(CONTEXT_PATH + "/business/frontController?action=businessLoginForm");
@@ -208,19 +208,19 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 				request.getRequestDispatcher("/message/message.jsp").forward(request, response);
 				return;
 			}
-			businessId = businessId.trim();
+			memberId = memberId.trim();
 			businessPw = businessPw.trim();
 			BusinessBiz biz = new BusinessBiz();
-			BusinessMemberDto bdto = new BusinessMemberDto();
-			bdto.setMemberId(businessId);
-			bdto.setBusinessPw(businessPw);
-			System.out.println("businessId : [" + businessId + "]");
+			BusinessMemberDto dto = new BusinessMemberDto();
+			dto.setMemberId(memberId);
+			dto.setBusinessPw(businessPw);
+			System.out.println("memberId : [" + memberId + "]");
 			System.out.println("businessPw : [" + businessPw + "]");
-			biz.bsLogin(bdto);
-			if(bdto.getBusinessNum() != null) {
+			biz.bsLogin(dto);
+			if(dto.getBusinessNum() != null) {
 				System.out.println(CONTEXT_PATH);
 				HttpSession session = request.getSession();
-				session.setAttribute("bdto", bdto);
+				session.setAttribute("dto", dto);
 				System.out.println("로그인성공");
 				RequestDispatcher requestView = request.getRequestDispatcher("/welcome.jsp");
 				requestView.forward(request, response);
@@ -245,8 +245,8 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 				throws ServletException, IOException {
 			HttpSession session = request.getSession(false);
 			if (session != null) {
-				if (session.getAttribute("bdto") != null) {
-					session.removeAttribute("bdto");
+				if (session.getAttribute("dto") != null) {
+					session.removeAttribute("dto");
 				}
 				session.invalidate();
 			}
@@ -263,7 +263,7 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 		 */
 		protected void businessInput(HttpServletRequest request, HttpServletResponse response)
 				throws ServletException, IOException {
-			String businessId = request.getParameter("businessId");
+			String memberId = request.getParameter("memberId");
 			String businessPw = request.getParameter("businessPw");
 			String businessNum = request.getParameter("businessNum");
 			String businessTitle = request.getParameter("businessTitle");
@@ -273,7 +273,7 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 			String businessAddr = addrCode + "/" + businessAddr1 + "/" + businessAddr2;
 			String businessPhone = request.getParameter("businessPhone");
 			String businessHomepage = request.getParameter("businessHomepage");
-			System.out.println("businessId : [" + businessId + "]");
+			System.out.println("memberId : [" + memberId + "]");
 			System.out.println("businessPw : [" + businessPw + "]");
 			System.out.println("businessNum : [" + businessNum + "]");
 			System.out.println("businessTitle : [" + businessTitle + "]");
@@ -281,7 +281,7 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 			System.out.println("businessPhone : [" + businessPhone + "]");
 			System.out.println("businessHomepage : [" + businessHomepage + "]");
 			
-			if(businessId.isEmpty() || businessPw.isEmpty() || businessNum.isEmpty() || businessTitle.isEmpty() || businessAddr.isEmpty() || businessPhone.isEmpty() || businessHomepage.isEmpty()) {
+			if(memberId.isEmpty() || businessPw.isEmpty() || businessNum.isEmpty() || businessTitle.isEmpty() || businessAddr.isEmpty() || businessPhone.isEmpty() || businessHomepage.isEmpty()) {
 				MessageEntity messageEntity = new MessageEntity("error", 1);
 				messageEntity.setLinkTitle("사업자 회원가입");
 				messageEntity.setUrl(CONTEXT_PATH + "/business/frontController?action=businessInputForm");
@@ -290,10 +290,10 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 				return;
 			}
 			
-			BusinessMemberDto bdto = new BusinessMemberDto(businessId, businessPw, businessNum, businessTitle, businessAddr, businessPhone, businessHomepage);
+			BusinessMemberDto dto = new BusinessMemberDto(memberId, businessPw, businessNum, businessTitle, businessAddr, businessPhone, businessHomepage);
 			BusinessBiz biz = new BusinessBiz();
 			try {
-				biz.addBusiness(bdto);
+				biz.addBusiness(dto);
 				System.out.println("회원가입성공");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/business/bsLogin.jsp");
 				dispatcher.forward(request, response);
@@ -319,7 +319,7 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 		protected void businessInfoForm(HttpServletRequest request, HttpServletResponse response)
 				throws ServletException, IOException {
 			HttpSession session = request.getSession(false);
-			if (session == null || session.getAttribute("bdto") == null) {
+			if (session == null || session.getAttribute("dto") == null) {
 				MessageEntity messageEntity = new MessageEntity("message", 0);
 				messageEntity.setLinkTitle("로그인");
 				messageEntity.setUrl(CONTEXT_PATH + "/business/frontController?action=businessLoginForm");
@@ -328,14 +328,14 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 				return;
 			}
 			
-			String businessId = ((BusinessMemberDto)session.getAttribute("bdto")).getMemberId();
+			String memberId = ((BusinessMemberDto)session.getAttribute("dto")).getMemberId();
 			BusinessBiz biz = new BusinessBiz();
-			BusinessMemberDto bdto = new BusinessMemberDto();
-			bdto.setMemberId(businessId);
+			BusinessMemberDto dto = new BusinessMemberDto();
+			dto.setMemberId(memberId);
 			
 			try {
-				biz.businessInfo(bdto);
-				session.setAttribute("bdto", bdto);
+				biz.businessInfo(dto);
+				session.setAttribute("dto", dto);
 				request.getRequestDispatcher("/business/businessMyInfo.jsp").forward(request, response);
 			} catch (CommonException e) {
 				e.printStackTrace();
@@ -359,7 +359,7 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 		protected void businessInfoUpdate(HttpServletRequest request, HttpServletResponse response)
 				throws ServletException, IOException, CommonException {
 			HttpSession session = request.getSession(false);
-			if (session == null || session.getAttribute("bdto") == null) {
+			if (session == null || session.getAttribute("dto") == null) {
 				MessageEntity messageEntity = new MessageEntity("message", 0);
 				messageEntity.setLinkTitle("로그인");
 				messageEntity.setUrl(CONTEXT_PATH + "/business/frontController?action=businessLoginForm");
@@ -367,7 +367,7 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 				request.getRequestDispatcher("/message/message.jsp").forward(request, response);
 				return;
 			}
-			String businessId = ((BusinessMemberDto)session.getAttribute("bdto")).getMemberId();
+			String memberId = ((BusinessMemberDto)session.getAttribute("dto")).getMemberId();
 			String businessPw = request.getParameter("businessPw");
 			String businessTitle = request.getParameter("businessTitle");
 			String addrCode = request.getParameter("addrCode");
@@ -376,7 +376,7 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 			String businessAddr = addrCode + "/" + businessAddr1 + "/" + businessAddr2;
 			String businessPhone = request.getParameter("businessPhone");
 			String businessHomepage = request.getParameter("businessHomepage");
-			System.out.println("businessId : [" + businessId + "]");
+			System.out.println("memberId : [" + memberId + "]");
 			System.out.println("businessPw : [" + businessPw + "]");
 			System.out.println("businessTitle : [" + businessTitle + "]");
 			System.out.println("businessAddr : [" + businessAddr + "]");
@@ -384,24 +384,40 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 			System.out.println("businessHomepage : [" + businessHomepage + "]");
 			
 			BusinessBiz biz = new BusinessBiz();
-			BusinessMemberDto bdto = new BusinessMemberDto();
-			bdto.setMemberId(businessId);
-			bdto.setBusinessPw(businessPw);
-			bdto.setBusinessTitle(businessTitle);
-			bdto.setBusinessAddr(businessAddr);
-			bdto.setBusinessPhone(businessPhone);
-			bdto.setBusinessHomepage(businessHomepage);
+			BusinessMemberDto dto = new BusinessMemberDto();
+			dto.setMemberId(memberId);
+			dto.setBusinessPw(businessPw);
+			dto.setBusinessTitle(businessTitle);
+			dto.setBusinessAddr(businessAddr);
+			dto.setBusinessPhone(businessPhone);
+			dto.setBusinessHomepage(businessHomepage);
 			
+			BusinessMemberDto chkDto = new BusinessMemberDto();
 			try {
-				biz.bsUpdateInfo(bdto);
-				session.setAttribute("bdto", bdto);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/welcome.jsp");
-				dispatcher.forward(request, response);
+				
+				chkDto.setMemberId(memberId);
+				biz.businessInfo(chkDto);
+				System.out.println(">>> chkDto.getBusinessPw() : " + chkDto.getBusinessPw());
+				if(chkDto.getBusinessPw() != null) { //  가입된 아이디인 경우
+					MessageEntity messageEntity = new MessageEntity("validation", 8);
+					messageEntity.setLinkTitle("회원가입 재시도");
+					messageEntity.setUrl(CONTEXT_PATH + "/business/frontController?action=businessInputForm");
+					request.setAttribute("messageEntity", messageEntity);
+					request.getRequestDispatcher("/message/message.jsp").forward(request, response);
+					return;
+				}else {
+					biz.addBusiness(dto);
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/business/bsLogin.jsp");
+					dispatcher.forward(request, response);
+					return;
+				}
 			}catch (CommonException e) {
 				e.printStackTrace();
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/message/message.jsp");
+				dispatcher.forward(request, response);
 				MessageEntity messageEntity = e.getMessageEntity();
-				messageEntity.setUrl(CONTEXT_PATH + "/welcome.jsp");
-				messageEntity.setLinkTitle("메인으로");
+				messageEntity.setUrl(CONTEXT_PATH + "/business/frontController?action=businessInputForm");
+				messageEntity.setLinkTitle("회원가입 재시도");
 				request.setAttribute("message", messageEntity);
 				request.getRequestDispatcher("/message/message.jsp").forward(request, response);
 			}
@@ -439,7 +455,7 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 		 * @throws ServletException
 		 * @throws IOException
 		 */
-		protected void businessIdFind(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		protected void memberIdFind(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			String businessNum = request.getParameter("businessNum");
 			String businessPhone = request.getParameter("businessPhone");
 			if(businessNum.isEmpty() || businessPhone.isEmpty()) {
@@ -452,10 +468,10 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 			}
 			
 			BusinessBiz biz = new BusinessBiz();
-			String businessId = biz.findBsId(businessNum, businessPhone);
-			if(businessId != null) {
+			String memberId = biz.findBsId(businessNum, businessPhone);
+			if(memberId != null) {
 				MessageEntity messageEntity = new MessageEntity("success", 7);
-				messageEntity.setLinkTitle("아이디 찾기 성공 : [" + businessId + "] 클릭시 로그인창으로 이동됩니다.");
+				messageEntity.setLinkTitle("아이디 찾기 성공 : [" + memberId + "] 클릭시 로그인창으로 이동됩니다.");
 				messageEntity.setUrl(CONTEXT_PATH + "/business/frontController?action=businessLoginForm");
 				request.setAttribute("messageEntity", messageEntity);
 				request.getRequestDispatcher("/message/message.jsp").forward(request, response);
@@ -480,10 +496,10 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 		 * @throws IOException
 		 */
 		protected void businessPwFind(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			String businessId = request.getParameter("businessId");
+			String memberId = request.getParameter("memberId");
 			String businessPhone = request.getParameter("businessPhone");
 			
-			if(businessId.isEmpty() || businessPhone.isEmpty()) {
+			if(memberId.isEmpty() || businessPhone.isEmpty()) {
 				MessageEntity messageEntity = new MessageEntity("validation", 7);
 				messageEntity.setLinkTitle("비밀번호조회");
 				messageEntity.setUrl(CONTEXT_PATH +"/business/frontController?action=businessFindPwForm");
@@ -491,12 +507,12 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 				request.getRequestDispatcher("/message/message.jsp").forward(request, response);
 				return;
 			}
-			businessId = businessId.trim();
+			memberId = memberId.trim();
 			businessPhone = businessPhone.trim();
 			
 			BusinessBiz biz = new BusinessBiz();
-			String businessPw = biz.findBsPw(businessId, businessPhone);
-			System.out.println(businessId+ "/" +businessPhone);
+			String businessPw = biz.findBsPw(memberId, businessPhone);
+			System.out.println(memberId+ "/" +businessPhone);
 			if(businessPw != null) {
 				MessageEntity messageEntity = new MessageEntity("success", 8);
 				messageEntity.setLinkTitle("임시 비밀번호 발급 : [ "+businessPw+" ] 클릭시 로그인창으로 이동됩니다.");
@@ -527,10 +543,10 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 		 * @throws CommonException
 		 */
 		protected void businessDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, CommonException {
-			String businessId = request.getParameter("businessId");
-			businessId = businessId.trim();
+			String memberId = request.getParameter("memberId");
+			memberId = memberId.trim();
 			BusinessBiz biz = new BusinessBiz();
-			int rowCnt = biz.deleteBusiness(businessId);
+			int rowCnt = biz.deleteBusiness(memberId);
 			
 			if(rowCnt > 0) {
 				ArrayList<BusinessMemberDto> list = new ArrayList<BusinessMemberDto>();

@@ -10,7 +10,7 @@
 <body>
 <hr>
 <a href="${CONTEXT_PATH }/welcome.jsp">[Cass Main]</a>
-<form action="${CONTEXT_PATH }/business/frontController?action=businessIdFind" method="post">
+<form action="${CONTEXT_PATH }/business/frontController?action=memberIdFind" method="post">
 		<table border="1">
 			<tr>
 				<th colspan="2" id="title">Cass 사업자 회원 아이디 찾기</th>
