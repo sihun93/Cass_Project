@@ -104,7 +104,16 @@ function count() {
 											<th><img class="info_img_th" src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/point%2Ftest%2F${point.pboardImg}?alt=media"></th>
 										</tr>
 										<tr>
-											<th>상품명 : ${point.pboardTitle.substring(0, 6)}..</th>
+											<th>
+											<c:choose>
+											<c:when test="${fn:length(point.pboardTitle)<6}">
+											상품명 : ${point.pboardTitle}
+											</c:when>
+											<c:otherwise>
+											상품명 : ${point.pboardTitle.substring(0, 6)}..
+											</c:otherwise>
+											</c:choose>
+											</th>
 										</tr>
 										<tr>
 											<th>상품가격 : <fmt:formatNumber value="${point.pboardPrice}" pattern="###,###" /></th>

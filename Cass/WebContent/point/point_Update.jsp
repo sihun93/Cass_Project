@@ -8,6 +8,24 @@
 <title>Cass 포인트 상품 게시글 수정</title>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <link type="text/css" rel="stylesheet" href="../css/pointPage.css">
+<script type="text/javascript">
+	function checkfrm() {
+		if (!document.checkform.pboardTitle.value) {
+			alert("상품명을 입력하세요");
+			return false;
+		}
+
+		if (!document.checkform.pboardPrice.value) {
+			alert("가격을 입력하세요");
+			return false;
+		}
+
+		if (!document.checkform.pboardContent.value) {
+			alert("내용을 입력하세요");
+			return false;
+		}
+	}
+</script>
 </head>
 <body>
 <div id="wrapper">
@@ -20,7 +38,7 @@
 	<div class="content_input">
 	<h3>포인트 상품 게시글 수정</h3>
 	
-	<form action="${CONTEXT_PATH}/point/pointController?action=pointUpdate&pboardNum=${pointDto.pboardNum}" method="post">
+	<form action="${CONTEXT_PATH}/point/pointController?action=pointUpdate&pboardNum=${pointDto.pboardNum}" method="post" name="checkform" onsubmit="return checkfrm()">
 		<table border="1">
 			<tr>
 				<th>메인 카테고리</th>
