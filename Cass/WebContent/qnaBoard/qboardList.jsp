@@ -110,14 +110,7 @@ ul, li {
 </head>
 <body>
 <div id="wrapper">
-	<c:choose>
-		<c:when test="${empty bdto}">
-			<jsp:include page="/inc/header_menu.jsp" />
-		</c:when>
-		<c:otherwise>
-			<jsp:include page="/inc/business_header_menu.jsp" />
-		</c:otherwise>
-	</c:choose>
+	<jsp:include page="/inc/header_menu.jsp" />
    <div id="container">
   	<div id="mainWrapper">
 		<ul>

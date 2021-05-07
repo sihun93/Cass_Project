@@ -82,14 +82,7 @@ ul, li {
 </head>
 <body>
 <div id="wrapper">
-	<c:choose>
-		<c:when test="${empty bdto}">
-			<jsp:include page="/inc/header_menu.jsp" />
-		</c:when>
-		<c:otherwise>
-			<jsp:include page="/inc/business_header_menu.jsp" />
-		</c:otherwise>
-	</c:choose>
+	<jsp:include page="/inc/header_menu.jsp" />
 	<c:forEach var="qboardDetailUpdate" items="${qboardDetailUpdate}">
    <div id="container">
    <form action="${CONTEXT_PATH}/cass/qboardController?action=updateQboard2&qboardNum=${qboardDetailUpdate.qboardNum}" method="post" id="Inputform">
