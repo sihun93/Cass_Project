@@ -8,8 +8,8 @@
 <title>포인트 서브메뉴</title>
 <link type="text/css" rel="stylesheet" href="${CONTEXT_PATH}/css/pointPage.css">
 <style type="text/css">
-.sub_menu {
-list-style-image: url("../img/dogfoot.png"); 
+li {
+margin-left: -30%;
 }
 </style>
 </head>
@@ -21,7 +21,7 @@ list-style-image: url("../img/dogfoot.png");
 	<c:if test="${dto.grade == 'A'}">
 	<li><a href="${CONTEXT_PATH}/point/pointController?action=pointInputForm">상품 등록</a></li>
 	</c:if>
-	<c:if test="${dto.grade != 'A'}">
+	<c:if test="${dto.grade == 'G'}">
 	<li><a href="${CONTEXT_PATH}/point/pointController?action=pointBuyList">구매 내역</a></li>
 	</c:if>
 	</ul>

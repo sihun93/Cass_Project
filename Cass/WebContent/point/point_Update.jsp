@@ -7,7 +7,8 @@
 <meta charset="UTF-8">
 <title>Cass 포인트 상품 게시글 수정</title>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
-<link type="text/css" rel="stylesheet" href="../css/pointPage.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/welcome.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/pointPage.css">
 <script type="text/javascript">
 	function checkfrm() {
 		if (!document.checkform.pboardTitle.value) {

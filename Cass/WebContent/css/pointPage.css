@@ -16,7 +16,6 @@
 
 .sub_menu li:hover {
 	font-size: 1.1em;
-	width: 90px;
 	background-color: #D1DAE7;
 }
 
@@ -45,10 +44,6 @@
 .main_img_th {
 	width: 250px;
     height: 250px;
-}
-
-.point_table :hover {
-	box-shadow: 3px 3px silver;
 }
 
 #list_search_form {
@@ -100,7 +95,7 @@
 
 table {
 	border-collapse: collapse;
-	border: 2px solid navy;
+	border: none;
 }
 
 #point_Info {

@@ -8,7 +8,8 @@
 <meta charset="UTF-8">
 <title>CASS 포인트 상품 상세조회</title>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
-<link type="text/css" rel="stylesheet" href="../css/pointPage.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/welcome.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/pointPage.css">
 <script type="text/javascript">
 window.onload = function() {
 	var price = document.getElementById('pboardPrice').value;
