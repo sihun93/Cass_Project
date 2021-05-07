@@ -3,14 +3,12 @@
  */
 package com.work.model.dto;
 
-public class MemberDto {
-	private String memberId;
+public class MemberDto extends MasterMemberDto {
 	private String memberPw;
 	private String memberAddr;
 	private String memberEmail;
 	private String memberMobile;
 	private String memberBirth;
-	private String grade;
 	private int point;
 	private String sex;
 	
@@ -20,7 +18,7 @@ public class MemberDto {
 	
 	
 	public MemberDto(String memberId, String memberPw, String memberAddr, String memberEmail, String memberMobile, int point) {
-		this.memberId = memberId;
+		super(memberId);
 		this.memberPw = memberPw;
 		this.memberAddr = memberAddr;
 		this.memberEmail = memberEmail;
@@ -44,31 +42,16 @@ public class MemberDto {
 	 */
 	public MemberDto(String memberId, String memberPw, String memberAddr, String memberEmail, String memberMobile,
 			String memberBirth, String grade, int point, String sex) {
-		super();
-		this.memberId = memberId;
+		super(memberId,grade);
 		this.memberPw = memberPw;
 		this.memberAddr = memberAddr;
 		this.memberEmail = memberEmail;
 		this.memberMobile = memberMobile;
 		this.memberBirth = memberBirth;
-		this.grade = grade;
 		this.point = point;
 		this.sex = sex;
 	}
 
-	/**
-	 * @return the memberId
-	 */
-	public String getMemberId() {
-		return memberId;
-	}
-
-	/**
-	 * @param memberId the memberId to set
-	 */
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
 
 	/**
 	 * @return the memberPw
@@ -154,19 +137,6 @@ public class MemberDto {
 		this.point = point;
 	}
 
-	/**
-	 * @return the grade
-	 */
-	public String getGrade() {
-		return grade;
-	}
-
-	/**
-	 * @param grade the grade to set
-	 */
-	public void setGrade(String grade) {
-		this.grade = grade;
-	}
 
 	/**
 	 * @return the sex
@@ -182,34 +152,15 @@ public class MemberDto {
 		this.sex = sex;
 	}
 
+
+
+
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("[memberId=");
-		builder.append(memberId);
-		builder.append(", memberPw=");
-		builder.append(memberPw);
-		builder.append(", memberAddr=");
-		builder.append(memberAddr);
-		builder.append(", memberEmail=");
-		builder.append(memberEmail);
-		builder.append(", memberMobile=");
-		builder.append(memberMobile);
-		builder.append(", memberBirth=");
-		builder.append(memberBirth);
-		builder.append(", point=");
-		builder.append(point);
-		builder.append(", grade=");
-		builder.append(grade);
-		builder.append(", sex=");
-		builder.append(sex);
-		builder.append("]");
-		return builder.toString();
+		return  super.toString() +",memberPw=" + memberPw + ", memberAddr=" + memberAddr + ", memberEmail=" + memberEmail
+				+ ", memberMobile=" + memberMobile + ", memberBirth=" + memberBirth + ", point=" + point + ", sex="
+				+ sex;
 	}
-	
-	
-	
-	
-	
+
 	
 }

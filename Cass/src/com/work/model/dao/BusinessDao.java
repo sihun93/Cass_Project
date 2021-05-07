@@ -32,11 +32,11 @@ public class BusinessDao {
 		try {
 			con = JdbcTemplate.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bdto.getBusinessId());
+			pstmt.setString(1, bdto.getMemberId());
 			pstmt.setString(2, bdto.getBusinessPw());
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
-				bdto.setBusinessId(rs.getString("business_Id"));
+				bdto.setMemberId(rs.getString("business_Id"));
 				bdto.setBusinessPw(rs.getString("business_Pw"));
 				bdto.setBusinessNum(rs.getString("business_Num"));
 				bdto.setBusinessTitle(rs.getString("business_Title"));
@@ -65,7 +65,7 @@ public class BusinessDao {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bdto.getBusinessId());
+			pstmt.setString(1, bdto.getMemberId());
 			pstmt.setString(2, bdto.getBusinessPw());
 			pstmt.setString(3, bdto.getBusinessNum());
 			pstmt.setString(4, bdto.getBusinessTitle());
@@ -98,10 +98,10 @@ public class BusinessDao {
 		try {
 			con = JdbcTemplate.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bdto.getBusinessId());
+			pstmt.setString(1, bdto.getMemberId());
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				bdto.setBusinessId(rs.getString("business_Id"));
+				bdto.setMemberId(rs.getString("business_Id"));
 				bdto.setBusinessPw(rs.getString("business_Pw"));
 				bdto.setBusinessNum(rs.getString("business_Num"));
 				bdto.setBusinessTitle(rs.getString("business_Title"));
@@ -134,7 +134,7 @@ public class BusinessDao {
 			pstmt.setString(3, bdto.getBusinessAddr());
 			pstmt.setString(4, bdto.getBusinessPhone());
 			pstmt.setString(5, bdto.getBusinessHomepage());
-			pstmt.setString(6, bdto.getBusinessId());
+			pstmt.setString(6, bdto.getMemberId());
 			int rows=pstmt.executeUpdate();
 			if(rows == 0) {
 				throw new Exception();
@@ -166,7 +166,7 @@ public class BusinessDao {
 			BusinessMemberDto bdto = null;
 			while(rs.next()) {
 				bdto = new BusinessMemberDto();
-				bdto.setBusinessId(rs.getString("business_Id"));
+				bdto.setMemberId(rs.getString("business_Id"));
 				bdto.setBusinessPw(rs.getString("business_Pw"));
 				bdto.setBusinessNum(rs.getString("business_Num"));
 				bdto.setBusinessTitle(rs.getString("business_Title"));

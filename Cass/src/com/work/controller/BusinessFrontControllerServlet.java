@@ -212,7 +212,7 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 			businessPw = businessPw.trim();
 			BusinessBiz biz = new BusinessBiz();
 			BusinessMemberDto bdto = new BusinessMemberDto();
-			bdto.setBusinessId(businessId);
+			bdto.setMemberId(businessId);
 			bdto.setBusinessPw(businessPw);
 			System.out.println("businessId : [" + businessId + "]");
 			System.out.println("businessPw : [" + businessPw + "]");
@@ -328,10 +328,10 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 				return;
 			}
 			
-			String businessId = ((BusinessMemberDto)session.getAttribute("bdto")).getBusinessId();
+			String businessId = ((BusinessMemberDto)session.getAttribute("bdto")).getMemberId();
 			BusinessBiz biz = new BusinessBiz();
 			BusinessMemberDto bdto = new BusinessMemberDto();
-			bdto.setBusinessId(businessId);
+			bdto.setMemberId(businessId);
 			
 			try {
 				biz.businessInfo(bdto);
@@ -367,7 +367,7 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 				request.getRequestDispatcher("/message/message.jsp").forward(request, response);
 				return;
 			}
-			String businessId = ((BusinessMemberDto)session.getAttribute("bdto")).getBusinessId();
+			String businessId = ((BusinessMemberDto)session.getAttribute("bdto")).getMemberId();
 			String businessPw = request.getParameter("businessPw");
 			String businessTitle = request.getParameter("businessTitle");
 			String addrCode = request.getParameter("addrCode");
@@ -385,7 +385,7 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 			
 			BusinessBiz biz = new BusinessBiz();
 			BusinessMemberDto bdto = new BusinessMemberDto();
-			bdto.setBusinessId(businessId);
+			bdto.setMemberId(businessId);
 			bdto.setBusinessPw(businessPw);
 			bdto.setBusinessTitle(businessTitle);
 			bdto.setBusinessAddr(businessAddr);
