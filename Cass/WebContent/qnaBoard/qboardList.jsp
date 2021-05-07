@@ -159,11 +159,14 @@ ul, li {
 					</select> 
 					<input id="txtKeyWord" name="txtKeyWord"/> <input type="submit" value="검색" id="btn"/>
 					</form>
+					<c:if test="${not empty dto}">
 					<div class="btn">
+					
 					<form action="${CONTEXT_PATH}/qnaBoard/qboardInput.jsp" method="post">
 					<input type="submit" value="글 등록" id="btn"/>
 					</form>
 					</div>
+					</c:if>
 				</div>
 				<div>
 				

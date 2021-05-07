@@ -10,9 +10,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.work.model.biz.QboardBiz;
 import com.work.model.dto.AboardDto;
+import com.work.model.dto.MasterMemberDto;
 import com.work.model.dto.QboardDto;
 
 /**
@@ -133,7 +135,9 @@ public class QboardControllerServlet extends HttpServlet {
 		String qboardTitle = request.getParameter("qboardTitle");
 		String qboardContent = request.getParameter("qboardContent");
 		String qboardImg = request.getParameter("qboardImg");
-		String memberId="money99";		
+		
+		HttpSession session = request.getSession(false);
+		String memberId = ((MasterMemberDto)session.getAttribute("dto")).getMemberId();
 		QboardBiz biz = new QboardBiz();
 
 		if(qboardTitle == null || qboardTitle.trim().length() == 0) {
@@ -160,8 +164,10 @@ public class QboardControllerServlet extends HttpServlet {
 
 			if(result == 1) {
 				ArrayList<QboardDto> list = biz.getQboardList();
-				request.setAttribute("qboardList", list);
-				request.getRequestDispatcher("/qnaBoard/qboardList.jsp").forward(request, response);
+				String qboardNum = list.get(0).getQboardNum();
+				ArrayList<QboardDto> detailQboard = biz.getQboardDetail(qboardNum);
+				request.setAttribute("qboardDetail", detailQboard);
+				request.getRequestDispatcher("/qnaBoard/qboardDetail.jsp").forward(request, response);
 			}
 		}
 	}
