@@ -1,81 +1,216 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="/inc/taglib_menu.jsp" %>  
+	pageEncoding="UTF-8"%>
+<%@ include file="/inc/taglib_menu.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
-$(document).ready(function() {
-	$("#mcategory").change(function(){
-		 var mcategory = $("#mcategory option:selected").val();
-		 var scategory = $("#scategory");
-		 var size = $("#scategory option:last").index();
-		 for(index =1; index <= size ; index++){
-			 var eq = "#scategory option:eq("+index+")";
-			 if($(eq).attr("id") == mcategory){
-				 $(eq).removeAttr("style");
-			 }else{
-				 $(eq).attr("style","display: none;");
-			 }
-			 if($("#mcategory option:selected").val() == "0"){
-				 $("#scategory option:first").attr("selected", "selected");
-			 }
-		 }
+	$(document).ready(function() {
+		$("#mcategory").change(function() {
+			var mcategory = $("#mcategory option:selected").val();
+			var scategory = $("#scategory");
+			var size = $("#scategory option:last").index();
+			for (index = 1; index <= size; index++) {
+				var eq = "#scategory option:eq(" + index + ")";
+				if ($(eq).attr("id") == mcategory) {
+					$(eq).removeAttr("style");
+				} else {
+					$(eq).attr("style", "display: none;");
+				}
+				if ($("#mcategory option:selected").val() == "0") {
+					$("#scategory option:first").attr("selected", "selected");
+				}
+			}
 
+		});
+		$("#imgbtn").click(function() {
+			$("#mbimg").val('');
+			var content = $("#content");
+			var mbImage = $("#mbImage");
+			content.attr("style", "display: block;");
+			mbImage.attr("style", "display: none;");
+			$("#bImage_container").removeAttr("src");
+			console.log("실행");
+		});
 	});
-});
+	$(function() {
+		$(window).scroll(function() {
+			var curpos = $(window).scrollTop() + 180;
+			$(".sky").stop().animate({
+				"top" : curpos
+			});
+		});
+	});
 </script>
+<link type="text/css" rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/common.css">
+<link type="text/css" rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/welcome.css">
+<style type="text/css">
+.sky {
+	font-family: 'InkLipquid';
+	font-size: 1.9em;
+	position: absolute;
+	width: 160px;
+	left: 60px;
+	top: 180px;
+	height: 250px;
+}
+
+.review {
+	margin-left: 500px;
+	font-family: 'InkLipquid';
+	font-size: 1.5em;
+	font-family: 'InkLipquid';
+	font-size: 1.8em;
+}
+
+table#contable {
+	width: 40%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#pageNumber {
+	text-align: center;
+}
+
+
+#writetable {
+	width: 50%;
+	height: 70%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.wh98 {
+	width: 98%;
+	height: 98%;
+}
+
+textarea {
+	resize: none;
+}
+
+
+</style>
 </head>
 <body>
 
-<h3> 게시글 작성</h3>
+	<div id="wrapper">
+		<jsp:include page="/inc/header_menu.jsp" />
 
-<input type="hidden" value="cathost" id="loginId"> 
-<form action="${CONTEXT_PATH}/MainBoard/mainboardController?action=write " method="post" id="write">
-메인<select name="mcategory" id="mcategory">
-<option value="0">선택 해주세요</option>
-<c:forEach items="${mainCategorylist }" var="mdto">
-<option value="${mdto.mcategoryNum }">${mdto.mcategoryName }</option>
-</c:forEach>
-</select>
+		<!-- 카테고리 매뉴 -->
+		<div id="container">
+			<div class="sky">
+				<table>
+					<tr>
+						<td><a href="#">▲ 위로</a></td>
+					</tr>
+					<tr>
+						<td><a href="#">메인 카테고리1</a></td>
+					</tr>
+					<tr>
+						<td><a href="#">메인 카테고리2</a></td>
+					</tr>
+					<tr>
+						<td><a href="#">메인 카테고리3</a></td>
+					</tr>
+					<tr>
+						<td><a href="#">메인 카테고리4</a></td>
+					</tr>
+				</table>
+			</div>
 
-서브<select name="scategory" id="scategory">
-<option value="0">메인 카테고리를 선택 해주세요</option>
-<c:forEach items="${subCategorylist }" var="sdto">
-<option id="${sdto.mcategoryNum }" value="${sdto.scategoryNum }" style="display: none;">${sdto.scategoryName }</option>
-</c:forEach>
-</select>
+			<input type="hidden" value="${dto.businessId }" id="loginId">
 
-<input name="title" id="title" type="text" autofocus="autofocus" style="display: block;">
+			<form
+				action="${CONTEXT_PATH}/MainBoard/mainboardController?action=write "
+				method="post" id="write">
+				<table border="1" id="writetable">
+					<!-- 제목 입력 창 -->
+					<tr>
+						<td colspan="2" align="center"><input name="title" id="title"
+							type="text" autofocus="autofocus" style="width: 99%"></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<!-- 메인 셀렉터 --> <select name="mcategory" id="mcategory">
+								<option value="0">메인 카테고리입니다.</option>
+								<c:forEach items="${mainCategorylist }" var="mdto">
+									<option value="${mdto.mcategoryNum }">${mdto.mcategoryName }</option>
+								</c:forEach>
+						</select> <!-- 서브 셀렉터 --> <select name="scategory" id="scategory">
+								<option value="0">메인 카테고리를 선택 해주세요</option>
+								<c:forEach items="${subCategorylist }" var="sdto">
+									<option id="${sdto.mcategoryNum }"
+										value="${sdto.scategoryNum }" style="display: none;">${sdto.scategoryName }</option>
+								</c:forEach>
+						</select>
+						</td>
+					</tr>
+					<!-- 회사 정보창 -->
+					<tr>
+						<td id="tdImg">
+							<img id="bImage_container" width="150px" height="150px">
+						</td>
+						<td width="80%">
+						<c:set var="keywordArr" value="${fn:split(dto.businessAddr,'/')}"/>
+						회사이름:<input type="text" name="data1" value="${dto.businessTitle }" style="width: 80%"><br>
+						회사주소:<input type="text" name="data2" value="${keywordArr[1] }" style="width: 80%"><br>
+						전화번호:<input type="text" name="data3" value="${dto.businessPhone }" style="width: 80%"><br>
+						홈페이지:<input type="text" name="data4" value="${dto.businessHomepage }" style="width: 80%">
+						</td>
 
-<div style=" display: inline;">
-<img id="bImage_container" style=" width: 200px; height: 200px" src="">
-<textarea name="bcontent" style="resize: none; width:300px; height:195px; font-size: 12"></textarea>
-</div>
-
-<textarea name="mcontent" id="content" rows="12" cols="30" style="display: block; ">
+					</tr>
+					<tr>
+						<td colspan="2" height="600px" width="100%" align="center">
+							<!-- 게시글 내용창 --> <textarea class="wh98" name="mcontent"
+								id="content" >
 </textarea>
+							
+							<img id="mbImage" width="100%" height="100%" style="display: none;">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="file" name="bimg" id="bimg"
+							onchange="setBImg(event);" style="display: block;"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="file" name="mbimg" id="mbimg"
+							required="required" onchange="setMbImg(event);"
+							style="display: block;"></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="left"><input id="imgbtn" type="button"
+							value="게시글 이미지 초기화"> <input type="reset" value="초기화"
+							id="resetbtn"> <input id="filebtn" type="button"
+							value="저장"></td>
+					</tr>
+				</table>
+			</form>
 
-<div id="mbImage_container"  style="display: none;" >
-</div>
+			<hr>
+			<div class="info">
+				Companion Animal Service Site<br> 반려동물 플랫폼 사이트
+				<h6>
+					<a href="">+더 알아보기</a>
+				</h6>
+			</div>
+		</div>
 
-<input type="file" name="bimg" id="bimg"  placeholder="회사 이미지 입니다." 
-onchange="setBImg(event);" style="display: block;">
+		<jsp:include page="/inc/footer_menu.jsp" />
+	</div>
 
-<input type="file" name="mbimg" id="mbimg" placeholder="게시글 이미지 입니다." 
-onchange="setMbImg(event);" style="display: block;"> 
-
-<input type="reset" value="초기화">
-<input id="filebtn" type="button" value="저장">
-
-
-</form>
 	<script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-analytics.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-storage.js"></script>
+	<script
+		src="https://www.gstatic.com/firebasejs/8.4.3/firebase-analytics.js"></script>
+	<script
+		src="https://www.gstatic.com/firebasejs/8.4.3/firebase-storage.js"></script>
 	<script>
 		var firebaseConfig = {
 			apiKey : "AIzaSyAqSBsp8MVYfepmDrJH59y_3kDyo2IqUYc",
@@ -102,41 +237,41 @@ onchange="setMbImg(event);" style="display: block;">
 			file2 = e.target.files[0];
 		});
 		filebtn.addEventListener('click', function() {
-			storageRef = firebase.storage().ref($("#loginId").val()+'/' + file1.name);
+			storageRef = firebase.storage().ref('mainboard/'+$("#loginId").val()+'/' + file1.name);
 			storageRef.put(file1).then(function(snapshot) {
 				  console.log('Uploaded a blob or file1!');
-					storageRef = firebase.storage().ref('mainboard/'+$("#loginId").val()+'/' + file2.name);
-					storageRef.put(file2).then(function(snapshot) {
-						  console.log('Uploaded a blob or file2!');
-						  storageRef = firebase.storage().ref($("#loginId").val()+'/' + file2.name);
-						  $("#write").submit();
-					});
+				  if(file2 != null){
+					  storageRef = firebase.storage().ref('mainboard/'+$("#loginId").val()+'/' + file2.name);
+						storageRef.put(file2).then(function(snapshot) {
+							  console.log('Uploaded a blob or file2!');
+							  $("#write").submit();
+						});
+				  }else{
+					  $("#write").submit();
+				  }
 			});
 		});
-		
+
 		function setBImg(event) {
-			var reader = new FileReader(); 
-			reader.onload = function(event) { 
+			var reader = new FileReader();
+			reader.onload = function(event) {
 				var bcontainer = $("#bImage_container");
 				bcontainer.attr("src", event.target.result);
-				}; 
-			reader.readAsDataURL(event.target.files[0]); 
+			};
+			reader.readAsDataURL(event.target.files[0]);
 		};
 		function setMbImg(event) {
-			var reader = new FileReader(); 
-			reader.onload = function(event) { 
+			var reader = new FileReader();
+			reader.onload = function(event) {
 				var content = $("#content");
-				var mbcontainer = $("#mbImage_container");
-				var img = $("<img>"); 
-				img.attr("src", event.target.result);
-				mbcontainer.append(img); 
+				var mbImage = $("#mbImage");
+				mbImage.attr("src", event.target.result);
 				content.attr("style", "display: none;");
-				mbcontainer.attr("style", "display: block;");
-				}; 
-			reader.readAsDataURL(event.target.files[0]); 
-		} ;
-</script>
-
+				mbImage.attr("style", "display: block;");
+			};
+			reader.readAsDataURL(event.target.files[0]);
+		};
+	</script>
 
 </body>
 </html>
