@@ -11,15 +11,15 @@ function drawChart() {
     data.addColumn('string','Foods');
     data.addColumn('number','비중');
     data.addRows([ 
-        ['여자 ' + fCount + '명',fCount],
-        ['남자 ' + mCount + '명',mCount]
+        ['여자',fCount],
+        ['남자',mCount]
     ]);
     var opt = {
             'title':'사용자 성별',
-            'width':300,
-            'height':300,
+            'width':500,
+            'height':500,
+            is3D:'true',
             pieSliceText:'label',
-            legend:'none', 
 			backgroundColor: '#F4F3EF'
     };
     var chart = new google.visualization.PieChart(document.getElementById('sexPiChart'));

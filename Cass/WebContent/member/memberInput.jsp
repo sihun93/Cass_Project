@@ -8,6 +8,7 @@
 <title>Cass 회원가입 페이지</title>
 <script type="text/javascript" src="/Cass/js/members_input.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<link type="text/css" rel="stylesheet" href="../css/management.css">
 
 <script>
 function postcode(){
@@ -22,12 +23,15 @@ function postcode(){
 </script>
 </head>
 <body>
-<h3>회원가입</h3>
+<a href="${CONTEXT_PATH}/welcome.jsp">[Cass Main]</a>
 <hr>
 
 <form action="${CONTEXT_PATH}/member/frontController?action=memberInput" method="post">
-<table>
-	
+<table border="1">
+	<tr>
+		<th colspan="2" id="title">Cass 회원 가입</th>
+	</tr>
+
 	<tr>
 		<td>아이디 </td>
 		<td>

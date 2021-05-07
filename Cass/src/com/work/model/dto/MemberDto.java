@@ -19,12 +19,13 @@ public class MemberDto {
 	
 	
 	
-	public MemberDto(String memberId, String memberPw, String memberAddr, String memberEmail, String memberMobile) {
+	public MemberDto(String memberId, String memberPw, String memberAddr, String memberEmail, String memberMobile, int point) {
 		this.memberId = memberId;
 		this.memberPw = memberPw;
 		this.memberAddr = memberAddr;
 		this.memberEmail = memberEmail;
 		this.memberMobile = memberMobile;
+		this.point = point;
 	}
 
 

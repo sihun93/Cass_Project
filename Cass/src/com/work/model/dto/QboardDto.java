@@ -11,9 +11,9 @@ import java.util.ArrayList;
 public class QboardDto {
 	private String qboardNum;
 	private String qboardTitle;
-	private StringBuffer qboardContent;
+	private String qboardContent;
 	private String qboardDate;
-	private ArrayList<String> qboardImg;
+	private String qboardImg;
 	private String mcategoryNum;
 	private String memberId;
 	public QboardDto() {
@@ -27,8 +27,8 @@ public class QboardDto {
 	 * @param mcategoryNum
 	 * @param memberId
 	 */
-	public QboardDto(String qboardNum, String qboardTitle, StringBuffer qboardContent, String qboardDate,
-			ArrayList<String> qboardImg, String mcategoryNum, String memberId) {
+	public QboardDto(String qboardNum, String qboardTitle, String qboardContent, String qboardDate,
+			String qboardImg, String mcategoryNum, String memberId) {
 		super();
 		this.qboardNum = qboardNum;
 		this.qboardTitle = qboardTitle;
@@ -66,13 +66,13 @@ public class QboardDto {
 	/**
 	 * @return the qboardContent
 	 */
-	public StringBuffer getQboardContent() {
+	public String getQboardContent() {
 		return qboardContent;
 	}
 	/**
 	 * @param qboardContent the qboardContent to set
 	 */
-	public void setQboardContent(StringBuffer qboardContent) {
+	public void setQboardContent(String qboardContent) {
 		this.qboardContent = qboardContent;
 	}
 	/**
@@ -90,13 +90,13 @@ public class QboardDto {
 	/**
 	 * @return the qboardImg
 	 */
-	public ArrayList<String> getQboardImg() {
+	public String getQboardImg() {
 		return qboardImg;
 	}
 	/**
 	 * @param qboardImg the qboardImg to set
 	 */
-	public void setQboardImg(ArrayList<String> qboardImg) {
+	public void setQboardImg(String qboardImg) {
 		this.qboardImg = qboardImg;
 	}
 	/**

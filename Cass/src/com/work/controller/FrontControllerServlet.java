@@ -1,9 +1,14 @@
 package com.work.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
+import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -13,16 +18,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.work.model.dao.CommonException;
 import com.work.model.biz.DataCenterBiz;
-import com.work.model.biz.MemberBiz;
-import com.work.model.dto.MemberDto;
-import com.work.model.dto.MessageEntity;
+import com.work.model.dto.BusinessMemberDto;
+import com.work.model.dto.DataDto;
 
 /**
  * Servlet implementation class FrontControllerServlet
  */
-@WebServlet(urlPatterns = { "/member/frontController", "/board/frontController" }, loadOnStartup = 1)
+@WebServlet(urlPatterns = { "/cass/frontController" })
 public class FrontControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -31,9 +34,7 @@ public class FrontControllerServlet extends HttpServlet {
 
 	public void init() {
 		application = getServletContext();
-		CONTEXT_PATH = application.getContextPath();// /ucamp33
-		System.out.println("[loadOnStartup]CONTEXT_PATH : " + CONTEXT_PATH);
-		application.setAttribute("CONTEXT_PATH", CONTEXT_PATH);
+		CONTEXT_PATH = (String) application.getAttribute("CONTEXT_PATH");
 	}
 
 	/**
@@ -43,55 +44,22 @@ public class FrontControllerServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String action = request.getParameter("action");
+		HttpSession session = request.getSession();
+		//BusinessMemberDto dto = new BusinessMemberDto("cathost", "cat77", "245-32-52143", "냥이호텔", "07906/서울특별시 양천구 화곡로12길", "010-0251-3254", "https://cathost.com");
+		//session.setAttribute("dto", dto);
 		System.out.println(action);
 		switch (action) {
 		case "dataCenter":
 			dataCenter(request, response);
 			break;
-		case "loginForm":
-			loginForm(request, response);
+		case "selectAgeDataCenter":
+			selectAgeDataCenter(request, response);
 			break;
-		case "login":
-			try {
-				login(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		case "selectSexDataCenter":
+			selectSexDataCenter(request, response);
 			break;
-		case "logout":
-			logout(request, response);
-			break;
-		case "memberInputForm":
-			memberInputForm(request, response);
-			break;
-		case "memberInput":
-			try {
-				memberInput(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			break;
-		case "myInfoForm":
-			try {
-				myInfoForm(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			break;
-		case "myInfoUpdateSave":
-			myInfoUpdateSave(request, response);
-			break;
-		case "findForm":
-			findForm(request, response);
-			break;
-		case "findIdForm":
-			findIdForm(request, response);
-			break;
-		case "findPwForm":
-			findPwForm(request, response);
-			break;
-		case "memberList":
-			memberList(request, response);
+		case "jsonDown":
+			jsonDown(request, response);
 			break;
 		}
 	}
@@ -115,377 +83,181 @@ public class FrontControllerServlet extends HttpServlet {
 	}
 
 	/**
-	 * 
+	 * 데이터 센터 처음 들어올 때 사용자 성별, 이용자 나이, 인기카테고리 별 데이터 값을 받는 메서드
 	 * @param request
 	 * @param response
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	protected void dataCenter(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void dataCenter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DataCenterBiz biz = new DataCenterBiz();
+		sessionRemove(request, response);
 		int m = biz.getCountM();
 		int total = biz.getCount();
 		int f = total - m;
-		ArrayList sexCount = new ArrayList();
+		ArrayList<Integer> sexCount = new ArrayList<Integer>();
 		sexCount.add(m);
 		sexCount.add(f);
-		if (m != 0 || f != 0) {
+		ArrayList<Integer> age = biz.getAgeCount();
+		ArrayList<Integer> list = biz.getCategoryCount();
+		if (m != 0 || f != 0 || age != null) {
 			HttpSession session = request.getSession(false);
 			session.setAttribute("Count", sexCount);
+			session.setAttribute("ageCount", age);
+			session.setAttribute("categoryCount", list);
 			response.sendRedirect(CONTEXT_PATH + "/dataCenter.jsp");
 		}
 	}
-
 	/**
-	 * 로그인페이지로 이동하는 Form
-	 * 
+	 * 이용자별 인기 카테고리에서 나이별 정보를 뽑아오는 메서드
 	 * @param request
 	 * @param response
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	protected void loginForm(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.sendRedirect(CONTEXT_PATH + "/member/login.jsp");
-	}
-
-	/**
-	 * 로그인 요청 메서드
-	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
-	 * @throws CommonException 
-	 */
-	protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, CommonException {
-
-		String memberId = request.getParameter("memberId");
-		String memberPw = request.getParameter("memberPw");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/message/message.jsp");
-
-		if (memberId == null || memberId.trim().length() == 0) {
-			MessageEntity messageEntity = new MessageEntity("validation", 0);
-			messageEntity.setLinkTitle("로그인");
-			messageEntity.setUrl(CONTEXT_PATH + "/member/frontController?action=loginForm");
-			request.setAttribute("messageEntity", messageEntity);
-			request.getRequestDispatcher("/message/message.jsp").forward(request, response);
-			return;
-		}
-		if (memberPw == null || memberPw.trim().length() == 0) {
-			MessageEntity messageEntity = new MessageEntity("validation", 1);
-			messageEntity.setLinkTitle("로그인");
-			messageEntity.setUrl(CONTEXT_PATH + "/member/frontController?action=loginForm");
-			request.setAttribute("messageEntity", messageEntity);
-			request.getRequestDispatcher("/message/message.jsp").forward(request, response);
-			return;
-		}
-		memberId = memberId.trim();
-		memberPw = memberPw.trim();
-		MemberBiz biz = new MemberBiz();
-
-		MemberDto dto = new MemberDto();
-		dto.setMemberId(memberId);
-		dto.setMemberPw(memberPw);
-
-		System.out.println("memberId : [" + memberId + "]");
-		System.out.println("memberPw : [" + memberPw + "]");
-		biz.login(dto);
-			if (dto.getGrade() != null) {
-				HttpSession session = request.getSession(true);
-				session.setAttribute("memberId", memberId);
-				session.setAttribute("grade", dto.getGrade());
-				session.setAttribute("dto", dto);
-				
-				MessageEntity messageEntity = new MessageEntity("success", 1);
-				messageEntity.setLinkTitle("메인페이지");
-				messageEntity.setUrl(CONTEXT_PATH +"/welcome.jsp");
-				request.setAttribute("messageEntity", messageEntity);
-				
-			} else {
-				MessageEntity messageEntity = new MessageEntity("error", 2);
-				messageEntity.setLinkTitle("로그인");
-				messageEntity.setUrl(CONTEXT_PATH +"/member/frontController?action=loginForm");
-				request.setAttribute("messageEntity", messageEntity);
-			}
-		 
-		dispatcher.forward(request, response);
-	}
-
-	/**
-	 * 로그아웃
-	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
-	 */
-	protected void logout(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void selectAgeDataCenter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		DataCenterBiz biz = new DataCenterBiz();
+		String  age = request.getParameter("age");
 		HttpSession session = request.getSession(false);
-		if (session != null) {
-			if (session.getAttribute("memberId") != null) {
-				session.removeAttribute("memberId");
-			}
-			if (session.getAttribute("grade") != null) {
-				session.removeAttribute("grade");
-			}
-			session.invalidate();
-		}
-		String url = "/Cass/member/main.jsp";
-		response.sendRedirect(url);
-	}
+		switch (age) {
+		case "age10":
+			ArrayList<Integer> list10 = biz.get10AgeSelect();
+			sessionRemove(request, response);
+			session.setAttribute("selectAge", list10);
+			response.sendRedirect(CONTEXT_PATH + "/dataCenter.jsp");
+			break;
+		case "age20":
+			ArrayList<Integer> list20 = biz.get20AgeSelect();
+			sessionRemove(request, response);
+			session.setAttribute("selectAge", list20);
+			response.sendRedirect(CONTEXT_PATH + "/dataCenter.jsp");
+			break;
+		case "age30":
+			ArrayList<Integer> list30 = biz.get30AgeSelect();
+			sessionRemove(request, response);
+			session.setAttribute("selectAge", list30);
+			response.sendRedirect(CONTEXT_PATH + "/dataCenter.jsp");
+			break;
+		case "age40":
+			ArrayList<Integer> list40 = biz.get40AgeSelect();
+			sessionRemove(request, response);
+			session.setAttribute("selectAge", list40);
+			response.sendRedirect(CONTEXT_PATH + "/dataCenter.jsp");
+			break;
+		case "age50":
+			ArrayList<Integer> list50 = biz.get50AgeSelect();
+			sessionRemove(request, response);
+			session.setAttribute("selectAge", list50);
+			response.sendRedirect(CONTEXT_PATH + "/dataCenter.jsp");
+			break;
 
+		default:
+			sessionRemove(request, response);
+			response.sendRedirect(CONTEXT_PATH + "/dataCenter.jsp");
+			break;
+		}
+	}
 	/**
-	 * 회원가입 이동
-	 * 
+	 * 사용자 성별에따른 인기카테고리 데이터 구하는 메서드
 	 * @param request
 	 * @param response
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	protected void memberInputForm(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.sendRedirect(CONTEXT_PATH + "/member/memberInput.jsp");
-	}
-
-	/**
-	 * 회원가입 요청
-	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
-	 * @throws CommonException
-	 */
-	protected void memberInput(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException, CommonException {
-		String memberId = request.getParameter("memberId");
-		String memberPw = request.getParameter("memberPw");
-		String addrCode = request.getParameter("addrCode");
-		String memberAddr1 = request.getParameter("memberAddr1");
-		String memberAddr2 = request.getParameter("memberAddr2");
-		String memberAddr = addrCode + "/" + memberAddr1 + "/" + memberAddr2;
-		String email1 = request.getParameter("email1");
-		String email2 = request.getParameter("email2");
-		String memberEmail = email1 + email2;
-		String memberMobile = request.getParameter("memberMobile");
-		String memberBirth = request.getParameter("memberBirth");
-		String grade = "G";
-		int point = 1000;
-		String sex = request.getParameter("sex");
-
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/message/message.jsp");
-
-		System.out.println("memberId : [" + memberId + "]");
-		System.out.println("memberPw : [" + memberPw + "]");
-		System.out.println("memberAddr : [" + memberAddr + "]");
-		System.out.println("memberMobile : [" + memberMobile + "]");
-		System.out.println("memberEmail : [" + memberEmail + "]");
-		System.out.println("memberBirth : [" + memberBirth + "]");
-		System.out.println("grade : [" + grade + "]");
-		System.out.println("point : [" + point + "]");
-		System.out.println("sex : [" + sex + "]");
-
-		if (memberId.isEmpty() || memberPw.isEmpty() || memberAddr.isEmpty() || memberEmail.isEmpty()
-				|| memberBirth.isEmpty() || sex.isEmpty()) {
-			MessageEntity messageEntity = new MessageEntity("error", 0);
-			messageEntity.setLinkTitle("회원가입");
-			messageEntity.setUrl(CONTEXT_PATH + "/member/frontController?action=memberInputForm");
-			request.setAttribute("messageEntity", messageEntity);
-			request.getRequestDispatcher("/message/message.jsp").forward(request, response);
-			return;
-		}
-
-		MemberDto dto = new MemberDto(memberId, memberPw, memberAddr, memberEmail, memberMobile, memberBirth, grade,
-				point, sex);
-		MemberBiz biz = new MemberBiz();
-
-		try {
-			biz.addMember(dto);
-			MessageEntity messageEntity = new MessageEntity("success", 0);
-			messageEntity.setLinkTitle("로그인하기");
-			messageEntity.setUrl(CONTEXT_PATH + "/member/frontController?action=loginForm");
-			request.setAttribute("messageEntity", messageEntity);
-		} catch (CommonException e) {
-			e.printStackTrace();
-			MessageEntity messageEntity = e.getMessageEntity();
-			messageEntity.setUrl(CONTEXT_PATH + "/member/frontController?action=memberInputForm");
-			messageEntity.setLinkTitle("회원가입 재시도");
-			request.setAttribute("message", messageEntity);
-		}
-		dispatcher.forward(request, response);
-	}
-
-	/**
-	 * 내 정보 조회
-	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
-	 * @throws CommonException 
-	 */
-	protected void myInfoForm(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException, CommonException {
+	protected void selectSexDataCenter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		DataCenterBiz biz = new DataCenterBiz();
+		String  sex = request.getParameter("sex");
+		System.out.println(sex);
 		HttpSession session = request.getSession(false);
+		switch (sex) {
+		case "M":
+			ArrayList<Integer> list = biz.getSelectMCount();
+			sessionRemove(request, response);
+			session.setAttribute("selectMCount", list);
+			response.sendRedirect(CONTEXT_PATH + "/dataCenter.jsp");
+			break;
+		case "F":
+			ArrayList<Integer> list2 = biz.getSelectFCount();
+			sessionRemove(request, response);
+			session.setAttribute("selectFCount", list2);
+			response.sendRedirect(CONTEXT_PATH + "/dataCenter.jsp");
+			break;
 
-		if (session == null || session.getAttribute("memberId") == null) {
-			MessageEntity messageEntity = new MessageEntity("message", 0);
-			messageEntity.setLinkTitle("로그인");
-			messageEntity.setUrl(CONTEXT_PATH + "/member/frontController?action=loginForm");
-			request.setAttribute("messageEntity", messageEntity);
-			request.getRequestDispatcher("/message/message.jsp").forward(request, response);
-			return;
+		default:
+			sessionRemove(request, response);
+			response.sendRedirect(CONTEXT_PATH + "/dataCenter.jsp");
+			break;
 		}
-		String memberId = (String) session.getAttribute("memberId");
-		MemberBiz biz = new MemberBiz();
-		MemberDto dto = biz.myInfo(memberId);
-		session.setAttribute("dto", dto);
-		response.sendRedirect(CONTEXT_PATH + "/member/memberMyInfo.jsp");
+		
 	}
-
 	/**
-	 * 내 정보 변경 요청
-	 * 
+	 * 기존의 세션을 제거해주는 메서드
 	 * @param request
 	 * @param response
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	protected void myInfoUpdateSave(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void sessionRemove(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		if (session == null || session.getAttribute("memberId") == null) {
-			MessageEntity messageEntity = new MessageEntity("message", 0);
-			messageEntity.setLinkTitle("로그인");
-			messageEntity.setUrl(CONTEXT_PATH + "/mms04/frontController?action=loginForm");
-			request.setAttribute("messageEntity", messageEntity);
-			request.getRequestDispatcher("message.jsp").forward(request, response);
-			return;
-		}
-
-		String memberId = (String) session.getAttribute("memberId");
-		String memberPw = request.getParameter("memberPw");
-		String memberAddr = request.getParameter("memberAddr");
-		String memberEmail = request.getParameter("memberEmail");
-		String memberMobile = request.getParameter("memberMobile");
-		
-
-		MemberBiz biz = new MemberBiz();
-		MessageEntity messageEntity = null;
-		try {
-			biz.updateInfo(new MemberDto(memberId, memberPw, memberAddr, memberEmail, memberMobile));
-			messageEntity = new MessageEntity("success", 2);
-		} catch (CommonException e) {
-			messageEntity = e.getMessageEntity();
-		}
-		System.out.println(memberId + ", " + memberPw + ", " + memberAddr + ", " + memberEmail + ", " + memberMobile);
-		messageEntity.setLinkTitle("메인페이지");
-		messageEntity.setUrl(CONTEXT_PATH + "/welcome.jsp");
-		request.setAttribute("messageEntity", messageEntity);
-		request.getRequestDispatcher("/message/message.jsp").forward(request, response);
+		session.removeAttribute("selectFCount");
+		session.removeAttribute("selectMCount");
+		session.removeAttribute("selectAge");
 	}
-
 	/**
-	 * 회원 정보(아이디,비밀번호 선택해서) 찾는 페이지
-	 * 
+	 * json파일 다운로드 받는 메서드
 	 * @param request
 	 * @param response
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	protected void findForm(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.sendRedirect(CONTEXT_PATH + "/member/memberFind.jsp");
+	protected void jsonDown(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		DataCenterBiz biz = new DataCenterBiz();
+		biz.makeJson();
+	    String savePath = "C:\\student_ucamp33\\workspace_servlet";
+	    String filename = "DataCenter.json" ;
+	    String orgfilename = "DataCenter.json" ;
+	    InputStream in = null;
+	    OutputStream os = null;
+	    File file = null;
+	    boolean skip = false;
+	    String client = "";
+	    try{
+	        try{
+	            file = new File(savePath, filename);
+	            in = new FileInputStream(file);
+	        }catch(FileNotFoundException fe){
+	            skip = true;
+	        }
+	        client = request.getHeader("User-Agent");
+	        response.reset() ;
+	        response.setContentType("application/octet-stream");
+	        response.setHeader("Content-Description", "JSP Generated Data");
+	        if(!skip){
+	            if(client.indexOf("MSIE") != -1){
+	                response.setHeader ("Content-Disposition", "attachment; filename="+new String(orgfilename.getBytes("KSC5601"),"ISO8859_1"));
+	            }else{
+	                orgfilename = new String(orgfilename.getBytes("utf-8"),"iso-8859-1");
+	                response.setHeader("Content-Disposition", "attachment; filename=\"" + orgfilename + "\"");
+	                response.setHeader("Content-Type", "application/octet-stream; charset=utf-8");
+	            } 
+	            response.setHeader ("Content-Length", ""+file.length() );
+	            os = response.getOutputStream();
+	            byte b[] = new byte[(int)file.length()];
+	            int leng = 0;
+	             
+	            while( (leng = in.read(b)) > 0 ){
+	                os.write(b,0,leng);
+	            }
+	        }else{
+	            response.setContentType("text/html;charset=UTF-8");
+	            System.out.println("<script language='javascript'>alert('파일을 찾을 수 없습니다');history.back();</script>");
+	        }
+	        in.close();
+	        os.close();
+	    }catch(Exception e){
+	      e.printStackTrace();
+	    }
+
+
 	}
-
-	
-	/**
-	 * 아이디 찾기 선택
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
-	 */
-	protected void findIdForm(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.sendRedirect(CONTEXT_PATH + "/member/memberFindId.jsp");
-	}
-
-	
-	/**
-	 * 비밀번호 찾기 선택
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
-	 */
-	protected void findPwForm(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.sendRedirect(CONTEXT_PATH + "/member/memberFindPw.jsp");
-	}
-
-	
-	
-	protected void memberIdFind(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String memberBirth = request.getParameter("memberBirth");
-		String memberMobile = request.getParameter("memberMobile");
-
-		if (memberBirth.isEmpty() || memberMobile.isEmpty()) {
-			MessageEntity messageEntity = new MessageEntity("validation", 4);
-			messageEntity.setLinkTitle("아이디 찾기");
-			messageEntity.setUrl(CONTEXT_PATH + "/member/frontController?action=findIdForm");
-			request.setAttribute("messageEntity", messageEntity);
-			request.getRequestDispatcher("/message/message.jsp").forward(request, response);
-			return;
-		}
-
-		MemberBiz biz = new MemberBiz();
-		MemberDto dto = new MemberDto();
-		dto.setMemberBirth(memberBirth);
-		dto.setMemberMobile(memberMobile);
-
-		biz.findId(dto);
-		if (dto.getMemberId() != null) {
-			MessageEntity messageEntity = new MessageEntity("success", 7);
-			messageEntity.setLinkTitle("아이디 찾기 성공 : [" + dto.getMemberId() + "]");
-			messageEntity.setUrl(CONTEXT_PATH + "/member/frontController?action=loginForm");
-			request.setAttribute("messageEntity", messageEntity);
-			request.getRequestDispatcher("/message/message.jsp").forward(request, response);
-			return;
-		} else {
-			MessageEntity messageEntity = new MessageEntity("error", 6);
-			messageEntity.setLinkTitle("다시 아이디 찾기");
-			messageEntity.setUrl(CONTEXT_PATH + "/member/frontController?action=findIdForm");
-			request.setAttribute("messageEntity", messageEntity);
-			request.getRequestDispatcher("/message/message.jsp").forward(request, response);
-			return;
-		}
-	}
-	
-	
-	
-	protected void memberList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		MemberBiz biz = new MemberBiz();
-		ArrayList<MemberDto> list = new ArrayList<MemberDto>();
-		System.out.println(1);
-		try {
-			biz.memberList(list);
-			request.setAttribute("list", list);
-			request.getRequestDispatcher(CONTEXT_PATH + "/member/memberList.jsp").forward(request, response);
-			System.out.println(2);
-		} catch(CommonException e) {
-			MessageEntity messageEntity = new MessageEntity("error", 4);
-			messageEntity.setLinkTitle("메인으로");
-			messageEntity.setUrl(CONTEXT_PATH +"/welcome.jsp");
-			request.setAttribute("messageEntity", messageEntity);
-			request.getRequestDispatcher("message.jsp").forward(request, response);
-		}
-		
-		
-		
-	}
-
 }
