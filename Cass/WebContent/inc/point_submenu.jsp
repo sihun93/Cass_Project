@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/inc/taglib_menu.jsp" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,8 +18,12 @@ list-style-image: url("../img/dogfoot.png");
 	<h3>포인트 상품</h3>
 	<ul>
 	<li><a href="${CONTEXT_PATH}/point/pointController?action=pointMain">상품 보기</a></li>
+	<c:if test="${dto.grade == 'A'}">
 	<li><a href="${CONTEXT_PATH}/point/pointController?action=pointInputForm">상품 등록</a></li>
+	</c:if>
+	<c:if test="${dto.grade != 'A'}">
 	<li><a href="${CONTEXT_PATH}/point/pointController?action=pointBuyList">구매 내역</a></li>
+	</c:if>
 	</ul>
 	</div>
 </body>

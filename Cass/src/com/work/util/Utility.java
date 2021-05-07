@@ -2,6 +2,7 @@ package com.work.util;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
@@ -17,6 +18,24 @@ import java.util.Random;
  */
 public class Utility {
 
+	/**
+	 * 배송예정일
+	 * @author 최아연
+	 * 현재날짜에서 5일후
+	 * @return 현재 기본형식(년도4-월2-일2) 날짜 
+	 */
+	public static String getCurrentDates() {
+		String today = null;
+		Date date = new Date();
+		SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd"); 
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.add(Calendar.DATE, +5);
+		today = sdformat.format(cal.getTime());  
+		return today;
+		
+	}
+	
 	/**
 	 * 현재날짜 반환 
 	 * @return 현재 기본형식(년도4-월2-일2) 날짜 
