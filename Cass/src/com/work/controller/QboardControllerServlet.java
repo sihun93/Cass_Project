@@ -1,6 +1,7 @@
 package com.work.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
@@ -105,11 +106,21 @@ public class QboardControllerServlet extends HttpServlet {
 		String qboardNum = request.getParameter("qboardNum");
 		String aboardContent = request.getParameter("reply");
 		QboardBiz biz = new QboardBiz();
-
-		ArrayList<QboardDto> list = biz.getQboardDetail(qboardNum);
-		ArrayList<AboardDto> list3 = biz.addAboard(qboardNum, aboardContent);
-		ArrayList<AboardDto> list2 = biz.getAboardList(qboardNum);
-		if(list3!= null) {
+		
+		aboardContent = aboardContent.trim();
+		if(aboardContent == null || aboardContent.trim().length() == 0) {
+			PrintWriter out = response.getWriter();
+			response.setContentType("text/html; charset=utf-8");
+			out.println("<script language='javascript'>");
+			out.println("alert('내용을 입력해주세요.')");
+			out.println("window.history.back()");
+			out.println("</script>");
+			out.flush();
+			out.close();
+		}else {
+			ArrayList<QboardDto> list = biz.getQboardDetail(qboardNum);
+			ArrayList<AboardDto> list3 = biz.addAboard(qboardNum, aboardContent);
+			ArrayList<AboardDto> list2 = biz.getAboardList(qboardNum);
 			request.setAttribute("qboardDetail", list);
 			request.setAttribute("aboardList", list2);
 			request.getRequestDispatcher("/qnaBoard/qboardDetail.jsp").forward(request, response);	
@@ -125,16 +136,37 @@ public class QboardControllerServlet extends HttpServlet {
 		String qboardImg = request.getParameter("qboardImg");
 		String memberId="money99";		
 		QboardBiz biz = new QboardBiz();
-		
-		int result=biz.addQboard(qboardTitle, qboardContent, qboardImg, memberId);
-		
-		if(result == 1) {
-			ArrayList<QboardDto> list = biz.getQboardList();
-			request.setAttribute("qboardList", list);
-			request.getRequestDispatcher("/qnaBoard/qboardList.jsp").forward(request, response);
+
+		if(qboardTitle == null || qboardTitle.trim().length() == 0) {
+			PrintWriter out = response.getWriter();
+			response.setContentType("text/html; charset=utf-8");
+			out.println("<script language='javascript'>");
+			out.println("alert('제목을 입력해주세요.')");
+			out.println("window.history.back()");
+			out.println("</script>");
+			out.flush();
+			out.close();
+		}
+		else if(qboardContent == null || qboardContent.trim().length() == 0) {
+			PrintWriter out = response.getWriter();
+			response.setContentType("text/html; charset=utf-8");
+			out.println("<script language='javascript'>");
+			out.println("alert('내용을 입력해주세요.')");
+			out.println("window.history.back()");
+			out.println("</script>");
+			out.flush();
+			out.close();
+		}else {
+			int result=biz.addQboard(qboardTitle, qboardContent, qboardImg, memberId);
+
+			if(result == 1) {
+				ArrayList<QboardDto> list = biz.getQboardList();
+				request.setAttribute("qboardList", list);
+				request.getRequestDispatcher("/qnaBoard/qboardList.jsp").forward(request, response);
+			}
 		}
 	}
-	
+
 	/** Q&A 게시판 게시글 삭제*/
 	protected void deleteQboard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
