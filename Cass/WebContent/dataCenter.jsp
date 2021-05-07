@@ -16,18 +16,15 @@
 <script type="text/javascript" src="js/grape_select.js"></script>
 </head>
 <body>
+<%
+
+%>
 <c:if test="${empty dto.businessId}">
 	<script type="text/javascript">
 		alert("이 페이지는 사업자 회원만 사용 가능 합니다.");
 		window.history.back();
 	</script>
 </c:if>
-<%-- <c:if test="">
-	<script type="text/javascript">
-		alert("이 페이지는 사업자 회원중 메인 서비스를 입력하신 회원들만 사용 가능 합니다.");
-		window.history.back();
-	</script>
-</c:if> --%>
 <div id="wrapper">
 	<jsp:include page="/inc/header_menu.jsp" />
 	<div id="container">

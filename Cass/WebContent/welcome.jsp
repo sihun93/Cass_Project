@@ -17,80 +17,33 @@ $(function () {
         $(".sky").stop().animate({"top":curpos}); 
     });
 });
-
 </script>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <link type="text/css" rel="stylesheet" href="css/welcome.css">
-<style type="text/css">
-
-.sky {
-	font-family:'InkLipquid';
-	font-size:1.9em;
-    position:absolute;
-    width:160px;
-    left:60px;
-    top:180px;
-    height:250px;
-}
-.review{
-	margin-left:500px;
-	font-family:'InkLipquid';
-	font-size:1.5em;
-	font-family:'InkLipquid';
-	font-size:1.8em;
-}
- .table{
-    	margin-top:5%;
-		margin-left:500px;
-		font-family:'InkLipquid';
-		font-size:1.8em;
-    }
-    .info{
- 	animation: fadein 10s;
-    -moz-animation: fadein 10s;
-    -webkit-animation: fadein 10s;
-    -o-animation: fadein 10s;
-	margin-top:60px;
-	margin-left:500px;
-	font-family:'InkLipquid';
-	font-size:5em;
-	}
-	.dropdown{
-	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-	}
-	.review_{
-	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-	}
-	img[src^="img/img"]{
-		width:400px; height:400px;
-	}
-</style>
 </head>
 <body>
 <div id="wrapper">
 	<jsp:include page="/inc/header_menu.jsp" />
-	
-	
    <div id="container">
-  <div class="sky">
-  	<table>
-  		<tr>
-  			<td><a href="#">▲ 위로</a></td>
-  		</tr>
-  		<tr>
-  			<td><a href="#">반려동물 서비스</a></td>
-  		</tr>
-  		<tr>
-  			<td><a href="${CONTEXT_PATH}/cass/qboardController?action=qboardList">Q&A 게시판</a></td>
-  		</tr>
-  		<tr>
-  			<td><a href="#">포인트 샵</a></td>
-  		</tr>
-  		<tr>
-  			<td><a href="#">데이터</a></td>
-  		</tr>
-  	</table>
-  </div>
+	  <div class="sky">
+	  	<table>
+	  		<tr>
+	  			<td><a href="#">▲ 위로</a></td>
+	  		</tr>
+	  		<tr>
+	  			<td><a href="#">반려동물 서비스</a></td>
+	  		</tr>
+	  		<tr>
+	  			<td><a href="${CONTEXT_PATH}/cass/qboardController?action=qboardList">Q&A 게시판</a></td>
+	  		</tr>
+	  		<tr>
+	  			<td><a href="#">포인트 샵</a></td>
+	  		</tr>
+	  		<tr>
+	  			<td><a href="#">데이터</a></td>
+	  		</tr>
+	  	</table>
+	  </div>
   <div class="table">
   <h1>Service</h1>
   <table>
@@ -143,7 +96,7 @@ $(function () {
   <div class="info">
   	 Companion Animal Service Site<br>
   	 반려동물 플랫폼 사이트
-  	 <h6><a href="">+더 알아보기</a></h6>
+  	 <h6><a href="intro.jsp">+더 알아보기</a></h6>
   </div>
    </div>
 
