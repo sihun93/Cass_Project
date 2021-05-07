@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Q&A 게시글 상세조회</title>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <style type="text/css">
 
@@ -30,6 +30,10 @@ td{
 table{
 	border-spacing: 10px;
 	width:800px;
+}
+#qList{
+margin-left:4%;
+margin-top:-1.65%
 }
 
 </style>
@@ -63,7 +67,7 @@ table{
 			${qboardDetail.qboardContent}
 			</td>
 		</tr>
-		<c:if test="${dto.grade eq 'A'}">
+		
 		<tr>
 			<td>답글</td>
 			<td><form action="${CONTEXT_PATH}/cass/qboardController?action=addAboard&qboardNum=${qboardDetail.qboardNum}" method="post">
@@ -71,7 +75,7 @@ table{
 				<input type="submit" value="등록" id="btn">
 			</form></td>
 		</tr>
-		</c:if>
+
 		<c:forEach var="aboardList" items="${aboardList}">
 		<tr>
 			<td>관리자 답글</td>
@@ -82,7 +86,7 @@ table{
 	<form action="${CONTEXT_PATH}/cass/qboardController?action=updateQboard&qboardNum=${qboardDetail.qboardNum}" method="post">
 	<input type="submit" value="수정" id="btn"/>
 	</form>
-	<form action="${CONTEXT_PATH}/cass/qboardController?action=qboardList" method="post">
+	<form action="${CONTEXT_PATH}/cass/qboardController?action=qboardList" method="post" id="qList">
 	<input type="submit" value="글 목록" id="btn"/>
 	</form>	
 	</div>

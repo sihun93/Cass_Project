@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Q&A 게시글 등록</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-analytics.js"></script>
@@ -24,8 +24,8 @@ ul, li {
 }
 
 #mainWrapper {
-	width: 1300px;
-	margin-left:28%
+	width: 600px;
+	margin: 0 auto;
 }
 
 #mainWrapper>ul>li:first-child {
@@ -49,6 +49,7 @@ ul, li {
 	padding: 0px auto;
 	position: relative;
 	min-width: 40px;
+	border-bottom: 1px solid silver;
 }
 
 #ulTable>li>ul>li {
@@ -88,7 +89,7 @@ ul, li {
 						<ul>
 							<li>제목</li>
 							<li>
-								<textarea rows="1" cols="60" name="qboardTitle" id="qboardTitle"></textarea>
+								<textarea rows="1" cols="60" name="qboardTitle" id="qboardTitle" ></textarea>
 							</li>							
 						</ul>
 					</li>
@@ -100,17 +101,18 @@ ul, li {
 					</li>
 					<li>
 						<ul>
-							<li>이미지 등록</li>
+							<li>이미지</li>
 							<li><input type="file" name="qboardImg" id="qboardImg"></li>					
 						</ul>
 					</li>
 					
 						<li>
 						<ul>
-							<li>게시글 등록</li>
+							<li>게시글</li>
 							<li>
-							<input type="button" value="등록" id="btn"/>
-							<input type="reset" value="취소" id="btn"/>
+							<input type="submit" value="등록" id="btn"/>
+							<input type="reset" onclick="location.href='${CONTEXT_PATH}/cass/qboardController?action=qboardList'" value="취소" id="btn"/>
+
 							</li>					
 						</ul>
 					</li>

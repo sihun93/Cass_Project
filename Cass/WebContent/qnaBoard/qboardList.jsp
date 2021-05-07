@@ -3,11 +3,12 @@
 <%@ include file="/inc/taglib_menu.jsp" %> 
 <%@ page import="java.util.ArrayList" %> 
 <%@ page import="com.work.model.dto.QboardDto" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Q&A 게시판</title>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <style type="text/css">
 body {
@@ -122,15 +123,13 @@ ul, li {
 							<li>제목</li>
 							<li>작성자</li>
 							<li>작성일</li>
-							<c:if test="${dto.grade eq 'A'}">
 							<li>삭제</li>
-							</c:if>
 						</ul>
 					</li>
 					<c:forEach var="qboardList" items="${qboardList}">
 					<li>
 						<ul>
-							<li>${qboardList.qboardNum}</li>
+							<li>${fn:substring(qboardList.qboardNum,2,6)}</li>
 							<li><a href="${CONTEXT_PATH}/cass/qboardController?action=qboardDetail&qboardNum=${qboardList.qboardNum}">${qboardList.qboardTitle}</a></li>
 							<li>${qboardList.memberId}</li>
 							<li>${qboardList.qboardDate}</li>
