@@ -16,6 +16,7 @@ import com.work.model.biz.MainBoardBiz;
 import com.work.model.dto.BusinessMemberDto;
 import com.work.model.dto.MainBoardDto;
 import com.work.model.dto.MainCategoryDto;
+import com.work.model.dto.MasterMemberDto;
 import com.work.model.dto.MemberDto;
 import com.work.model.dto.ReviewDto;
 import com.work.model.dto.SubCategoryDto;
@@ -38,9 +39,6 @@ public class MainboardController extends HttpServlet {
 	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
-//		HttpSession session = request.getSession();
-//		BusinessMemberDto dto = new BusinessMemberDto("marineanimal", "marine", "434-12-25460", "바다동물원", "06288/서울특별시 강남구 삼성로 154 ", "070-5431-0364", "https://marineanimal.com");
-		//session.setAttribute("dto", dto);
 		switch (action) {
 		case "write":
 			write(request, response);
@@ -60,8 +58,14 @@ public class MainboardController extends HttpServlet {
 		case "mainbaordDetail":
 			mainbaordDetail(request, response);
 			break;
+		case "inputreview":
+			inputreview(request, response);
+			break;
+		case "deletereview":
+			deletereview(request, response);
+			break;
 		}
-
+		
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -93,9 +97,9 @@ public class MainboardController extends HttpServlet {
 		int maxPageNum = 1;
 		if(boardcounter != 0) {
 			if(maxPageNum%10 != 0) {
-				maxPageNum = boardcounter/10 + 1;
+				maxPageNum = boardcounter/5 + 1;
 			}else {
-				maxPageNum = boardcounter/10;
+				maxPageNum = boardcounter/5;
 			}
 		}
 		request.setAttribute("mainbaordList", list);
@@ -106,7 +110,13 @@ public class MainboardController extends HttpServlet {
 	/**게시글 작성*/
 	protected void write(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String businessId = (String) session.getAttribute("dto");
+		MasterMemberDto masterDto = (MasterMemberDto)session.getAttribute("dto");
+		String grade = masterDto.getGrade();
+		if(!grade.equals("B")) {
+			response.sendRedirect(CONTEXT_PATH+"/welcome.jsp");
+			return;
+		}
+		String memberId = masterDto.getMemberId();
 		String mcategoryNum = request.getParameter("mcategory");
 		String scategoryNum = request.getParameter("scategory");
 		String mboardTitle = request.getParameter("title");
@@ -117,7 +127,7 @@ public class MainboardController extends HttpServlet {
 				request.getParameter("data4");
 		String mbimg = request.getParameter("mbimg");
 		String mcontent = request.getParameter("mcontent");
-		
+
 		
 		MainBoardDto  dto = new MainBoardDto();
 		bimg = bimg.trim();
@@ -130,7 +140,7 @@ public class MainboardController extends HttpServlet {
 			dto.setMboardContent(mcontent);
 		}
 		
-		dto.setBusinessId(businessId);
+		dto.setBusinessId(memberId);
 		dto.setMcategoryNum(mcategoryNum);
 		dto.setScategoryNum(scategoryNum);
 		dto.setMboardTitle(mboardTitle);
@@ -150,6 +160,13 @@ public class MainboardController extends HttpServlet {
 	
 	/**게시글 작성창*/
 	protected void writeForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		MasterMemberDto masterDto = (MasterMemberDto)session.getAttribute("dto");
+		String grade = masterDto.getGrade();
+		if(!grade.equals("B")) {
+			response.sendRedirect(CONTEXT_PATH+"/welcome.jsp");
+			return;
+		}
 		ArrayList<MainCategoryDto> mainCategorylist = new ArrayList<MainCategoryDto>();
 		ArrayList<SubCategoryDto> subCategorylist = new ArrayList<SubCategoryDto>();
 		
@@ -165,6 +182,14 @@ public class MainboardController extends HttpServlet {
 	
 	/**게시글 수정 페이지*/
 	protected void upDateWriteForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		MasterMemberDto masterDto = (MasterMemberDto)session.getAttribute("dto");
+		String grade = masterDto.getGrade();
+		if(!(grade.equals("B")||grade.equals("A"))) {
+			response.sendRedirect(CONTEXT_PATH+"/welcome.jsp");
+			return;
+		}
+		
 		String mBoardNum = request.getParameter("mBoardNum");
 		ArrayList<MainCategoryDto> mainCategorylist = new ArrayList<MainCategoryDto>();
 		ArrayList<SubCategoryDto> subCategorylist = new ArrayList<SubCategoryDto>();
@@ -186,6 +211,14 @@ public class MainboardController extends HttpServlet {
 	
 	/**게시글 수정*/
 	protected void upDateWrite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		MasterMemberDto masterDto = (MasterMemberDto)session.getAttribute("dto");
+		String grade = masterDto.getGrade();
+		if(!(grade.equals("B")||grade.equals("A"))) {
+			response.sendRedirect(CONTEXT_PATH+"/welcome.jsp");
+			return;
+		}
+		
 		String mboardNum = request.getParameter("mboardNum");
 		String mcategoryNum = request.getParameter("mcategory");
 		String scategoryNum = request.getParameter("scategory");
@@ -263,11 +296,37 @@ public class MainboardController extends HttpServlet {
 			request.getRequestDispatcher("/MainBoard/mainBoardDetail.jsp").forward(request, response);
 		}
 	}
+	
+	/** 게시글 삭제*/
+	protected void deleteMainBoard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String mboardNum = request.getParameter("mboardNum");
+		if(mboardNum!=null) {
+			MainBoardDto dto = new MainBoardDto();
+			dto.setMboardNum(mboardNum);
+			MainBoardBiz biz = new MainBoardBiz();
+			biz.boardDelete(dto);
+			
+			request.setAttribute("action", "mainbaordListform");
+			request.setAttribute("pageNum", "1");
+			request.getRequestDispatcher("/MainBoard/mainboardController").forward(request, response);
+		
+		}
+	}
+	
 	/** 리뷰 등록 */
 	protected void inputreview(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String memberId = ((MemberDto)session.getAttribute("dto")).getMemberId();
+		MasterMemberDto masterDto = (MasterMemberDto)session.getAttribute("dto");
 		String mboardNum = request.getParameter("mboardNum");
+		String grade = masterDto.getGrade();
+		if(grade.equals("B")) {
+			request.setAttribute("action", "mainbaordDetail");
+			request.setAttribute("mBoardNum", mboardNum);
+			request.setAttribute("pageNum", "1");
+			request.getRequestDispatcher("/MainBoard/mainboardController").forward(request, response);
+			return;
+		}
+		String memberId = masterDto.getMemberId();
 		int score = Integer.parseInt(request.getParameter("reviewscore"));
 		String reviewContent = request.getParameter("reviewTextarea");
 		String[] reviewImgArray = request.getParameterValues("reviewimg");
@@ -284,9 +343,84 @@ public class MainboardController extends HttpServlet {
 		MainBoardBiz biz = new MainBoardBiz();
 		biz.inputReview(dto);
 		
+//		request.setAttribute("mBoardNum", mboardNum);
+//		request.setAttribute("pageNum", "1");
+		request.getRequestDispatcher("/MainBoard/mainboardController?action=mainbaordListform&pageNum=1").forward(request, response);
+	}
+	
+	/** 리뷰 수정 */
+	protected void updatereview(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		MasterMemberDto masterDto = (MasterMemberDto)session.getAttribute("dto");
+		String mboardNum = request.getParameter("mboardNum");
+		String grade = masterDto.getGrade();
+		if(grade.equals("B")) {
+			request.setAttribute("action", "mainbaordDetail");
+			request.setAttribute("mBoardNum", mboardNum);
+			request.setAttribute("pageNum", "1");
+			request.getRequestDispatcher("/MainBoard/mainboardController").forward(request, response);
+			return;
+		}
+		if(!masterDto.getMemberId().equals(request.getAttribute("memberId"))) {
+			request.setAttribute("action", "mainbaordDetail");
+			request.setAttribute("mBoardNum", mboardNum);
+			request.setAttribute("pageNum", "1");
+			request.getRequestDispatcher("/MainBoard/mainboardController").forward(request, response);
+			return;
+		}
+		int reviewNum = Integer.parseInt(request.getParameter("reviewNum"));
+		String memberId = masterDto.getMemberId();
+		ReviewDto dto = new ReviewDto();
+		dto.setMboardNum(mboardNum);
+		dto.setMemberId(memberId);
+		dto.setReviewNum(reviewNum);
+		
+		MainBoardBiz biz = new MainBoardBiz();
+		biz.updatereview(dto);
+		
 		request.setAttribute("action", "mainbaordDetail");
 		request.setAttribute("mBoardNum", mboardNum);
 		request.setAttribute("pageNum", "1");
 		request.getRequestDispatcher("/MainBoard/mainboardController").forward(request, response);
+	}
+	
+	/** 리뷰 삭제 */
+	protected void deletereview(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		MasterMemberDto masterDto = (MasterMemberDto)session.getAttribute("dto");
+		String mboardNum = request.getParameter("mboardNum");
+		System.out.println(mboardNum);
+		String grade = masterDto.getGrade();
+		String memberId = request.getParameter("memberId");
+		System.out.println(memberId);
+		if(grade.equals("B")) {
+//			request.setAttribute("action", "mainbaordDetail");
+//			request.setAttribute("mBoardNum", mboardNum);
+//			request.setAttribute("pageNum", "1");
+			request.getRequestDispatcher("/MainBoard/mainboardController?action=mainbaordListform&pageNum=1").forward(request, response);
+			return;
+		}
+		if(!memberId.equals(masterDto.getMemberId())) {
+//			request.setAttribute("action", "mainbaordDetail");
+//			request.setAttribute("mBoardNum", mboardNum);
+//			request.setAttribute("pageNum", "1");
+			request.getRequestDispatcher("/MainBoard/mainboardController?action=mainbaordListform&pageNum=1").forward(request, response);
+			return;
+		}
+		int reviewNum = Integer.parseInt(request.getParameter("reviewNum"));
+		ReviewDto dto = new ReviewDto();
+		dto.setMboardNum(mboardNum);
+		dto.setMemberId(memberId);
+		dto.setReviewNum(reviewNum);
+		
+		MainBoardBiz biz = new MainBoardBiz();
+		biz.deletereview(dto);
+		
+//		request.setAttribute("action", "mainbaordDetail");
+//		request.setAttribute("mBoardNum", mboardNum);
+//		request.setAttribute("pageNum", "1");
+//		request.getRequestDispatcher("/MainBoard/mainboardController").forward(request, response);
+		request.getRequestDispatcher("/MainBoard/mainboardController?action=mainbaordListform&pageNum=1").forward(request, response);
+		
 	}
 }

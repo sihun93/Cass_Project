@@ -85,7 +85,12 @@ textarea {
 </style>
 </head>
 <body>
-
+<c:if test="${dto.grade eq 'G'}">
+	<script type="text/javascript">
+		alert("이 페이지는 일반회원은 이용할수 없습니다.");
+		window.history.back();
+	</script>
+</c:if>
 	<div id="wrapper">
 		<jsp:include page="/inc/header_menu.jsp" />
 

@@ -100,7 +100,12 @@ textarea {
 </style>
 </head>
 <body>
-
+<c:if test="${dto.grade eq 'G' or dto.grade eq 'A'}">
+	<script type="text/javascript">
+		alert("이 페이지는 사업자 회원만 이용할수 있습니다.");
+		window.history.back();
+	</script>
+</c:if>
 	<div id="wrapper">
 		<jsp:include page="/inc/header_menu.jsp" />
 
@@ -126,7 +131,7 @@ textarea {
 				</table>
 			</div>
 
-			<input type="hidden" value="${dto.businessId }" id="loginId">
+			<input type="hidden" value="${dto.memberId }" id="loginId">
 
 			<form
 				action="${CONTEXT_PATH}/MainBoard/mainboardController?action=write "
