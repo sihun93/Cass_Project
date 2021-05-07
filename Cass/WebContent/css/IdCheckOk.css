@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+*{
+	text-decoration: none;
+}
+
+body{
+	background-color: blanchedalmond;
+}
+
+b{
+	color: blue;
+}
+
+strong{
+	color: blue;
+}
+
+.ne{
+	color: red;
+}
+
+.bt{
+	
+	margin: 10px;
+}
+
+.bt:hover {
+	color: red;
+}

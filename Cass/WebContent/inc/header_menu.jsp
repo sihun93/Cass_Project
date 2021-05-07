@@ -18,14 +18,17 @@
    		</c:if>
 	</div>
 	<div id="login_menu">
-		<c:choose>
-			<c:when test="${!empty dto}">
-   				<a href="${CONTEXT_PATH}/member/frontController?action=logout">로그아웃</a><span class="seperator">|</span>
-			</c:when>
-			<c:when test="${empty dto}">
-   				<a href="${CONTEXT_PATH}/cassLogin.jsp">로그인</a><span class="seperator">|</span>
-			</c:when>
-		</c:choose>
+	<c:choose>
+         <c:when test="${!empty dto }">
+         <a href="${CONTEXT_PATH}/member/frontController?action=logout">로그아웃</a><span class="seperator">|</span>
+               <a href="${CONTEXT_PATH}/member/frontController?action=myInfoForm">내정보조회</a><span class="seperator">|</span>
+         </c:when>
+         <c:when test="${empty dto}">
+         	<a href="${CONTEXT_PATH}/cassLogin.jsp">로그인</a><span class="seperator">|</span>
+               <a href="${CONTEXT_PATH}/cassInput.jsp">회원가입</a><span class="seperator">|</span>
+               <a href="${CONTEXT_PATH }/cassFind.jsp">회원정보찾기</a>    
+         </c:when>
+      </c:choose>
    		<a href="${CONTEXT_PATH}/member/frontController?action=myInfoForm">내정보조회</a><span class="seperator">|</span>
    		<c:if test="${dto.grade eq 'A' }">
    		<div class="dropdown">회원관리 ▼
@@ -34,7 +37,6 @@
    		<a href="${CONTEXT_PATH }/member/frontController?action=memberList">회원전체조회</a>
    		<a href="${CONTEXT_PATH }/business/frontController?action=businessList">사업자회원전체조회</a>
    		<a href="${CONTEXT_PATH }/member/frontController?action=pointModifyForm">회원포인트수정</a>
-   		<a href="${CONTEXT_PATH }/cassFind.jsp">회원정보찾기</a> 	
    		</div>
    		</div>
    		</div>

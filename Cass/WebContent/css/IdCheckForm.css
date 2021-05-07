@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+
+body{
+	background-color: blanchedalmond;	
+}
+.bt:hover{
+	background-color: black;
+	color: white;
+}
+
+.bt:active {
+	background-color: black;
+	color: red;
+}
+
+.idbox:focus{
+	background-color: black;
+	color: white; 
+}

@@ -1,45 +1,6 @@
 @charset "UTF-8";
 
-@
-keyframes fadein {
-	from {opacity: 0.1;
-}
 
-to {
-	opacity: 1;
-}
-
-}
-@
--moz-keyframes fadein {
-	from {opacity: 0.1;
-}
-
-to {
-	opacity: 1;
-}
-
-}
-@
--webkit-keyframes fadein {
-	from {opacity: 0.1;
-}
-
-to {
-	opacity: 1;
-}
-
-}
-@
--o-keyframes fadein {
-	from {opacity: 0.1;
-}
-
-to {
-	opacity: 1;
-}
-
-}
 @font-face {
 	font-family: 'InkLipquid';
 	font-weight: normal;
@@ -86,40 +47,7 @@ ul, li {
 	animation-delay: 8s
 }
 
-@
-keyframes fade { 0% {
-	opacity: 0;
-}
 
-5
-%
-{
-opacity
-:
-1;
-}
-25
-%
-{
-opacity
-:
-1;
-}
-30
-%
-{
-opacity
-:
-0;
-}
-100
-%
-{
-opacity
-:
-0;
-}
-}
 img[src^="img/img"] {
 	width: 1400px;
 	height: 300px;
