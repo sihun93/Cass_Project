@@ -220,6 +220,7 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 			System.out.println("businessPw : [" + businessPw + "]");
 			biz.bsLogin(bdto);
 			if(bdto.getBusinessNum() != null) {
+				System.out.println(CONTEXT_PATH);
 				HttpSession session = request.getSession();
 				session.setAttribute("bdto", bdto);
 				System.out.println("로그인성공");
