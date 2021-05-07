@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="com.work.model.dto.BusinessMemberDto"%>
+<%@page import="com.work.model.dto.MessageEntity"%>
 <%@ include file="/inc/taglib_menu.jsp" %>      
 <!DOCTYPE html>
 <html>
@@ -8,6 +10,7 @@
 <title>사업자 내 정보 조회 페이지</title>
 <script type="text/javascript" src="/Cass/js/business_input.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<link type="text/css" rel="stylesheet" href="../css/management.css">
 
 <script>
 function postcode(){
@@ -19,26 +22,51 @@ function postcode(){
 		    }
 		}).open();	
 }
+
+function businessDelete(businessId){
+
+	if(confirm("정말 탈퇴하시겠습니까?")){
+		document.businessDeleteForm.businessId.value = businessId;
+		document.businessDeleteForm.submit();
+	}
+}
 </script>
+<% 
+	String businessAddr = ((BusinessMemberDto)session.getAttribute("bdto")).getBusinessAddr();
+	String[] addrSplit = new String[3];
+	String[] bsp = businessAddr.split("/");
+	if(bsp.length == 2){
+		addrSplit[0] = bsp[0];
+		addrSplit[1] = bsp[1];
+		addrSplit[2] = "없음";
+	}else{
+		addrSplit = bsp;
+	}
+%>
 </head>
 <body>
-<h3>사업자 회원 정보입니다</h3>
+<a href="${CONTEXT_PATH }/welcome.jsp">[Cass Main]</a>
 <hr>
-
-<form action="" method="post">
-	<table>
-	
+<form name="businessDeleteForm" id="businessDeleteForm" action="${CONTEXT_PATH}/business/frontController?action=businessDelete" method="post">
+<input type="hidden" name="businessId" value="">
+<input type="hidden" name="gubun" value="info">
+</form>
+<form action="${CONTEXT_PATH}/business/frontController?action=businessInfoUpdate" method="post">
+	<table border="1">
+	<tr>
+		<th colspan="2" id="title">Cass 사업자 회원 정보입니다</th>
+	</tr>
 	<tr>
 		<td>아이디 </td>
 		<td>
-		<input type="text" name="businessId" id="businessId" value="" autofocus="autofocus" readonly="readonly" >
+		<input type="text" name="businessId" id="businessId" value="${bdto.businessId }" autofocus="autofocus" readonly="readonly" >
 		</td>
 	</tr>
 	
 	<tr>
 		<td>비밀번호 </td>
 		<td>
-		<input type="password" name="businessPw" id="businessPw" value="" required="required" placeholder="비밀번호를 입력해주세요">
+		<input type="password" name="businessPw" id="businessPw" value="${bdto.businessPw }" required="required" placeholder="비밀번호를 입력해주세요">
 		<span id="businessPwMessage"></span>
 		</td>
 	</tr>
@@ -46,7 +74,7 @@ function postcode(){
 	<tr>
 		<td>비밀번호 확인</td>
 		<td>
-		<input type="password" name="businessPw2" id="businessPw2" value="" required="required" placeholder="비밀번호 재확인입니다" onblur="bsPwCheck()">
+		<input type="password" name="businessPw2" id="businessPw2" value="${bdto.businessPw }" required="required" placeholder="비밀번호 재확인입니다" onblur="bsPwCheck()">
 		<input type="checkbox" name="businessPwShow" id="businessPwShow" onclick="showBusinessPw()">비밀번호 보이기
 		<div id="businessPwConfirmMessage"></div>
 		</td>
@@ -55,14 +83,14 @@ function postcode(){
 	<tr>
 		<td>사업자번호</td>
 		<td>
-			<input type="text" pattern="\d{3}-\d{2}-\d{5}" value="" name="businessNum" id="businessNum" readonly="readonly">
+			<input type="text" pattern="\d{3}-\d{2}-\d{5}" value="${bdto.businessNum }" name="businessNum" id="businessNum" readonly="readonly">
 		</td>
 	</tr>
 	
 	<tr>
 		<td>상호명</td>
 		<td>
-			<input type="text" name="businessTitle" id="businessTitle" value="" required="required" placeholder="상호명을 입력해주세요.">		
+			<input type="text" name="businessTitle" id="businessTitle" value="${bdto.businessTitle }" required="required" placeholder="상호명을 입력해주세요.">		
 		</td>
 	</tr>
 	
@@ -70,7 +98,7 @@ function postcode(){
 	<tr>
 		<td>우편번호 </td>
 		<td>
-		<input type="text" naem="addrCode" size="7" id="addrCode" value="" readonly="readonly">
+		<input type="text" name="addrCode" size="7" id="addrCode" value="<%=addrSplit[0]%>" readonly="readonly">
 		<input type="button" value="우편번호찾기" onclick="postcode()">
 		</td>
 	</tr>
@@ -78,31 +106,36 @@ function postcode(){
 	<tr>
 		<td>사업자 주소 </td>
 		<td>
-		<input type="text" name="businessAddr1" id="businessAddr1" value="" size="70" readonly="readonly" placeholder="도로명주소" >
-		<input type="text" name="businessAddr2" id="businessAddr2" value="" size="70" placeholder="상세주소를 입력해주세요">
+		<input type="text" name="businessAddr1" id="businessAddr1" value="<%=addrSplit[1]%>" size="70" readonly="readonly" placeholder="도로명주소" >
+		<input type="text" name="businessAddr2" id="businessAddr2" value="<%=addrSplit[2]%>" size="70" placeholder="상세주소를 입력해주세요">
 		</td>
 	</tr>
 	
 	<tr>
 		<td>휴대번호 </td>
 		<td>
-			<input type="text" pattern="\d{3}-\d{4}-\d{4}" value="" name="businessPhone" id="businessPhone" required="required" placeholder="ex)010-1111-1111">
+			<input type="text" pattern="\d{3}-\d{4}-\d{4}" value="${bdto.businessPhone }" name="businessPhone" id="businessPhone" required="required" placeholder="ex)010-1111-1111">
 		</td>
 	</tr>
 
 			<tr>
 				<td>사업자 홈페이지 </td>
 				<td>
-					<input type="text" size="70" value="" name="businessHomepage" id="businessHomepage" required="required" placeholder="홈페이지 메인 주소를 입력해주세요">
+					<input type="text" size="70" value="${bdto.businessHomepage }" name="businessHomepage" id="businessHomepage" required="required" placeholder="홈페이지 메인 주소를 입력해주세요">
 				</td>
 			</tr>
 			<tr>
 			<th colspan="2">
-			<input type="submit" value="사업자등록">
-			<input type="reset" value="등록취소">
+			<input type="submit" value="정보 수정">
+			<input type="reset" value="취소">
 			</th>
 		</tr>
 	</table>
 </form>
+<table border="1">
+<tr>
+	<th><button onclick="javascript:businessDelete('${bdto.businessId}');">회원탈퇴</button></th>
+</tr>
+</table>
 </body>
 </html>

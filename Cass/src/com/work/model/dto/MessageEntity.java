@@ -26,16 +26,20 @@ public class MessageEntity {
 		error.add("[리뷰글 등록 오류]");			// 10
 		error.add("[Q&A 게시글 등록 오류]");			// 11
 		error.add("[전체회원 조회 오류]");			// 12
-		error.add("[아이디 찾기 오류 - 찾으려는 아이디의 정보를 정확히 입력하세요]");
-		error.add("[비밀번호 찾기 오류 - 찾으려는 비밀번호의 정보를 정확히 입력하세요]");
-		
+		error.add("[아이디 찾기 오류 - 찾으려는 아이디의 정보를 정확히 입력하세요]");	//13
+		error.add("[비밀번호 찾기 오류 - 찾으려는 비밀번호의 정보를 정확히 입력하세요]"); //14
+		error.add("[회원삭제 오류]"); //15
+		error.add("[포인트 수정 오류]"); //16
 		
 		ArrayList<String> validation = new ArrayList<String>();
 		validation.add("[아이디 정보 오류]");		// 0
 		validation.add("[비밀번호 정보 오류]");		// 1
 		validation.add("[주소 정보 오류]");		// 2
 		validation.add("[사업자 코드 정보 오류]");		// 3
-		validation.add("[아이디 찾기 오류 - 생년월일 또는 휴대번호를 잘못 입력하셨습니다.]");		// 4
+		validation.add("[회원 아이디 찾기 오류 - 생년월일 또는 휴대번호를 잘못 입력하셨습니다.]");		// 4
+		validation.add("[회원 비밀번호 찾기 오류 - 아이디 또는 휴대번호를 잘못 입력하셨습니다.]");		// 5
+		validation.add("[사업자 회원 아이디 찾기 오류 - 사업자번호 또는 휴대번호를 잘못 입력하셨습니다.]");		// 6
+		validation.add("[사업자 회원 비밀번호 찾기 오류 - 아이디 또는 휴대번호를 잘못 입력하셨습니다.]");		// 7
 		
 		ArrayList<String> success = new ArrayList<String>();
 		success.add("[회원 등록 성공]");	// 0
@@ -45,8 +49,10 @@ public class MessageEntity {
 		success.add("[로그아웃 성공]");		// 4
 		success.add("[리뷰 작성 성공]");		// 5
 		success.add("[Q&A 작성 성공]");		// 6
-		success.add("[아이디 찾기 성공]");		
-		success.add("[비밀번호 찾기 성공]");	
+		success.add("[아이디 찾기 성공]");		// 7
+		success.add("[비밀번호 찾기 성공]");	 // 8
+		success.add("[포인트 수정 성공]"); // 9
+		
 		
 		ArrayList<String> message = new ArrayList<String>();
 		message.add("[이 페이지는 로그인이 필요합니다.]");

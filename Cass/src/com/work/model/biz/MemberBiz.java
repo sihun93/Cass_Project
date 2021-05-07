@@ -57,14 +57,17 @@ public class MemberBiz {
 	 * 내 정보 조회 biz
 	 * 
 	 */
-	public MemberDto myInfo(String memberId) {
-		return dao.myInfo(memberId);
+	public void myInfo(MemberDto dto) throws CommonException {
+		Connection con = JdbcTemplate.getConnection();
+		try {
+			dao.myInfo(con, dto);
+		}catch(CommonException e){
+			throw e;
+		}finally {
+			JdbcTemplate.close(con);
+		}
 	}
-	/*
-	 * public void myInfo(MemberDto dto) throws CommonException{ Connection con =
-	 * JdbcTemplate.getConnection(); try { dao.myInfo(con, dto);
-	 * }catch(CommonException e) { throw e; }finally { JdbcTemplate.close(con); } }
-	 */
+	
 	
 	
 	/**
@@ -95,8 +98,9 @@ public class MemberBiz {
 	 * @param memberMobile
 	 * @return
 	 */	
-	public void findId(MemberDto dto) {
-		dao.findIdMember(dto);
+	public String findId(String memberBirth, String memberMobile) {
+		String memberId = dao.findIdMember(memberBirth, memberMobile);
+		return memberId;
 	}
 	
 	
@@ -117,7 +121,7 @@ public class MemberBiz {
 		if(result == 1) {
 			return memberPw;
 		}
-		return memberPw;
+		return null;
 	}
 	
 	
@@ -141,14 +145,53 @@ public class MemberBiz {
 	}
 	
 	/**
-	 * 회원 탈퇴 biz
+	 * 사업자회원삭제
 	 * @param memberId
 	 * @return
 	 */
 	public int deleteMember(String memberId) {
-		dao.deleteBoard(memberId);
 		return dao.deleteMember(memberId);
 	}
 	
+	
+	/**
+	 * 구매후 포인트 변경 (아연)
+	 * @param memberId
+	 * @param memberPoint
+	 */
+	public void updatepoint(String memberId, int memberPoint) {
+		Connection con = JdbcTemplate.getConnection();
+		
+		try {
+			dao.updatepoint(con, memberId, memberPoint);
+			JdbcTemplate.commit(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+			JdbcTemplate.rollback(con);
+			throw e;
+		}finally {
+			JdbcTemplate.close(con);
+		}
+		
+	}
+
+
+
+	/**
+	 * 회원 포인트 가져오기
+	 * @param memberId
+	 * @return
+	 */
+	public MemberDto getPoint(String memberId) {
+		return dao.selectPoint(memberId);
+	}
+	
+	/**
+	 * 포인트 변경
+	 * @param dto
+	 */
+	public void pointModify(MemberDto dto) throws Exception {
+		dao.pointModify(dto);
+	}
 	
 }

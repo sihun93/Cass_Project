@@ -1,0 +1,34 @@
+@charset "UTF-8";
+*{
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	width: 100%;
+	height: 100%;
+	background-color: #F4F3EF;
+}
+
+table{
+	margin: auto;
+	margin-top: 200px;
+}
+
+tr{
+	padding: 10px;
+}
+
+a{
+	text-decoration: none;
+}
+
+.msg th{
+	font-size: x-large;
+}
+
+input:hover, input:focus {
+	background-color: black;
+	color:white;
+}
+
