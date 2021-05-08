@@ -8,13 +8,31 @@
 <meta charset="UTF-8">
 <title>응답결과 페이지</title>
 <link type="text/css" rel="stylesheet" href="../css/management.css">
+<style>
+@font-face{
+	font-family:'InkLipquid';
+	font-weight:normal;
+	font-style:normal;
+	font-color:white;
+    src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff')format('woff');
+    }
+.msgTitle{
+	font-family:'InkLipquid';
+}
+</style>
 </head>
 <body>
-
-<table border="1" class="msg">
-<tr><th>응답처리결과</th></tr>
-<tr><th>${requestScope.messageEntity.message}</th></tr>
-<tr><th><a href="${messageEntity.url}">${messageEntity.linkTitle}</a></th></tr>
-</table>
+<div id="wrapper">
+      <jsp:include page="/inc/header_menu2.jsp" />
+</div>
+<div id="findDiv" align="center">
+<div class="msgTitle"><a href="${CONTEXT_PATH}/welcome.jsp">Cass Error Message</a></div><br>
+<h4 class="msgTitle">응답처리결과</h4>
+<h4 class="msgTitle">${requestScope.messageEntity.message}</h4>
+<input type="button" class="input" onclick="location.href='${messageEntity.url}'" value="${messageEntity.linkTitle}">
+</div>
+<div id="wrapper">
+	<jsp:include page="/inc/footer_menu.jsp"/>
+</div> 
 </body>
 </html>

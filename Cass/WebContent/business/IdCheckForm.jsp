@@ -22,8 +22,8 @@
 	function blankCheck(f){
 		var memberId=f.memberId.value;
 		memberId=memberId.trim();
-		if(memberId.length<4){
-			alert("아이디는 최소 4자 이상 입력해주십시오.");
+		if(memberId.length<6){
+			alert("아이디는 최소 6자 이상 입력해주십시오.");
 			return false;
 		}
 		return true;
