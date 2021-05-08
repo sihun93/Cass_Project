@@ -29,7 +29,7 @@ public class QboardDao {
 	 */
 	public ArrayList<QboardDto> getQboardList() {
 		ArrayList<QboardDto> list = new ArrayList<QboardDto>();
-		String sql = "select * from Q_board order by qboard_num desc";
+		String sql = "select * from q_board ORDER BY to_number(REGEXP_REPLACE(qboard_num, '[^0-9]+')) DESC";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -223,7 +223,7 @@ public class QboardDao {
 	 */
 	public ArrayList<QboardDto> getQboardByA(String txtKeyWord) {
 		ArrayList<QboardDto> list = new ArrayList<QboardDto>();
-		String sql = "select * from Q_board where qboard_title like ? or qboard_content like ?";
+		String sql = "select * from Q_board where qboard_title like ? or qboard_content like ? ORDER BY to_number(REGEXP_REPLACE(qboard_num, '[^0-9]+')) DESC";
 		String Keyword = "%" + txtKeyWord + "%";
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -262,7 +262,7 @@ public class QboardDao {
 	 */
 	public ArrayList<QboardDto> getQboardByT(String txtKeyWord) {
 		ArrayList<QboardDto> list = new ArrayList<QboardDto>();
-		String sql = "select * from Q_board where qboard_title like ?";
+		String sql = "select * from Q_board where qboard_title like ? ORDER BY to_number(REGEXP_REPLACE(qboard_num, '[^0-9]+')) DESC";
 		String Keyword = "%" + txtKeyWord + "%";
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -300,7 +300,7 @@ public class QboardDao {
 	 */
 	public ArrayList<QboardDto> getQboardByC(String txtKeyWord) {
 		ArrayList<QboardDto> list = new ArrayList<QboardDto>();
-		String sql = "select * from Q_board where qboard_content like ?";
+		String sql = "select * from Q_board where qboard_content like ? ORDER BY to_number(REGEXP_REPLACE(qboard_num, '[^0-9]+')) DESC";
 		String Keyword = "%" + txtKeyWord + "%";
 		Connection conn = null;
 		PreparedStatement stmt = null;

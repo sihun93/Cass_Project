@@ -21,53 +21,6 @@ $(function () {
 </script>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/welcome.css">
-<style type="text/css">
-
-.sky {
-	font-family:'InkLipquid';
-	font-size:1.9em;
-    position:absolute;
-    width:160px;
-    left:60px;
-    top:180px;
-    height:250px;
-}
-.review{
-	margin-left:500px;
-	font-family:'InkLipquid';
-	font-size:1.5em;
-	font-family:'InkLipquid';
-	font-size:1.8em;
-}
- .table{
-    	margin-top:5%;
-		margin-left:500px;
-		font-family:'InkLipquid';
-		font-size:1.8em;
-    }
-    .info{
- 	animation: fadein 10s;
-    -moz-animation: fadein 10s;
-    -webkit-animation: fadein 10s;
-    -o-animation: fadein 10s;
-	margin-top:60px;
-	margin-left:500px;
-	font-family:'InkLipquid';
-	font-size:4em;
-	}
-	.dropdown{
-	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-	}
-	.review_{
-	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-	}
-	img[src*="img/service"]{
-		width:200px; height:200px;
-	}
-	table{
-	border-spacing: 20px;
-	}
-</style>
 </head>
 <body>
 
