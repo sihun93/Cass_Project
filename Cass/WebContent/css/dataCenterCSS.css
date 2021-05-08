@@ -9,10 +9,12 @@ input[type=submit] {
 	border: none;
 	border-radius: 4px;
 	cursor: pointer;
+	border-radius: 20px;
 }
 
 input[type=submit]:hover {
 	background-color: #D1DAE9;
+	border-radius: 20px;
 }
 
 select {
@@ -23,6 +25,7 @@ select {
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	box-sizing: border-box;
+	border-radius: 20px;
 }
 
 #sexPiChart {
@@ -59,4 +62,5 @@ select {
 	margin-top: 68%;
 	margin-left: 24%;
 	position: absolute;
+	
 }
