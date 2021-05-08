@@ -1,4 +1,9 @@
 @charset "UTF-8";
+
+a:link { color: black; text-decoration: none;}
+a:visited { color: black; text-decoration: none;}
+a:hover { color: black; text-decoration: none;}
+
 /** 관리자 회원 포인트 수정 (아이디만 입력) */
 .point_update_div {
 	margin: 50px auto;

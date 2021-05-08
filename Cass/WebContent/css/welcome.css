@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+a:link { color: black; text-decoration: none;}
+ a:visited { color: black; text-decoration: none;}
+ a:hover { color: black; text-decoration: none;}
+
+
 @font-face{
 	font-family:'InkLipquid';
 	font-weight:normal;
