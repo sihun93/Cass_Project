@@ -5,31 +5,45 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 로그인 페이지</title>
-<link type="text/css" rel="stylesheet" href="../css/management.css">
+<link type="text/css" rel="stylesheet" href="../css/login.css">
+<style type="text/css">
+#memberId, #memberPw{
+	padding: 10px 10px 10px 20px;
+	width: 20%;
+	margin-top: 1%;
+	border-radius: 20px;
+}
+#loginDiv{
+	margin-top: 1%;
+}
+#login{
+padding: 10px 10px 10px 20px;
+	width: 22%;
+	border-radius: 20px;
+}
+h1{
+	font-family:'InkLipquid';
+	font-weight:normal;
+	font-style:normal;
+	font-color:white;
+	font-size: 3em;
+    src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff')format('woff');}
+</style>
 </head>
 <body>
+<center>
 <form action="${CONTEXT_PATH}/member/frontController?action=login" method="post">
-<table border="1">
-	<tr>
-		<th colspan="2" id="title">Cass 일반 회원 로그인</th>
-	</tr>
-	<tr>
-		<td>아이디 : </td>
-		<td><input type="text" name="memberId" id="memberId" required="required" placeholder="아이디를 입력하세요."></td>
-	</tr>
-	<tr>
-		<td>비밀번호 : </td>
-		<td><input type="password" name="memberPw" id="memberPw" required="required" placeholder="비밀번호를 입력하세요."></td>
-	</tr>
-	<tr>
-		<th colspan="2" >
-		<input type="submit" value="로그인" name="login">
-		<input type="reset" value="초기화">
-		</th>
-	</tr>
-</table>
+	<div style="margin-top: 10%;">
+		<a href="${CONTEXT_PATH}/welcome.jsp"><h1>Cass 일반 회원 로그인</h1></a><br>
+		<input type="text" name="memberId" id="memberId" required="required" placeholder="아이디"><br>
+		<input type="password" name="memberPw" id="memberPw" required="required" placeholder="비밀번호">
+		<br>
+		<div id="loginDiv">
+			<input id="login" type="submit" value="로그인" name="login"><br>
+		</div>
+	</div>
 </form>
+</center>
 
-<a href="${CONTEXT_PATH}/welcome.jsp">[Cass Main]</a>
 </body>
 </html>

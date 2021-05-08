@@ -5,38 +5,46 @@
 <head>
 <meta charset="UTF-8">
 <title>사업자 전용 로그인 페이지</title>
-<link type="text/css" rel="stylesheet" href="../css/management.css">
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
-.bTitle{
-	font-family: 'Lobster', cursive;
+<link type="text/css" rel="stylesheet" href="../css/login.css">
+<style type="text/css">
+#memberId, #businessPw{
+	padding: 10px 10px 10px 20px;
+	width: 20%;
+	margin-top: 1%;
+	border-radius: 20px;
 }
+#loginDiv{
+	margin-top: 1%;
+}
+#login{
+padding: 10px 10px 10px 20px;
+	width: 22%;
+	border-radius: 20px;
+}
+h1{
+	font-family:'InkLipquid';
+	font-weight:normal;
+	font-style:normal;
+	font-color:white;
+	font-size: 3em;
+    src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff')format('woff');}
 </style>
+
 </head>
 <body>
 <div id="wrapper">
-      <jsp:include page="/inc/header_menu.jsp" />
-<div class="bTitle"><h1>CASS</h1></div>    
+<center>
 <form action="${CONTEXT_PATH}/business/frontController?action=bsLogin" method="post">
-		<table border="1">
-			<tr>
-				<th colspan="2" id="title">Cass 사업자 회원 로그인</th>
-			</tr>
-			<tr>
-				<th>아이디 </th>
-				<td><input type="text" name="memberId" id="memberId"
-					required="required" placeholder="아이디를 입력하세요."></td>
-			</tr>
-			<tr>
-				<th>비밀번호 :</th>
-				<td><input type="password" name="businessPw" id="businessPw"
-					required="required" placeholder="비밀번호를 입력하세요."></td>
-			</tr>
-			<tr>
-				<th colspan="2"><input type="submit" value="로그인" name="login" class="formbt">
-			</tr>
-		</table>
-	</form>
+	<div style="margin-top: 10%;">
+		<a href="${CONTEXT_PATH}/welcome.jsp"><h1>Cass 사업자 회원 로그인</h1></a><br>
+		<input type="text" name="memberId" id="memberId" required="required" placeholder="아이디"><br>
+		<input type="password" name="businessPw" id="businessPw" required="required" placeholder="비밀번호"><br>
+		<div id="loginDiv">
+			<input type="submit" value="로그인" name="login" id="login">
+		</div>
+	</div>
+</form>
+</center>
 	<jsp:include page="/inc/footer_menu.jsp"/>
 </div> 
 </body>
