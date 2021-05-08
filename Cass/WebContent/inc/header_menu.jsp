@@ -36,9 +36,9 @@
 			</c:when>
 		</c:choose>
    		<c:if test="${dto.grade eq 'A' }">
-   		<div class="dropdown">회원관리 ▼
+   		<div class="dropdownss">회원관리 ▼
    		<div class="drop">
-  		<div class="dropdown-content">
+  		<div class="dropdownss-content">
    		<a href="${CONTEXT_PATH }/member/frontController?action=memberList">회원전체조회</a>
    		<a href="${CONTEXT_PATH }/business/frontController?action=businessList">사업자회원전체조회</a>
    		<a href="${CONTEXT_PATH }/member/frontController?action=pointModifyForm">회원포인트수정</a>

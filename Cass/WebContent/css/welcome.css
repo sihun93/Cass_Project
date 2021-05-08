@@ -1,48 +1,11 @@
 @charset "UTF-8";
 
-@keyframes fadein {
-    from {opacity:0.1;}
-    to {opacity:1;}
-	}
-	@-moz-keyframes fadein {
- 	from{opacity:0.1;}
-    to {opacity:1;}
-	}
-	@-webkit-keyframes fadein {
-    from{opacity:0.1;}
-    to{opacity:1;}
-	}
-	@-o-keyframes fadein {
-    from {opacity:0.1;}
-    to {opacity: 1;}
-	}
-	@font-face{
+@font-face{
 	font-family:'InkLipquid';
 	font-weight:normal;
 	font-style:normal;
 	font-color:white;
     src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff')format('woff');
-    }
-     ul,li{list-style:none;}
-    .slide ul{position:relative;}
-    .slide li{
-    	position:absolute; 
-    	margin-top:0px;
-    	margin-left:200px;
-    	opacity:0;
-    	animation:fade 10s infinite;
-    	}
-    .slide li:nth-child(1){animation-delay:0s}
-    .slide li:nth-child(2){animation-delay:2s}
-    .slide li:nth-child(3){animation-delay:4s}
-    .slide li:nth-child(4){animation-delay:6s}
-    .slide li:nth-child(5){animation-delay:8s}
-    @keyframes fade {
-      0% {opacity:0;}
-      5% {opacity:1;}
-      25% {opacity:1;}
-      30% {opacity:0;}
-      100% {opacity:0;}
     }
 img[src^="img/img"] {
 	width: 1400px;
@@ -55,11 +18,12 @@ img[src^="img/service"] {
 }
 
 .dropdown {
+	font-family:'InkLipquid';
 	position: relative;
 }
 
 .dropdown-content {
-	font-family: 'InkLipquid';
+	font-family:'InkLipquid';
 	font-size: 1em;
 	display: none;
 	position: absolute;
@@ -70,6 +34,7 @@ img[src^="img/service"] {
 }
 
 .dropdown-content a {
+	font-family:'InkLipquid';
 	color: black;
 	padding: 12px 16px;
 	text-decoration: none;
@@ -90,7 +55,7 @@ img[src^="img/service"] {
 }
 
 .sky {
-	font-family: 'InkLipquid';
+	font-family:'InkLipquid';
 	font-size: 1.9em;
 	position: absolute;
 	width: 160px;
@@ -100,21 +65,20 @@ img[src^="img/service"] {
 }
 
 .review {
+	font-family:'InkLipquid';
 	margin-left: 500px;
-	font-family: 'InkLipquid';
-	font-size: 1.5em;
-	font-family: 'InkLipquid';
 	font-size: 1.8em;
 }
 
 .table {
+	font-family:'InkLipquid';
 	margin-top: 5%;
 	margin-left: 500px;
-	font-family: 'InkLipquid';
 	font-size: 1.8em;
 }
 
 .info {
+	font-family:'InkLipquid';
 	animation: fadein 10s;
 	-moz-animation: fadein 10s;
 	-webkit-animation: fadein 10s;
@@ -139,3 +103,47 @@ img[src^="img/img"] {
 	width: 400px;
 	height: 400px;
 }
+.dropdownss {
+	position: relative;
+}
+
+.dropdownss-content {
+	font-family: 'InkLipquid';
+	font-size: 1em;
+	display: none;
+	position: absolute;
+	background-color: #f1f1f1;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdownss-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	z-index: 1;
+}
+
+.dropdownss-content a:hover {
+	background-color: #ddd;
+}
+
+.dropdownss:hover .dropdownss-content {
+	display: block;
+}
+
+.dropdownss:hover .drop {
+	background-color: #3e8e41;
+}
+
+.dropdownss {
+	box-shadow: none;
+}
+table{
+	border-spacing: 20px;
+	}
+img[src*="img/service"]{
+		width:200px; height:200px;
+	}

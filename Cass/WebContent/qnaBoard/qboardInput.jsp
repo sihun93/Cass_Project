@@ -10,70 +10,8 @@
 <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-analytics.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-storage.js"></script>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
-<style type="text/css">
-body {
-	line-height: 2em;
-	font-family: "맑은 고딕";
-}
-
-ul, li {
-	list-style: none;
-	text-align: center;
-	padding: 0;
-	margin: 0;
-}
-
-#mainWrapper {
-	width: 600px;
-	margin: 0 auto;
-}
-
-#mainWrapper>ul>li:first-child {
-	text-align: center;
-	font-size: 14pt;
-	height: 40px;
-	vertical-align: middle;
-	line-height: 30px;
-}
-
-#ulTable {
-	margin-top: 10px;
-}
-
-#ulTable>li:first-child>ul>li {
-	text-align: center;
-}
-
-#ulTable>li>ul {
-	clear: both;
-	padding: 0px auto;
-	position: relative;
-	min-width: 40px;
-	border-bottom: 1px solid silver;
-}
-
-#ulTable>li>ul>li {
-	float: left;
-	font-size: 10pt;
-}
-
-#ulTable>li>ul>li:first-child {
-	width: 10%;
-}
-#ulTable>li>ul>li:first-child+li {
-	width: 45%;
-}
-#ulTable>li>ul>li:first-child+li+li {
-	width: 20%;
-} 
-#ulTable>li>ul>li:first-child+li+li+li {
-	width: 20%;
-} 
-#btn{
-	background-color:rgba(0, 0, 0, 0);
-	border:1px solid;
-}
-</style>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/qboard.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/welcome.css">
 </head>
 <body>
 <div id="wrapper">

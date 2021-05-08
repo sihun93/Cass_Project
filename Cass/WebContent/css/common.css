@@ -28,6 +28,7 @@ html,body {
 	}
 #main_menu{
 	display:flex;
+	font-family: 'InkLipquid';
 	font-size:1.2em;
 	padding-top:33px;
 	padding-left:15%;
@@ -69,6 +70,7 @@ a:active{
 	}
 #login_menu{
 	padding:8px 15px;
+	font-family: 'InkLipquid';
 	font-size: 1.2em;
 	float:right;
 	margin-top:-35px; 
