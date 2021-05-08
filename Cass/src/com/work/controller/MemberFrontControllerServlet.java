@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.work.model.biz.DeleteMemberBiz;
 import com.work.model.biz.MemberBiz;
 import com.work.model.dao.CommonException;
 import com.work.model.dto.MemberDto;
@@ -182,6 +183,9 @@ public class MemberFrontControllerServlet extends HttpServlet {
 			System.out.println("memberPw : [" + memberPw + "]");
 			biz.login(dto);
 			if (dto.getGrade() != null) {
+				if(dto.getGrade().equals("A")) {
+					biz.timeBreaker();
+				}
 				HttpSession session = request.getSession(true);
 				session.setAttribute("dto", dto);
 				MessageEntity messageEntity = new MessageEntity("success", 1);
@@ -695,7 +699,10 @@ public class MemberFrontControllerServlet extends HttpServlet {
 			String memberId = request.getParameter("memberId");
 			
 			memberId = memberId.trim();
-			
+			MemberDto dto = new MemberDto();
+			dto.setMemberId(memberId);
+			DeleteMemberBiz deleteMemberBiz = new DeleteMemberBiz();
+			deleteMemberBiz.memberDelete(dto);
 			MemberBiz biz = new MemberBiz();
 			int rowCnt = biz.deleteMember(memberId);
 			if(rowCnt > 0) {

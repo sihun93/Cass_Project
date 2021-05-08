@@ -5,9 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.work.model.dto.MainBoardDto;
 import com.work.model.dto.MainCategoryDto;
+import com.work.model.dto.MasterMemberDto;
 import com.work.model.dto.ReviewDto;
 import com.work.model.dto.SubCategoryDto;
 
@@ -109,28 +111,51 @@ public class MainBoardDao {
 	 * @param firstnum
 	 * @throws SQLException
 	 */
-	public void getBoardList(Connection conn, ArrayList<MainBoardDto> list, int firstnum, int lastnum)
+	public void getBoardList(Connection conn, HashMap<Integer, ArrayList<MainBoardDto>> boardAllList)
 			throws SQLException {
-		String sql = "SELECT * FROM (SELECT * FROM mainboard order by mboard_score, REGEXP_REPLACE(mboard_num,'[^0-9]+') ) where ROWNUM BETWEEN ? and ?";
+		String sql = "SELECT * FROM (SELECT * FROM mainboard order by mboard_score, to_number(REGEXP_REPLACE(mboard_num,'[^0-9]+')) )";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		MainBoardDto dto = null;
+		ArrayList<MainBoardDto> list = new ArrayList<MainBoardDto>();
 		try {
 			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, firstnum);
-			stmt.setInt(2, lastnum);
 			rs = stmt.executeQuery();
+			int count = 0;
+			int key = 1;
 			while (rs.next()) {
-				dto = new MainBoardDto();
-				dto.setMboardNum(rs.getString("mboard_Num"));
-				dto.setBusinessId(rs.getString("business_Id"));
-				dto.setMcategoryNum(rs.getString("mcategory_Num"));
-				dto.setScategoryNum(rs.getString("scategory_Num"));
-				dto.setMboardTitle(rs.getString("mboard_Title"));
-				dto.setMboardImg(rs.getString("mboard_Img"));
-				dto.setMboardInfo(rs.getString("mboard_Info"));
-				dto.setMboardScore(rs.getInt("mboard_Score"));
-				list.add(dto);
+				if (count < 5) {
+					dto = new MainBoardDto();
+					dto.setMboardNum(rs.getString("mboard_Num"));
+					dto.setBusinessId(rs.getString("business_Id"));
+					dto.setMcategoryNum(rs.getString("mcategory_Num"));
+					dto.setScategoryNum(rs.getString("scategory_Num"));
+					dto.setMboardTitle(rs.getString("mboard_Title"));
+					dto.setMboardImg(rs.getString("mboard_Img"));
+					dto.setMboardInfo(rs.getString("mboard_Info"));
+					dto.setMboardScore(rs.getInt("mboard_Score"));
+					list.add(dto);
+					count += 1;
+				} else {
+					boardAllList.put(key, list);
+					key += 1;
+					count = 0;
+					list = new ArrayList<MainBoardDto>();
+					dto = new MainBoardDto();
+					dto.setMboardNum(rs.getString("mboard_Num"));
+					dto.setBusinessId(rs.getString("business_Id"));
+					dto.setMcategoryNum(rs.getString("mcategory_Num"));
+					dto.setScategoryNum(rs.getString("scategory_Num"));
+					dto.setMboardTitle(rs.getString("mboard_Title"));
+					dto.setMboardImg(rs.getString("mboard_Img"));
+					dto.setMboardInfo(rs.getString("mboard_Info"));
+					dto.setMboardScore(rs.getInt("mboard_Score"));
+					list.add(dto);
+					count += 1;
+				}
+			}
+			if (list.size() != 0) {
+				boardAllList.put(key, list);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -140,30 +165,52 @@ public class MainBoardDao {
 			JdbcTemplate.close(stmt);
 		}
 	}
-	
-	public void getBoardListForMc(Connection conn, ArrayList<MainBoardDto> list, int firstnum, int lastnum,
+	/** 메인 카테고리 게시글 */
+	public void getBoardListForMc(Connection conn, HashMap<Integer, ArrayList<MainBoardDto>> boardAllList,
 			String mcategoryNum) throws SQLException {
-		String sql = "SELECT * FROM (SELECT * FROM mainboard where mcategory_Num = ?  order by mboard_score, REGEXP_REPLACE(mboard_num,'[^0-9]+') ) where ROWNUM BETWEEN ? and ?";
+		String sql = "SELECT * FROM (SELECT * FROM mainboard where mcategory_Num = ?  order by mboard_score,to_number(REGEXP_REPLACE(mboard_num,'[^0-9]+')) )";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		MainBoardDto dto = null;
+		ArrayList<MainBoardDto> list = new ArrayList<MainBoardDto>();
 		try {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, mcategoryNum);
-			stmt.setInt(2, firstnum);
-			stmt.setInt(3, lastnum);
-			rs = stmt.executeQuery();
+			int count = 0;
+			int key = 1;
 			while (rs.next()) {
-				dto = new MainBoardDto();
-				dto.setMboardNum(rs.getString("mboard_Num"));
-				dto.setBusinessId(rs.getString("business_Id"));
-				dto.setMcategoryNum(rs.getString("mcategory_Num"));
-				dto.setScategoryNum(rs.getString("scategory_Num"));
-				dto.setMboardTitle(rs.getString("mboard_Title"));
-				dto.setMboardImg(rs.getString("mboard_Img"));
-				dto.setMboardInfo(rs.getString("mboard_Info"));
-				dto.setMboardScore(rs.getInt("mboard_Score"));
-				list.add(dto);
+				if (count < 5) {
+					dto = new MainBoardDto();
+					dto.setMboardNum(rs.getString("mboard_Num"));
+					dto.setBusinessId(rs.getString("business_Id"));
+					dto.setMcategoryNum(rs.getString("mcategory_Num"));
+					dto.setScategoryNum(rs.getString("scategory_Num"));
+					dto.setMboardTitle(rs.getString("mboard_Title"));
+					dto.setMboardImg(rs.getString("mboard_Img"));
+					dto.setMboardInfo(rs.getString("mboard_Info"));
+					dto.setMboardScore(rs.getInt("mboard_Score"));
+					list.add(dto);
+					count += 1;
+				} else {
+					boardAllList.put(key, list);
+					key += 1;
+					count = 0;
+					list = new ArrayList<MainBoardDto>();
+					dto = new MainBoardDto();
+					dto.setMboardNum(rs.getString("mboard_Num"));
+					dto.setBusinessId(rs.getString("business_Id"));
+					dto.setMcategoryNum(rs.getString("mcategory_Num"));
+					dto.setScategoryNum(rs.getString("scategory_Num"));
+					dto.setMboardTitle(rs.getString("mboard_Title"));
+					dto.setMboardImg(rs.getString("mboard_Img"));
+					dto.setMboardInfo(rs.getString("mboard_Info"));
+					dto.setMboardScore(rs.getInt("mboard_Score"));
+					list.add(dto);
+					count += 1;
+				}
+			}
+			if (list.size() != 0) {
+				boardAllList.put(key, list);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -173,30 +220,52 @@ public class MainBoardDao {
 			JdbcTemplate.close(stmt);
 		}
 	}
-
-	public void getBoardListForSc(Connection conn, ArrayList<MainBoardDto> list, int firstnum, int lastnum,
+	/** 서브 카테고리 게시글 */
+	public void getBoardListForSc(Connection conn, HashMap<Integer, ArrayList<MainBoardDto>> boardAllList,
 			String scategoryNum) throws SQLException {
-		String sql = "SELECT * FROM (SELECT * FROM mainboard where scategory_Num = ?  order by mboard_score, REGEXP_REPLACE(mboard_num,'[^0-9]+') ) where ROWNUM BETWEEN ? and ?";
+		String sql = "SELECT * FROM (SELECT * FROM mainboard where scategory_Num = ?  order by mboard_score, to_number(REGEXP_REPLACE(mboard_num,'[^0-9]+')) )";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		MainBoardDto dto = null;
+		ArrayList<MainBoardDto> list = new ArrayList<MainBoardDto>();
 		try {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, scategoryNum);
-			stmt.setInt(2, firstnum);
-			stmt.setInt(3, lastnum);
-			rs = stmt.executeQuery();
+			int count = 0;
+			int key = 1;
 			while (rs.next()) {
-				dto = new MainBoardDto();
-				dto.setMboardNum(rs.getString("mboard_Num"));
-				dto.setBusinessId(rs.getString("business_Id"));
-				dto.setMcategoryNum(rs.getString("mcategory_Num"));
-				dto.setScategoryNum(rs.getString("scategory_Num"));
-				dto.setMboardTitle(rs.getString("mboard_Title"));
-				dto.setMboardImg(rs.getString("mboard_Img"));
-				dto.setMboardInfo(rs.getString("mboard_Info"));
-				dto.setMboardScore(rs.getInt("mboard_Score"));
-				list.add(dto);
+				if (count < 5) {
+					dto = new MainBoardDto();
+					dto.setMboardNum(rs.getString("mboard_Num"));
+					dto.setBusinessId(rs.getString("business_Id"));
+					dto.setMcategoryNum(rs.getString("mcategory_Num"));
+					dto.setScategoryNum(rs.getString("scategory_Num"));
+					dto.setMboardTitle(rs.getString("mboard_Title"));
+					dto.setMboardImg(rs.getString("mboard_Img"));
+					dto.setMboardInfo(rs.getString("mboard_Info"));
+					dto.setMboardScore(rs.getInt("mboard_Score"));
+					list.add(dto);
+					count += 1;
+				} else {
+					boardAllList.put(key, list);
+					key += 1;
+					count = 0;
+					list = new ArrayList<MainBoardDto>();
+					dto = new MainBoardDto();
+					dto.setMboardNum(rs.getString("mboard_Num"));
+					dto.setBusinessId(rs.getString("business_Id"));
+					dto.setMcategoryNum(rs.getString("mcategory_Num"));
+					dto.setScategoryNum(rs.getString("scategory_Num"));
+					dto.setMboardTitle(rs.getString("mboard_Title"));
+					dto.setMboardImg(rs.getString("mboard_Img"));
+					dto.setMboardInfo(rs.getString("mboard_Info"));
+					dto.setMboardScore(rs.getInt("mboard_Score"));
+					list.add(dto);
+					count += 1;
+				}
+			}
+			if (list.size() != 0) {
+				boardAllList.put(key, list);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -212,23 +281,77 @@ public class MainBoardDao {
 	 * 
 	 * @throws SQLException
 	 */
-	public void boardcount(Connection conn, int counter) throws SQLException {
-		String sql = "select COUNT(*) as C from mainboard";
+	public int boardcount() {
+		String sql = "select COUNT(*)  from mainboard";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
+		Connection conn = JdbcTemplate.getConnection();
+		int counter = 0;
 		try {
+			conn= JdbcTemplate.getConnection();
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			if (rs.next()) {
-				counter = rs.getInt("C");
+				counter = rs.getInt(1);
+				return counter;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw e;
 		} finally {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(stmt);
+			JdbcTemplate.close(conn);
 		}
+		return 0;
+	}
+	public int boardcountMc(String mcategoryNum) {
+		String sql = "select COUNT(*)  from mainboard whwere mcategory_Num = ?";
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Connection conn = JdbcTemplate.getConnection();
+		int counter = 0;
+		try {
+			conn= JdbcTemplate.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, mcategoryNum);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				counter = rs.getInt(1);
+				return counter;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+			JdbcTemplate.close(conn);
+		}
+		return 0;
+	}
+
+	public int boardcountSc(String scategoryNum) {
+		String sql = "select COUNT(*)  from mainboard whwere scategory_Num = ?";
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Connection conn = JdbcTemplate.getConnection();
+		int counter = 0;
+		try {
+			conn= JdbcTemplate.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, scategoryNum);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				counter = rs.getInt(1);
+				return counter;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+			JdbcTemplate.close(conn);
+		}
+		return 0;
 	}
 
 	/** 게시글 삭제 
@@ -245,6 +368,21 @@ public class MainBoardDao {
 			if(row != 1) {
 				throw new Exception();
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			JdbcTemplate.close(stmt);
+		}
+	}
+	/** 해당 게시글 리뷰 전체 삭제  */
+	public void deletereview(Connection conn, MainBoardDto dto) throws Exception {
+		String sql = "DELETE review WHERE mboard_Num =?";
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, dto.getMboardNum());
+			stmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -344,29 +482,50 @@ public class MainBoardDao {
 	 * @param firstnum
 	 * @throws SQLException
 	 */
-	public void getReviewList(Connection conn, ArrayList<ReviewDto> list, String mboardNum, int firstnum, int lastnum)
+	public void getReviewList(Connection conn, HashMap<Integer, ArrayList<ReviewDto>> reviewAllList, String mboardNum)
 			throws SQLException {
-		String sql = "select * from review where mboard_num = ? and ROWNUM BETWEEN ? and ? order by review_Date desc";
+		String sql = "select * from review where mboard_num = ? order by review_Num desc";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		ReviewDto dto = null;
+		ArrayList<ReviewDto> list = new ArrayList<ReviewDto>();
 		try {
-
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, mboardNum);
-			stmt.setInt(2, firstnum);
-			stmt.setInt(3, lastnum);
 			rs = stmt.executeQuery();
-			if (rs.next()) {
-				dto = new ReviewDto();
-				dto.setReviewNum(rs.getInt("review_Num"));
-				dto.setMboardNum(rs.getString("mboard_Num"));
-				dto.setMemberId(rs.getString("member_Id"));
-				dto.setScore(rs.getInt("review_score"));
-				dto.setReviewContent(rs.getString("review_Content"));
-				dto.setReviewImg(rs.getString("review_Img"));
-				dto.setReviewDate(rs.getString("review_Date"));
-				list.add(dto);
+			int count = 0;
+			int key = 1;
+			while(rs.next()) {
+				if(count <10) {
+					dto = new ReviewDto();
+					dto.setReviewNum(rs.getInt("review_Num"));
+					dto.setMboardNum(rs.getString("mboard_Num"));
+					dto.setMemberId(rs.getString("member_Id"));
+					dto.setScore(rs.getInt("review_score"));
+					dto.setReviewContent(rs.getString("review_Content"));
+					dto.setReviewImg(rs.getString("review_Img"));
+					dto.setReviewDate(rs.getString("review_Date"));
+					list.add(dto);
+					count +=1;
+				}else {
+					reviewAllList.put(key, list);
+					key += 1;
+					count = 0;
+					list = new ArrayList<ReviewDto>();
+					dto = new ReviewDto();
+					dto.setReviewNum(rs.getInt("review_Num"));
+					dto.setMboardNum(rs.getString("mboard_Num"));
+					dto.setMemberId(rs.getString("member_Id"));
+					dto.setScore(rs.getInt("review_score"));
+					dto.setReviewContent(rs.getString("review_Content"));
+					dto.setReviewImg(rs.getString("review_Img"));
+					dto.setReviewDate(rs.getString("review_Date"));
+					list.add(dto);
+					count +=1;
+				}
+			}
+			if(list.size() != 0) {
+				reviewAllList.put(key, list);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -376,28 +535,32 @@ public class MainBoardDao {
 			JdbcTemplate.close(stmt);
 		}
 	}
-
-	public void reviewcount(Connection conn, int reviewcounter, String mboardNum) throws SQLException {
-		String sql = "select COUNT(*) as C from review where mboard_num = ?";
+	/** 게시글 리뷰 수 */
+	public int reviewcount(String mboardNum) {
+		String sql = "select COUNT(*) from review where mboard_num = ?";
+		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
+		int reviewcounter =0;
 		try {
+			conn= JdbcTemplate.getConnection();
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, mboardNum);
 			rs = stmt.executeQuery();
 			if (rs.next()) {
-				reviewcounter = rs.getInt("C");
+				reviewcounter = rs.getInt(1);
+				return reviewcounter;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw e;
 		} finally {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(stmt);
+			JdbcTemplate.close(conn);
 		}
-
+		return 0;
 	}
-
+	/** 리뷰 등록 */
 	public void inputReview(Connection conn, ReviewDto dto) throws Exception {
 		String sql = "insert into review values(seq_review.nextval,?,?,?,?,?,sysdate)";
 		PreparedStatement stmt = null;
@@ -420,7 +583,7 @@ public class MainBoardDao {
 			JdbcTemplate.close(stmt);
 		}
 	}
-
+	/** 리뷰 삭제 */
 	public void deletereview(Connection conn, ReviewDto dto) throws Exception {
 		String sql = "DELETE review WHERE mboard_Num =? and Member_Id =? and Review_Num = ?";
 		PreparedStatement stmt = null;
@@ -441,6 +604,101 @@ public class MainBoardDao {
 			JdbcTemplate.close(stmt);
 		}
 	}
+	
+	/** 리뷰 수정 */
+	public void updatereview(Connection conn, ReviewDto dto) throws Exception {
+		String sql = "UPDATE review set REVIEW_CONTENT = ? ,REVIEW_DATE = sysdate WHERE Review_Num = ?";
+		PreparedStatement stmt = null;
+		int row = 0;
+		try {
+			stmt = conn.prepareStatement(sql);
+			
+			stmt.setString(1, dto.getReviewContent());
+			stmt.setInt(2, dto.getReviewNum());
+			row = stmt.executeUpdate();
+			if (row != 1) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			JdbcTemplate.close(stmt);
+		}
+	}
+
+	public boolean checkreview(String memberId, String mboardNum) {
+		String sql = "select * from review where mboard_num = ? member_Id = ?";
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn = JdbcTemplate.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, mboardNum);
+			stmt.setString(2, memberId);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+			JdbcTemplate.close(conn);
+		}
+		return false;
+	}
+
+	public String getTime(MasterMemberDto dto, String columndate) {
+		String sql = "select to_char("+columndate
+				+ ",'HH24-MI-SS') from DATACENTER where member_Id = ?";
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn = JdbcTemplate.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, dto.getMemberId());
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				return rs.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+			JdbcTemplate.close(conn);
+		}
+		return null;
+	}
+
+	public void setdata(MasterMemberDto dto, String columncount) {
+		String sql = "UPDATE DATACENTER set "+columncount+" = ("+columncount+"+1) WHERE member_id = ?";
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		int row = 0;
+		try {
+			conn = JdbcTemplate.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, dto.getMemberId());
+			row = stmt.executeUpdate();
+			if (row != 1) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(stmt);
+			JdbcTemplate.close(conn);
+		}
+		
+	}
+
+
+
 
 
 

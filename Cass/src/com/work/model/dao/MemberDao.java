@@ -419,4 +419,64 @@ public class MemberDao {
 			JdbcTemplate.close(conn);
 		}	
 	}
+
+	public void addData(Connection con, MemberDto dto) throws Exception  {
+		String sql = "insert into DATACENTER  VALUES(?,0, sysdate, 0, sysdate, 0, sysdate, 0, sysdate, 'n')";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getMemberId());
+			pstmt.executeUpdate();
+			JdbcTemplate.commit(con);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			JdbcTemplate.close(pstmt);
+		}
+		
+	}
+
+	public void timeT() {
+		String sql = "UPDATE DATACENTER set CHECK_MONTH = 't'";
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		int row = 0;
+		try {
+			conn = JdbcTemplate.getConnection();
+			stmt = conn.prepareStatement(sql);
+			row = stmt.executeUpdate();
+			if (row != 0) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(stmt);
+			JdbcTemplate.close(conn);
+		}
+		
+	}
+
+	public void timeN() {
+		String sql = "UPDATE DATACENTER set CHECK_MONTH = 'n',category1_count =0,category2_count = 0,"
+				+ "category3_count =0,category4_count =0 where CHECK_MONTH = 't'";
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		int row = 0;
+		try {
+			conn = JdbcTemplate.getConnection();
+			stmt = conn.prepareStatement(sql);
+			row = stmt.executeUpdate();
+			if (row != 0) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(stmt);
+			JdbcTemplate.close(conn);
+		}
+	}
 }

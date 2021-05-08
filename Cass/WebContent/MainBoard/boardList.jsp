@@ -88,16 +88,22 @@ table#contable{
 <td rowspan="2">
 <img style="width: 175px; height: 175px" src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainboard%2F${mainbaord.businessId}%2F${mainbaord.mboardImg }?alt=media">
 </td>
-<td>제목</td>
+<td>제목:${mainbaord.mboardTitle }</td>
 <td align="right">${mainbaord.mboardScore }점</td>
 </tr>
 
 <tr>
-<td colspan="2" rowspan="2"><textarea  style="resize: none; width:500px; height:160px;">${mainbaord.mboardInfo }</textarea></td>
+<td colspan="2" width="500px"; height="160px";>
+<c:set var="keywordArr" value="${fn:split(mainbaord.mboardInfo,'\\\\')}"/>
+회사이름:${keywordArr[0]}<br>
+회사주소:${keywordArr[1] }<br>
+전화번호:${keywordArr[2] }<br>
+홈페이지:${keywordArr[3] }
+</td>
 </tr>
 
 <tr>
-<td>화사명</td>
+
 </tr>
 </table>
 </form>

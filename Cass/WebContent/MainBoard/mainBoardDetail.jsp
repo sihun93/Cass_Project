@@ -13,7 +13,33 @@
 <script>
 function starcilck(star) {
 	var a = star;
-	$("#reviewscore").val(a.value)
+	$("#reviewscore").val(a.value);
+}
+function updatereview(formId){
+	var id = "#"+formId+"-1-1";
+	$(id).submit();
+	
+}
+function updatereviewform(formId) {
+	var id = "#"+formId+"-1";
+	$("#"+formId).css('display','none');
+	$(id).css('display','');
+}
+function updatecancel(formId) {
+	var id = "#"+formId+"-1";
+	$("#"+formId).css('display','');
+	$(id).css('display','none');
+}
+function resize(imgThis){
+	var seletImg = imgThis;
+	var img=new Image();
+	img.src=seletImg.src;
+	var img_width=img.width;
+	var win_width=img.width+25;
+	var img_height=img.height;
+	var win=img.height+30;
+	var OpenWindow=window.open('','_blank', 'width='+img_width+', height='+img_height+', menubars=no, scrollbars=auto');
+	OpenWindow.document.write("<style>body{margin:0px;}</style><img src='"+seletImg.src+"' width='"+win_width+"'>");
 }
 </script>
 <link type="text/css" rel="stylesheet"href="${pageContext.request.contextPath}/css/common.css">
@@ -46,7 +72,7 @@ table#contable{
 	text-align: center;
 }
 
-table.retable {
+.retable {
 	width: 50%;
 	margin-left: auto;
 	margin-right: auto;
@@ -83,8 +109,8 @@ table.retable {
 				</table>
 			</div>
 			
-<input type="hidden" name="loginId" value="${dto.memberId }">
-<input type="hidden" name="writeId" value="${detaildto.businessId }"> 
+<input type="hidden" name="loginId" id="loginId" value="${dto.memberId }">
+<input type="hidden" name="writeId" id="writeId" value="${detaildto.businessId }"> 
 <table 	id="detailtable" class="retable">
 <!-- 회사 정보 -->
 <tr>
@@ -124,6 +150,10 @@ src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainb
 </tr>
 
 </table>
+<c:if test="${(dto.grade eq 'A') or (dto.grade eq 'B' and dto.memberId eq detaildto.memberId)}">
+<input type="button" value="게시글 삭제" onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=deleteMainBoard&mboardNum=${detaildto.mboardNum}'">
+</c:if>
+
 <br>
 <!-- 리뷰 입력창 -->
 <form id="inputreviewform" method="post" action="${CONTEXT_PATH}/MainBoard/mainboardController?action=inputreview">
@@ -199,9 +229,9 @@ src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainb
 <br>
 
 <!-- 리뷰 출력 창 -->
-<table class="retable">
 <c:if test="${!empty ReviewList and fn:length(ReviewList) !=0 }">
-<c:forEach items="${ReviewList }" var="review">
+<c:forEach items="${ReviewList }" var="review" varStatus="state">
+<table class="retable"  id="${state.index}">
 <tr style="padding: 0">
 
 <td align="left">
@@ -214,7 +244,7 @@ src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainb
 <c:choose>
 <c:when test="${review.memberId eq dto.memberId }">
 <input  type="button" value="수정" 
-onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=updatereview&mboardNum=${review.mboardNum}&reviewNum=${review.reviewNum}&memberId=${review.memberId}'"><br><br>
+onclick="updatereviewform('${state.index}')"><br><br>
 <input  type="button" value="삭제" 
 onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=deletereview&mboardNum=${review.mboardNum}&memberId=${review.memberId}&reviewNum=${review.reviewNum}'">
 </c:when>
@@ -223,23 +253,40 @@ onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=del
 <input  type="button" value="삭제" disabled="disabled">
 </c:otherwise>
 </c:choose>
-
-
 </td>
-
 </tr>
 
 <tr>
 <td colspan="2" width="77%" height="80px">
 ${review.reviewContent}<br>
 <c:forEach items="${fn:split(review.reviewImg,'\\\\') }" var="imgName">
-<img width="75px" height="75px" src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainboard%2F${detaildto.businessId}%2F${review.memberId }%2F${imgName }?alt=media">
+<img width="75px" height="75px" onclick="resize(this)";
+src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainboard%2F${detaildto.businessId}%2F${review.memberId }%2F${imgName }?alt=media">
 </c:forEach>
 </td>
 </tr>
+</table>
+
+<form action="${CONTEXT_PATH}/MainBoard/mainboardController?action=updatereview" method="post" id="${state.index}-1-1">
+<input type="hidden" value="${detaildto.mboardNum }" name="mboardNum">
+<input type="hidden" value="${review.memberId}" name="memberId"> 
+<table class="retable"  id="${state.index}-1" style="display: none;">
+<tr style="padding: 0">
+<td colspan="2" width="75%" height="90%" style="text-align: left; padding-top: 1px padding-bottom: 1px">
+<textarea id="reviewTextarea" name="reviewTextarea" style="resize: none; width: 99%; height: 75px">
+${review.reviewContent}
+</textarea>
+</td>
+<td align="center" width="10%">
+<input type="button" value="저장" onclick="updatereview(${state.index})"><br>
+<input type="button" value="취소" onclick="updatecancel(${state.index})"><br>
+</td>
+</tr>
+</table>
+</form>
 </c:forEach>
 </c:if>
-</table>
+
 <!-- 페이지 번호 -->
 <table class="retable">
 <tr>
@@ -249,11 +296,11 @@ ${review.reviewContent}<br>
 	int max = (Integer)request.getAttribute("maxReviewPageNum");
 	for(int i = 1 ; i <= max;i++){
 %>
-	<a href="${CONTEXT_PATH}/MainBoard/mainboardController?action=mainbaordDetail&mBoardNum=${detaildto.mboardNum }&pageNum=<%= i%>"><%= i%></a>
+	<a href="${CONTEXT_PATH}/MainBoard/mainboardController?action=mainbaordDetail&mBoardNum=${detaildto.mboardNum }&pageNum=<%= i%>" ><%= i%> |</a>
 <%
 	}
 %>
-|&gt;
+&gt;
 </th>
 </tr>
 </table>
@@ -286,10 +333,6 @@ ${review.reviewContent}<br>
 	        $(".sky").stop().animate({"top":curpos}); 
 	    });
 	});
-	$("#inputbtn").click(function() {
-		console.log("클릭");
-		$("#inputreviewform").submit();
-	});
 	$(document).ready( function() {
 		 
 	    $("#reviewimg").change(function(e) {
@@ -318,7 +361,7 @@ ${review.reviewContent}<br>
 	          img.attr("style", "display: inline;");
 	        }
 	        reader.readAsDataURL(file);
-	        }
+	    }
 
 	});
 	function mapup(){
@@ -342,7 +385,6 @@ ${review.reviewContent}<br>
 		};
 		firebase.initializeApp(firebaseConfig);
 		firebase.analytics();
-
 		var fileimg1 = document.getElementById('reviewimg');
 		var filebtn = document.getElementById('inputbtn');
 		var files = null;
@@ -353,22 +395,33 @@ ${review.reviewContent}<br>
 		});
 		filebtn.addEventListener('click', function() {
 			if (files != null) {
-		        for(index = 0 ;index < files.length;index++){
-		        	if(index+1 == files.length){
-		        		storageRef = firebase.storage().ref('mainboard/'+$("#writeId").vla()+'/'+ $("#loginId").val() + '/' + files[index].name);
-						storageRef.put(file1).then(function(snapshot) {
-							console.log('Uploaded a blob or file!');
-						});
-		        	}else{
-		        		storageRef = firebase.storage().ref('mainboard/'+$("#writeId").vla()+'/'+ $("#loginId").val() + '/' + files[index].name);
-						storageRef.put(file1).then(function(snapshot) {
-							console.log('Uploaded a blob or filelast!');
-							$("#write").submit();
-						});
-		        	}
-		        }
-			} else {
-				$("#write").submit();
+				var max = files.length;
+				var index = 0;
+		        	storageRef = firebase.storage().ref('mainboard/'+$("#writeId").val()+'/'+ $("#loginId").val() + '/' + files[index].name);
+					storageRef.put(files[index]).then(function(snapshot) {
+						console.log('Uploaded a blob or file');
+						index += 1;
+						if(index < max){
+			        		storageRef = firebase.storage().ref('mainboard/'+$("#writeId").val()+'/'+ $("#loginId").val() + '/' + files[index].name);
+							storageRef.put(files[index]).then(function(snapshot) {
+								console.log('Uploaded a blob or file');	
+								if(index < max){
+					        		storageRef = firebase.storage().ref('mainboard/'+$("#writeId").val()+'/'+ $("#loginId").val() + '/' + files[index].name);
+									storageRef.put(files[index]).then(function(snapshot) {
+										console.log('Uploaded a blob or file');	
+										$("#inputreviewform").submit();
+									});
+								}else{
+									$("#inputreviewform").submit();
+								}
+							});
+						}else{
+							$("#inputreviewform").submit();
+						}
+						
+					});
+		     }else {
+				$("#inputreviewform").submit();
 			}
 		});
 	</script>
