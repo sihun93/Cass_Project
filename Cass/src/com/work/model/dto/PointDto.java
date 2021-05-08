@@ -3,7 +3,6 @@
  */
 package com.work.model.dto;
 
-
 /**
  * @author 백시훈
  *
@@ -13,27 +12,30 @@ public class PointDto {
 	private String mcategoryNum;
 	private String pboardTitle;
 	private String pboardImg;
-	private StringBuffer pboardContent;
+	private String pboardContent;
 	private int pboardPrice;
+
 	public PointDto() {
 	}
-	
-	
-	/**
-	 * @return the pboardImg
-	 */
-	public String getPboardImg() {
-		return pboardImg;
-	}
-
 
 	/**
-	 * @param pboardImg the pboardImg to set
+	 * @param pboardNum
+	 * @param mcategoryNum
+	 * @param pboardTitle
+	 * @param pboardImg
+	 * @param pboardContent
+	 * @param pboardPrice
 	 */
-	public void setPboardImg(String pboardImg) {
+	public PointDto(String pboardNum, String mcategoryNum, String pboardTitle, String pboardImg, String pboardContent,
+			int pboardPrice) {
+		super();
+		this.pboardNum = pboardNum;
+		this.mcategoryNum = mcategoryNum;
+		this.pboardTitle = pboardTitle;
 		this.pboardImg = pboardImg;
+		this.pboardContent = pboardContent;
+		this.pboardPrice = pboardPrice;
 	}
-
 
 	/**
 	 * @return the pboardNum
@@ -78,16 +80,30 @@ public class PointDto {
 	}
 
 	/**
+	 * @return the pboardImg
+	 */
+	public String getPboardImg() {
+		return pboardImg;
+	}
+
+	/**
+	 * @param pboardImg the pboardImg to set
+	 */
+	public void setPboardImg(String pboardImg) {
+		this.pboardImg = pboardImg;
+	}
+
+	/**
 	 * @return the pboardContent
 	 */
-	public StringBuffer getPboardContent() {
+	public String getPboardContent() {
 		return pboardContent;
 	}
 
 	/**
 	 * @param pboardContent the pboardContent to set
 	 */
-	public void setPboardContent(StringBuffer pboardContent) {
+	public void setPboardContent(String pboardContent) {
 		this.pboardContent = pboardContent;
 	}
 
@@ -105,29 +121,10 @@ public class PointDto {
 		this.pboardPrice = pboardPrice;
 	}
 
-	/**
-	 * @param pboardNum
-	 * @param mcategoryNum
-	 * @param pboardTitle
-	 * @param pboardImg
-	 * @param pboardContent
-	 * @param pboardPrice
-	 */
-	public PointDto(String pboardNum, String mcategoryNum, String pboardTitle, String pboardImg,
-			StringBuffer pboardContent, int pboardPrice) {
-		super();
-		this.pboardNum = pboardNum;
-		this.mcategoryNum = mcategoryNum;
-		this.pboardTitle = pboardTitle;
-		this.pboardImg = pboardImg;
-		this.pboardContent = pboardContent;
-		this.pboardPrice = pboardPrice;
-	}
-
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("[pboardNum=");
+		builder.append("PointDto [pboardNum=");
 		builder.append(pboardNum);
 		builder.append(", mcategoryNum=");
 		builder.append(mcategoryNum);
@@ -142,6 +139,5 @@ public class PointDto {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
+
 }

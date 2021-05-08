@@ -84,7 +84,14 @@ function count() {
 								<th>구매수량: <input type="number" id="pboardCount" name="pboardCount" value="1" onclick="count()"></th>
 							</tr>
 							<tr>
-								<td><input type="submit" value="구매하기"></td>
+							<c:choose>
+							<c:when test="${memberDto.grade == 'A'}">
+							<td><input type="submit" value="구매하기" disabled="disabled"></td>
+							</c:when>
+							<c:otherwise>
+							<td><input type="submit" value="구매하기"></td>
+							</c:otherwise>
+							</c:choose>
 							</tr>
 							<tr>
 								<th>상품 설명</th>

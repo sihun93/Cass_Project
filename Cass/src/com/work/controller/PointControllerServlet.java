@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +16,6 @@ import com.work.model.biz.MainCategoryBiz;
 import com.work.model.biz.MemberBiz;
 import com.work.model.biz.PointBiz;
 import com.work.model.biz.PointBuyBiz;
-import com.work.model.dao.PointDao;
 import com.work.model.dto.MainCategoryDto;
 import com.work.model.dto.MemberDto;
 import com.work.model.dto.PointBuyDto;
@@ -103,7 +101,6 @@ public class PointControllerServlet extends HttpServlet {
 	 */
 	private void mcategorysearchform(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String mcategoryNum = request.getParameter("mcategoryNum");
-		System.out.println(mcategoryNum);
 		
 		PointBiz pointBiz = new PointBiz();
 		ArrayList<PointDto> pointlist = new ArrayList<PointDto>();
@@ -213,11 +210,9 @@ public class PointControllerServlet extends HttpServlet {
 			return;
 		}
 		
-		StringBuffer sb = new StringBuffer();
-		
 		PointDto pointDto = new PointDto();
 		pointDto.setMcategoryNum(mcategoryNum);
-		pointDto.setPboardContent(sb.append(pboardContent));
+		pointDto.setPboardContent(pboardContent);
 		pointDto.setPboardImg(pboardImg);
 		pointDto.setPboardPrice(Integer.parseInt(pboardPrice));
 		pointDto.setPboardTitle(pboardTitle);
@@ -228,7 +223,8 @@ public class PointControllerServlet extends HttpServlet {
 			pointBiz.pointList(pointlist);
 			request.setAttribute("pointDto", pointDto);
 			request.setAttribute("pointlist", pointlist);
-			request.getRequestDispatcher("/point/point_Info.jsp").forward(request, response);
+			request.getRequestDispatcher("/point/pointController?action=pointInfoForm").forward(request, response);
+			//request.getRequestDispatcher("/point/point_Info.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.getRequestDispatcher("/point/pointController?action=pointUpdateForm").forward(request, response);
@@ -252,7 +248,6 @@ public class PointControllerServlet extends HttpServlet {
 		
 		try {
 			pointBiz.pointInfo(pointDto, pboardNum);
-			System.out.println(pointDto);
 			request.setAttribute("pointDto", pointDto);
 			mainCategoryBiz.categoryList(categorylist);
 			request.setAttribute("categorylist", categorylist);
@@ -280,8 +275,9 @@ public class PointControllerServlet extends HttpServlet {
 		ArrayList<PointDto> pointlist = new ArrayList<PointDto>();
 		try {			
 			pointBiz.pointInfo(pointDto, pboardNum);
-			System.out.println(pointDto);
 			pointBiz.pointList(pointlist);
+			String pboardContent = pointDto.getPboardContent();
+			pointDto.setPboardContent(pboardContent.replaceAll("\r\n", "<br>"));
 			request.setAttribute("pointDto", pointDto);
 			request.setAttribute("pointlist", pointlist);
 			request.setAttribute("memberDto", memberDto);
@@ -302,9 +298,6 @@ public class PointControllerServlet extends HttpServlet {
 		String pboardPrice = request.getParameter("pboardPrice");
 		String pboardContent = request.getParameter("pboardContent");
 		String pboardImg = request.getParameter("pboardImg");
-		System.out.println(pboardImg);
-		
-		StringBuffer sb = new StringBuffer();
 
 		if(pboardTitle == null || pboardTitle.trim().length()==0) {
 			response.sendRedirect(CONTEXT_PATH+"/point/point_input.jsp");
@@ -328,7 +321,7 @@ public class PointControllerServlet extends HttpServlet {
 		
 		PointDto pointDto = new PointDto();
 		pointDto.setMcategoryNum(mcategoryNum);
-		pointDto.setPboardContent(sb.append(pboardContent));
+		pointDto.setPboardContent(pboardContent);
 		pointDto.setPboardImg(pboardImg);
 		pointDto.setPboardPrice(Integer.parseInt(pboardPrice));
 		pointDto.setPboardTitle(pboardTitle);
@@ -371,7 +364,6 @@ public class PointControllerServlet extends HttpServlet {
 	 */
 	
 	private void pointMain(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
 		PointBiz pointBiz = new PointBiz();
 		ArrayList<PointDto> pointlist = new ArrayList<PointDto>();
 		MainCategoryBiz mainCategoryBiz = new MainCategoryBiz();
@@ -379,7 +371,6 @@ public class PointControllerServlet extends HttpServlet {
 		
 		try {		
 			pointBiz.pointList(pointlist);
-			System.out.println(pointlist);
 			request.setAttribute("pointlist", pointlist);
 			mainCategoryBiz.categoryList(categorylist);
 			request.setAttribute("categorylist", categorylist);
@@ -470,11 +461,9 @@ public class PointControllerServlet extends HttpServlet {
 	 * 구매상세조회 페이지 요청
 	 */	
 	private void pointBuyForm(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-			
+			throws ServletException, IOException {			
 		String pboardNum = request.getParameter("pboardNum");
 		String pboardCount = request.getParameter("pboardCount");
-		System.out.println("구매 갯수"+pboardCount);
 		PointBiz pointBiz = new PointBiz();
 		PointDto pointDto = new PointDto();
 		
@@ -483,7 +472,6 @@ public class PointControllerServlet extends HttpServlet {
 		MemberDto dto = new MemberDto();
 		String memberId = ((MemberDto)session.getAttribute("dto")).getMemberId();	
 		dto.setMemberId(memberId);
-		System.out.println(memberId);
 		try {			
 			biz.myInfo(dto);
 			pointBiz.pointInfo(pointDto, pboardNum);

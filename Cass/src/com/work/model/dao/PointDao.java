@@ -4,7 +4,6 @@
 package com.work.model.dao;
 
 import java.io.IOException;
-import java.io.Reader;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,20 +41,16 @@ public class PointDao {
 		String sql = "insert into point_board values('p' || pboard_num_seq.nextval,?,?,?,?,?)";
 
 		PreparedStatement stmt = null;
-		StringBuffer sb=new StringBuffer();
-		String content = null;
+
 		try {
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, pointDto.getMcategoryNum());
 			stmt.setString(2, pointDto.getPboardTitle());
 			stmt.setString(3, pointDto.getPboardImg());
-			sb.append(pointDto.getPboardContent());
-			content = sb.toString();
-			stmt.setString(4, content);
+			stmt.setString(4, pointDto.getPboardContent());
 			stmt.setInt(5, pointDto.getPboardPrice());
 			int row = stmt.executeUpdate();
-			if (row == 0) {
-				
+			if (row == 0) {			
 				throw new Exception();
 			}
 		} catch (SQLException e) {
@@ -78,7 +73,6 @@ public class PointDao {
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		StringBuffer sb=new StringBuffer();
 		
 		try {
 			stmt = con.prepareStatement(sql);
@@ -90,15 +84,7 @@ public class PointDao {
 				pointDto.setMcategoryNum(rs.getString("mcategory_num"));
 				pointDto.setPboardTitle(rs.getString("pboard_title"));
 				pointDto.setPboardImg(rs.getString("pboard_img"));
-		
-			     Reader input = rs.getCharacterStream("pboard_content");
-			     char[] buffer = new char[1024];
-			     int byteRead;
-			     while((byteRead=input.read(buffer,0,1024))!=-1){
-			     sb.append(buffer,0,byteRead);
-			     }
-
-				pointDto.setPboardContent(sb);
+				pointDto.setPboardContent(rs.getString("pboard_content"));
 				pointDto.setPboardPrice(rs.getInt("pboard_price"));
 				
 				pointlist.add(pointDto);
@@ -125,7 +111,6 @@ public class PointDao {
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		StringBuffer sb=new StringBuffer();
 		
 		try {
 			stmt = con.prepareStatement(sql);
@@ -138,15 +123,7 @@ public class PointDao {
 				pointDto.setMcategoryNum(rs.getString("mcategory_num"));
 				pointDto.setPboardTitle(rs.getString("pboard_title"));
 				pointDto.setPboardImg(rs.getString("pboard_img"));
-				
-				 Reader input = rs.getCharacterStream("pboard_content");
-			     char[] buffer = new char[1024];
-			     int byteRead;
-			     while((byteRead=input.read(buffer,0,1024))!=-1){
-			     sb.append(buffer,0,byteRead);
-			     }
-
-				pointDto.setPboardContent(sb);
+				pointDto.setPboardContent(rs.getString("pboard_content"));
 				pointDto.setPboardPrice(rs.getInt("pboard_price"));
 
 			}
@@ -171,16 +148,13 @@ public class PointDao {
 		String sql = "update point_board set mcategory_num=?, pboard_title=?, pboard_img=?, pboard_content=?, pboard_price=? where pboard_num=?";
 
 		PreparedStatement stmt = null;
-		StringBuffer sb = new StringBuffer();
-		String content = null;
+
 		try {
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, pointDto.getMcategoryNum());
 			stmt.setString(2, pointDto.getPboardTitle());
 			stmt.setString(3, pointDto.getPboardImg());
-			sb.append(pointDto.getPboardContent());
-			content = sb.toString();
-			stmt.setString(4, content);
+			stmt.setString(4, pointDto.getPboardContent());
 			stmt.setInt(5, pointDto.getPboardPrice());
 			stmt.setString(6, pboardNum);
 			
@@ -206,7 +180,7 @@ public class PointDao {
 	 */
 	public void pointDelete(Connection con, String pboardNum) throws Exception {
         String sql = "delete point_board where pboard_num =?";
-		System.out.println(pboardNum);
+
 		PreparedStatement stmt = null;
 		
 		try {
@@ -239,7 +213,6 @@ public class PointDao {
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		StringBuffer sb = new StringBuffer();
 		
 		try {
 			stmt = con.prepareStatement(sql);
@@ -253,15 +226,7 @@ public class PointDao {
 				pointDto.setMcategoryNum(rs.getString("mcategory_num"));
 				pointDto.setPboardTitle(rs.getString("pboard_title"));
 				pointDto.setPboardImg(rs.getString("pboard_img"));
-		
-			     Reader input = rs.getCharacterStream("pboard_content");
-			     char[] buffer = new char[1024];
-			     int byteRead;
-			     while((byteRead=input.read(buffer,0,1024))!=-1){
-			     sb.append(buffer,0,byteRead);
-			     }
-
-				pointDto.setPboardContent(sb);
+				pointDto.setPboardContent(rs.getString("pboard_content"));
 				pointDto.setPboardPrice(rs.getInt("pboard_price"));
 				
 				pointlist.add(pointDto);
@@ -290,7 +255,6 @@ public class PointDao {
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		StringBuffer sb = new StringBuffer();
 		
 		try {
 			stmt = con.prepareStatement(sql);
@@ -304,15 +268,7 @@ public class PointDao {
 				pointDto.setMcategoryNum(rs.getString("mcategory_num"));
 				pointDto.setPboardTitle(rs.getString("pboard_title"));
 				pointDto.setPboardImg(rs.getString("pboard_img"));
-		
-			     Reader input = rs.getCharacterStream("pboard_content");
-			     char[] buffer = new char[1024];
-			     int byteRead;
-			     while((byteRead=input.read(buffer,0,1024))!=-1){
-			     sb.append(buffer,0,byteRead);
-			     }
-
-				pointDto.setPboardContent(sb);
+				pointDto.setPboardContent(rs.getString("pboard_content"));
 				pointDto.setPboardPrice(rs.getInt("pboard_price"));
 				
 				pointlist.add(pointDto);
@@ -341,7 +297,6 @@ public class PointDao {
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		StringBuffer sb = new StringBuffer();
 		
 		try {
 			stmt = con.prepareStatement(sql);
@@ -355,15 +310,7 @@ public class PointDao {
 				pointDto.setMcategoryNum(rs.getString("mcategory_num"));
 				pointDto.setPboardTitle(rs.getString("pboard_title"));
 				pointDto.setPboardImg(rs.getString("pboard_img"));
-		
-			     Reader input = rs.getCharacterStream("pboard_content");
-			     char[] buffer = new char[1024];
-			     int byteRead;
-			     while((byteRead=input.read(buffer,0,1024))!=-1){
-			     sb.append(buffer,0,byteRead);
-			     }
-
-				pointDto.setPboardContent(sb);
+				pointDto.setPboardContent(rs.getString("pboard_content"));
 				pointDto.setPboardPrice(rs.getInt("pboard_price"));
 				
 				pointlist.add(pointDto);

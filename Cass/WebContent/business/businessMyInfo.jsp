@@ -7,10 +7,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사업자 내 정보 조회 페이지</title>
+<title>Cass 사업자 내 정보 조회 페이지</title>
 <script type="text/javascript" src="/Cass/js/business_input.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<link type="text/css" rel="stylesheet" href="../css/management.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css">
 
 <script>
 function postcode(){
@@ -45,17 +46,14 @@ function businessDelete(memberId){
 %>
 </head>
 <body>
-<a href="${CONTEXT_PATH }/welcome.jsp">[Cass Main]</a>
-<hr>
 <form name="businessDeleteForm" id="businessDeleteForm" action="${CONTEXT_PATH}/business/frontController?action=businessDelete" method="post">
 <input type="hidden" name="memberId" value="">
 <input type="hidden" name="gubun" value="info">
 </form>
+<div id="title"><a href="${CONTEXT_PATH}/welcome.jsp">CASS 내정보 조회</a></div>
+<div class="myInfo">
 <form action="${CONTEXT_PATH}/business/frontController?action=businessInfoUpdate" method="post">
 	<table border="1">
-	<tr>
-		<th colspan="2" id="title">Cass 사업자 회원 정보입니다</th>
-	</tr>
 	<tr>
 		<td>아이디 </td>
 		<td>
@@ -114,7 +112,7 @@ function businessDelete(memberId){
 	<tr>
 		<td>휴대번호 </td>
 		<td>
-			<input type="text" pattern="\d{3}-\d{4}-\d{4}" value="${dto.businessPhone }" name="businessPhone" id="businessPhone" required="required" placeholder="ex)010-1111-1111">
+			<input style="text-align: left;" type="text" pattern="\d{3}-\d{4}-\d{4}" value="${dto.businessPhone }" name="businessPhone" id="businessPhone" required="required" placeholder="ex)010-1111-1111">
 		</td>
 	</tr>
 
@@ -128,14 +126,11 @@ function businessDelete(memberId){
 			<th colspan="2">
 			<input type="submit" value="정보 수정">
 			<input type="reset" value="취소">
+			<button onclick="javascript:businessDelete('${dto.memberId}');">회원탈퇴</button>
 			</th>
 		</tr>
 	</table>
 </form>
-<table border="1">
-<tr>
-	<th><button onclick="javascript:businessDelete('${dto.memberId}');">회원탈퇴</button></th>
-</tr>
-</table>
+</div>
 </body>
 </html>
