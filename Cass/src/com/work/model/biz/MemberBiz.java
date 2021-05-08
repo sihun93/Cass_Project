@@ -2,6 +2,7 @@ package com.work.model.biz;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import com.work.model.dao.CommonException;
 import com.work.model.dao.JdbcTemplate;
@@ -44,8 +45,11 @@ public class MemberBiz {
 		dto.setPoint(1000);
 		try {
 			dao.addMember(con, dto);
+			dao.addData(con, dto);
 		} catch(CommonException e) {
 			throw e;
+		}catch (Exception e) {
+			e.printStackTrace();
 		}finally {
 			JdbcTemplate.close(con);
 		}
@@ -192,6 +196,20 @@ public class MemberBiz {
 	 */
 	public void pointModify(MemberDto dto) throws Exception {
 		dao.pointModify(dto);
+	}
+	/** 매월 1일 데이터 초기화 */
+	public void timeBreaker() {
+
+        Calendar cal = Calendar.getInstance();
+        String[] date = Utility.getCurrentDate().split("-");
+        cal.set(Integer.parseInt(date[0]), Integer.parseInt(date[1])-1, Integer.parseInt(date[2]));
+        if(cal.getActualMaximum(Calendar.DAY_OF_MONTH) == Integer.parseInt(date[2])) {
+        	dao.timeT();
+        }
+        if(Integer.parseInt(date[2]) == 1) {
+        	dao.timeN();
+        }
+        
 	}
 	
 }

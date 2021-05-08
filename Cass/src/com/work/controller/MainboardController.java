@@ -3,6 +3,7 @@ package com.work.controller;
 import java.io.IOException;
 import java.security.PublicKey;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.work.model.biz.MainBoardBiz;
+import com.work.model.biz.MemberBiz;
 import com.work.model.dto.BusinessMemberDto;
 import com.work.model.dto.MainBoardDto;
 import com.work.model.dto.MainCategoryDto;
@@ -64,6 +66,12 @@ public class MainboardController extends HttpServlet {
 		case "deletereview":
 			deletereview(request, response);
 			break;
+		case "updatereview":
+			updatereview(request, response);
+			break;
+		case "deleteMainBoard":
+			deleteMainBoard(request, response);
+			break;
 		}
 		
 	}
@@ -80,20 +88,22 @@ public class MainboardController extends HttpServlet {
 		String mcategoryNum = request.getParameter("mcategoryNum");
 		String scategoryNum = request.getParameter("scategoryNum");
 		String pageNum = request.getParameter("pageNum");
-		ArrayList<MainBoardDto> list = new ArrayList<MainBoardDto>();
+		
 		MainBoardBiz biz = new MainBoardBiz();
 		int pnum = Integer.parseInt(pageNum);
+		int boardcounter = 0;
+		HashMap<Integer, ArrayList<MainBoardDto>> boardAllList = new HashMap<Integer, ArrayList<MainBoardDto>>();
 		if(mcategoryNum != null) {
-			biz.getBoardListforMc(list,pnum,mcategoryNum);
+			biz.getBoardListforMc(boardAllList,mcategoryNum);
+			boardcounter = biz.getBoardCounterMc(mcategoryNum);
 		}else if(scategoryNum != null){
-			biz.getBoardListforSc(list,pnum,scategoryNum);
+			biz.getBoardListforSc(boardAllList,scategoryNum);
+			boardcounter = biz.getBoardCounterSc(scategoryNum);
 		}else {
-			biz.getBoardList(list,pnum);
+			biz.getBoardList(boardAllList);
+			boardcounter = biz.getBoardCounter();
 		}
 		
-		
-		int boardcounter = 0;
-		biz.getBoardCounter(boardcounter);
 		int maxPageNum = 1;
 		if(boardcounter != 0) {
 			if(maxPageNum%10 != 0) {
@@ -102,6 +112,12 @@ public class MainboardController extends HttpServlet {
 				maxPageNum = boardcounter/5;
 			}
 		}
+		
+		ArrayList<MainBoardDto> list = boardAllList.get(pnum);
+		
+		
+		
+		
 		request.setAttribute("mainbaordList", list);
 		request.setAttribute("maxPageNum", maxPageNum);
 		request.getRequestDispatcher("/MainBoard/boardList.jsp").forward(request, response);
@@ -151,10 +167,7 @@ public class MainboardController extends HttpServlet {
 		MainBoardBiz biz = new MainBoardBiz();
 		biz.boardInput(dto);
 		
-		request.setAttribute("action", "mainbaordListform");
-		request.setAttribute("pageNum", "1");
-		request.getRequestDispatcher("/MainBoard/mainboardController").forward(request, response);
-	
+		response.sendRedirect(CONTEXT_PATH+"/MainBoard/mainboardController?action=mainbaordListform&pageNum=1");
 		
 	}
 	
@@ -252,47 +265,45 @@ public class MainboardController extends HttpServlet {
 		MainBoardBiz biz = new MainBoardBiz();
 		biz.boardUpdate(dto);
 		
-		request.setAttribute("action", "mainbaordDetail");
-		request.setAttribute("mBoardNum", mboardNum);
-		request.setAttribute("pageNum", "1");
-		request.getRequestDispatcher("/MainBoard/mainboardController").forward(request, response);
-	
-	}
+		response.sendRedirect(CONTEXT_PATH+"/MainBoard/mainboardController?action=mainbaordDetail&pageNum=1&mBoardNum="+mboardNum);
+		}
 	
 	/**게시글  상세보기*/
 	protected void mainbaordDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String mboardNum = request.getParameter("mBoardNum");
-
-		MainBoardDto  dto = new MainBoardDto();
-		dto.setMboardNum(mboardNum);
+		HttpSession session = request.getSession();
+		MasterMemberDto dto = (MasterMemberDto) session.getAttribute("dto");
+		MainBoardDto  boardDto = new MainBoardDto();
+		boardDto.setMboardNum(mboardNum);
 		MainBoardBiz biz = new MainBoardBiz();
-		biz.boardDetail(dto);
-
-		if(dto.getMboardContent()!=null) {
-			String mboardContent = dto.getMboardContent();
+		biz.boardDetail(boardDto);
+		if(dto instanceof MemberDto) {
+			biz.clickTime(dto ,boardDto.getMcategoryNum());
+		}
+		
+		if(boardDto.getMboardContent()!=null) {
+			String mboardContent = boardDto.getMboardContent();
 			if(!mboardContent.substring(0, 7).equals("/Image/")) {
-				dto.setMboardContent(mboardContent.replaceAll("\r\n", "<br>"));
+				boardDto.setMboardContent(mboardContent.replaceAll("\r\n", "<br>"));
 			}
 			
 			String pageNum = request.getParameter("pageNum");
 			int pnum = Integer.parseInt(pageNum);
-			ArrayList<ReviewDto> list = new ArrayList<ReviewDto>();
-			biz.getReviewList(list,pnum,dto.getMboardNum());
-			int reviewcounter = 0;
-			biz.getReviewCounter(reviewcounter,dto.getMboardNum());
+			HashMap<Integer, ArrayList<ReviewDto>> reviewAllList = new HashMap<Integer, ArrayList<ReviewDto>>();
+			biz.getReviewList(reviewAllList,boardDto.getMboardNum());
+			int reviewcounter = biz.getReviewCounter(boardDto.getMboardNum());
 			int maxPageNum = 1;
 			if(reviewcounter != 0) {
-				if(maxPageNum%10 != 0) {
+				if(reviewcounter%10 != 0) {
 					maxPageNum = reviewcounter/10 + 1;
 				}else {
 					maxPageNum = reviewcounter/10;
 				}
 			}
-			
-			
-			request.setAttribute("detaildto", dto);
+			ArrayList<ReviewDto> reviewlist = reviewAllList.get(pnum);
+			request.setAttribute("detaildto", boardDto);
 			request.setAttribute("maxReviewPageNum", maxPageNum);
-			request.setAttribute("ReviewList", list);
+			request.setAttribute("ReviewList", reviewlist);
 			request.getRequestDispatcher("/MainBoard/mainBoardDetail.jsp").forward(request, response);
 		}
 	}
@@ -306,11 +317,8 @@ public class MainboardController extends HttpServlet {
 			MainBoardBiz biz = new MainBoardBiz();
 			biz.boardDelete(dto);
 			
-			request.setAttribute("action", "mainbaordListform");
-			request.setAttribute("pageNum", "1");
-			request.getRequestDispatcher("/MainBoard/mainboardController").forward(request, response);
-		
-		}
+			response.sendRedirect(CONTEXT_PATH+"/MainBoard/mainboardController?action=mainbaordListform&pageNum=1");
+			}
 	}
 	
 	/** 리뷰 등록 */
@@ -320,10 +328,7 @@ public class MainboardController extends HttpServlet {
 		String mboardNum = request.getParameter("mboardNum");
 		String grade = masterDto.getGrade();
 		if(grade.equals("B")) {
-			request.setAttribute("action", "mainbaordDetail");
-			request.setAttribute("mBoardNum", mboardNum);
-			request.setAttribute("pageNum", "1");
-			request.getRequestDispatcher("/MainBoard/mainboardController").forward(request, response);
+			response.sendRedirect(CONTEXT_PATH+"/MainBoard/mainboardController?action=mainbaordDetail&mBoardNum="+mboardNum+"&pageNum=1");
 			return;
 		}
 		String memberId = masterDto.getMemberId();
@@ -341,11 +346,27 @@ public class MainboardController extends HttpServlet {
 		dto.setReviewContent(reviewContent);
 		dto.setReviewImg(reviewImg);
 		MainBoardBiz biz = new MainBoardBiz();
+		MemberDto memberDto = (MemberDto)masterDto;
+		if(!biz.checkreview(memberId, mboardNum)) {
+			int point = 100;
+			if(reviewImg.length() >3) {
+				point = 300;
+			}
+			memberDto.setPoint(memberDto.getPoint()+point);
+			MemberBiz memberBiz = new MemberBiz();
+			try {
+				memberBiz.pointModify(memberDto);
+				session.setAttribute("dto", memberDto);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		biz.inputReview(dto);
 		
-//		request.setAttribute("mBoardNum", mboardNum);
-//		request.setAttribute("pageNum", "1");
-		request.getRequestDispatcher("/MainBoard/mainboardController?action=mainbaordListform&pageNum=1").forward(request, response);
+		
+		
+		response.sendRedirect(CONTEXT_PATH+"/MainBoard/mainboardController?action=mainbaordDetail&mBoardNum="+mboardNum+"&pageNum=1");
 	}
 	
 	/** 리뷰 수정 */
@@ -355,33 +376,24 @@ public class MainboardController extends HttpServlet {
 		String mboardNum = request.getParameter("mboardNum");
 		String grade = masterDto.getGrade();
 		if(grade.equals("B")) {
-			request.setAttribute("action", "mainbaordDetail");
-			request.setAttribute("mBoardNum", mboardNum);
-			request.setAttribute("pageNum", "1");
-			request.getRequestDispatcher("/MainBoard/mainboardController").forward(request, response);
+			response.sendRedirect(CONTEXT_PATH+"/MainBoard/mainboardController?action=mainbaordDetail&mBoardNum="+mboardNum+"&pageNum=1");
 			return;
 		}
-		if(!masterDto.getMemberId().equals(request.getAttribute("memberId"))) {
-			request.setAttribute("action", "mainbaordDetail");
-			request.setAttribute("mBoardNum", mboardNum);
-			request.setAttribute("pageNum", "1");
-			request.getRequestDispatcher("/MainBoard/mainboardController").forward(request, response);
+		String memberId = request.getParameter("memberId");
+		if(!memberId.equals(masterDto.getMemberId())) {
+			response.sendRedirect(CONTEXT_PATH+"/MainBoard/mainboardController?action=mainbaordDetail&mBoardNum="+mboardNum+"&pageNum=1");
 			return;
 		}
 		int reviewNum = Integer.parseInt(request.getParameter("reviewNum"));
-		String memberId = masterDto.getMemberId();
+		String reviewContent = request.getParameter("reviewTextarea");
 		ReviewDto dto = new ReviewDto();
-		dto.setMboardNum(mboardNum);
-		dto.setMemberId(memberId);
 		dto.setReviewNum(reviewNum);
+		dto.setReviewContent(reviewContent);
 		
 		MainBoardBiz biz = new MainBoardBiz();
 		biz.updatereview(dto);
 		
-		request.setAttribute("action", "mainbaordDetail");
-		request.setAttribute("mBoardNum", mboardNum);
-		request.setAttribute("pageNum", "1");
-		request.getRequestDispatcher("/MainBoard/mainboardController").forward(request, response);
+		response.sendRedirect(CONTEXT_PATH+"/MainBoard/mainboardController?action=mainbaordDetail&mBoardNum="+mboardNum+"&pageNum=1");
 	}
 	
 	/** 리뷰 삭제 */
@@ -394,17 +406,11 @@ public class MainboardController extends HttpServlet {
 		String memberId = request.getParameter("memberId");
 		System.out.println(memberId);
 		if(grade.equals("B")) {
-//			request.setAttribute("action", "mainbaordDetail");
-//			request.setAttribute("mBoardNum", mboardNum);
-//			request.setAttribute("pageNum", "1");
-			request.getRequestDispatcher("/MainBoard/mainboardController?action=mainbaordListform&pageNum=1").forward(request, response);
+			response.sendRedirect(CONTEXT_PATH+"/MainBoard/mainboardController?action=mainbaordDetail&mBoardNum="+mboardNum+"&pageNum=1");
 			return;
 		}
 		if(!memberId.equals(masterDto.getMemberId())) {
-//			request.setAttribute("action", "mainbaordDetail");
-//			request.setAttribute("mBoardNum", mboardNum);
-//			request.setAttribute("pageNum", "1");
-			request.getRequestDispatcher("/MainBoard/mainboardController?action=mainbaordListform&pageNum=1").forward(request, response);
+			response.sendRedirect(CONTEXT_PATH+"/MainBoard/mainboardController?action=mainbaordDetail&mBoardNum="+mboardNum+"&pageNum=1");
 			return;
 		}
 		int reviewNum = Integer.parseInt(request.getParameter("reviewNum"));
@@ -416,11 +422,6 @@ public class MainboardController extends HttpServlet {
 		MainBoardBiz biz = new MainBoardBiz();
 		biz.deletereview(dto);
 		
-//		request.setAttribute("action", "mainbaordDetail");
-//		request.setAttribute("mBoardNum", mboardNum);
-//		request.setAttribute("pageNum", "1");
-//		request.getRequestDispatcher("/MainBoard/mainboardController").forward(request, response);
-		request.getRequestDispatcher("/MainBoard/mainboardController?action=mainbaordListform&pageNum=1").forward(request, response);
-		
+		response.sendRedirect(CONTEXT_PATH+"/MainBoard/mainboardController?action=mainbaordDetail&mBoardNum="+mboardNum+"&pageNum=1");
 	}
 }

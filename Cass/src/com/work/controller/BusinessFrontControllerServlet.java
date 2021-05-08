@@ -13,9 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.work.model.biz.BusinessBiz;
+import com.work.model.biz.DeleteMemberBiz;
 import com.work.model.biz.MemberBiz;
 import com.work.model.dao.CommonException;
 import com.work.model.dto.BusinessMemberDto;
+import com.work.model.dto.MasterMemberDto;
 import com.work.model.dto.MemberDto;
 import com.work.model.dto.MessageEntity;
 
@@ -545,6 +547,10 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 		protected void businessDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, CommonException {
 			String memberId = request.getParameter("memberId");
 			memberId = memberId.trim();
+			DeleteMemberBiz deleteMemberBiz = new DeleteMemberBiz();
+			BusinessMemberDto dto = new BusinessMemberDto();
+			dto.setMemberId(memberId);
+			deleteMemberBiz.businessDelete(dto);
 			BusinessBiz biz = new BusinessBiz();
 			int rowCnt = biz.deleteBusiness(memberId);
 			
