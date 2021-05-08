@@ -1,0 +1,168 @@
+@charset "UTF-8";
+/** 관리자 회원 포인트 수정 (아이디만 입력) */
+.point_update_div {
+	margin: 50px auto;
+	width: 400px;
+}
+
+.point_update_form {
+	width: 300px;
+	height: 300px;
+	margin: 100px auto;
+}
+
+#title {
+	font-size: 1.5em;
+	padding: 10px;
+	border-radius: 20px;
+	margin-top: 5%;
+	text-align: center;
+	font-family: 'InkLipquid';
+}
+
+@font-face {
+	font-family: 'InkLipquid';
+	font-weight: normal;
+	font-style: normal;
+	font-color: white;
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff')
+		format('woff');
+}
+
+.id {
+	border: 1px solid black;
+	width: 250px;
+	height: 35px;
+	margin: 5% 0 5% 5%;
+	border-radius: 20px;
+}
+
+.point_update_form input[type='submit'] {
+	width: 250px;
+	height: 30px;
+	font-size: 1.0em;
+	font-family: 'InkLipquid';
+	border-radius: 20px;
+	background-color: #D1DAE7;
+	border: none;
+	margin-left: 5%;
+}
+
+input:focus {
+	outline: none;
+}
+
+/** 관리자가 회원 포인트 수정 (포인트만 입력) */
+.point_up_th {
+	width: 150px;
+	font-family: 'InkLipquid';
+	font-size: 1.2em;
+}
+
+.point_update_form input[type='text'] {
+	border: 1px solid black;
+	width: 250px;
+	height: 35px;
+	margin: 5% 0 5% 5%;
+	border-radius: 20px;
+	text-align: center;
+	font-size: 1.1em;
+}
+
+/** 관리자 일반회원 전체조회 */
+.list_table table {
+	width: 1500px;
+	margin: 50px auto;
+	border-collapse: collapse;
+	border: none;
+	text-align: center;
+}
+
+.list_table th {
+	height: 30px;
+	background-color: #D1DAE7;
+}
+
+button {
+	width: 100px;
+	height: 30px;
+	font-size: 1.0em;
+	font-family: 'InkLipquid';
+	border-radius: 20px;
+	background-color: #d3d3d3;
+	border: none;
+	margin-top: 5%;
+	margin-left: 5%;
+}
+
+/** 내정보조회 */
+.myInfo table {
+	margin: 0 auto;
+	border-collapse: collapse;
+	border: none;
+}
+
+.myInfo th {
+	background-color: #D1DAE7;
+	height: 30px;
+}
+
+.myInfo input[type='text'], .myInfo input[type='password'], .myInfo input[type='email'] {
+	width: 200px;
+	height: 30px;
+	background-color:#F4F3EF;
+	border: none;
+	border-bottom: 1px solid black;
+	font-size: 1.0em;
+	text-align: center;
+}
+
+#memberMobile {
+	width: 170px;
+	height: 30px;
+	background-color:#F4F3EF;
+	border: none;
+	border-bottom: 1px solid black;
+	font-size: 1.0em;
+}
+
+.myInfo input[type='button'], .myInfo input[type='submit']  {
+	width: 150px;
+	height: 30px;
+	font-size: 1.0em;
+	font-family: 'InkLipquid';
+	border-radius: 20px;
+	background-color: #D1DAE7;
+	border: none;
+	margin-left: 5%;
+}
+
+#myInfo_th {
+	background-color:#F4F3EF;
+}
+
+.myInfo input[type='reset'] {
+	width: 100px;
+	height: 30px;
+	font-size: 1.0em;
+	font-family: 'InkLipquid';
+	border-radius: 20px;
+	background-color: #d3d3d3;
+	border: none;
+	margin-top: 5%;
+	margin-left: 5%;
+}
+
+.myInfo button {
+	width: 150px;
+	height: 30px;
+	font-size: 1.0em;
+	font-family: 'InkLipquid';
+	border-radius: 20px;
+	background-color: #d3d3d3;
+	border: none;
+	margin-top: 5%;
+	margin-left: 5%;
+}
+

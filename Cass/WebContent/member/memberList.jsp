@@ -8,7 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Cass 회원 리스트 페이지</title>
-<link type="text/css" rel="stylesheet" href="../css/management.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css">
 <script>
 function memberDelete(memberId){
 
@@ -24,16 +25,13 @@ function addCommas(x) {
 </script>
 </head>
 <body>
-<a href="${CONTEXT_PATH}/welcome.jsp">[Cass Main]</a>
-<hr>
 <form name="memberDeleteForm" id="memberDeleteForm" action="${CONTEXT_PATH}/member/frontController?action=memberDelete" method="post">
 <input type="hidden" name="memberId" value="">
 <input type="hidden" name="gubun" value="list">
 </form>
+<div id="title"><a href="${CONTEXT_PATH}/welcome.jsp">CASS 회원 전체 조회</a></div>
+<div class="list_table">
 <table border="1">
-	<tr>
-		<th colspan="10" id="title">관리자전용 - 회원 전체 조회</th>
-	</tr>
 	<tr>	
 		<th>아이디</th>
 		<th>비밀번호</th>
@@ -64,6 +62,7 @@ function addCommas(x) {
 		</tr>
 	</c:forEach>	
 </table>
+</div>
 
 </body>
 </html>

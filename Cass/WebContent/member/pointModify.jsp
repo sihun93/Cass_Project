@@ -7,11 +7,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자전용 - 일반회원의 포인트를 수정하는 페이지</title>
-<link type="text/css" rel="stylesheet" href="../css/management.css">
+<title>Companion Animal Service Site</title>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css">
 </head>
 <body>
-<a href="${CONTEXT_PATH}/welcome.jsp">[Cass Main]</a>
    <c:choose>
       <c:when test="${empty dto }">
 		         <jsp:setProperty property="message" name="messageEntity" value="0" />
@@ -24,29 +24,23 @@
          <jsp:forward page="/message/message.jsp" />
       </c:when>
    </c:choose>
-<hr>
-<form action="${CONTEXT_PATH}/member/frontController?action=pointUpdate" method="post">
-		<table border="1">
-			<tr>
-				<th colspan="2" id="title">관리자 전용 - 회원 포인트 수정</th>
-			</tr>
-			<tr>
-				<td>아이디</td>
-				<td><input type="text" name="memberId" id="memberId"
-					value='${dto.memberId }' autofocus="autofocus" readonly="readonly">
-				</td>
-			</tr>
-
-			<tr>
-				<td>포인트</td>
-				<td><input type="text" pattern="[0-9]+" value='${dto.point }'
-					name="point" id="point"></td>
-			</tr>
-			<tr>
-				<th colspan="2"><input type="submit" value="포인트수정"> <input
-					type="reset" value="취소"></th>
-			</tr>
-		</table>
-	</form>
+<div id="wrapper">
+		<div id="container">
+		<div class="point_update_div">		
+		<div class="point_update_form">	
+			<form action="${CONTEXT_PATH}/member/frontController?action=pointUpdate" method="post">
+			<div id="title"><a href="${CONTEXT_PATH}/welcome.jsp">CASS 회원 포인트 수정</a></div>
+			<div class="point_up_th">아이디</div>
+			<input type="text" name="memberId" class="point_up_input"
+					value='${dto.memberId }' autofocus="autofocus" readonly="readonly">	<br>
+			<div class="point_up_th">포인트</div>
+			<input type="text" pattern="[0-9]+" value='${dto.point }'
+					name="point" class="point_up_input"><br>
+			<input type="submit" value="확인">
+			</form>
+			</div>
+		</div>	
+		</div>
+	</div>
 </body>
 </html>
