@@ -1,7 +1,7 @@
 <%@page import="javax.sql.DataSource"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="javax.naming.Context"%>
-<%@page import="com.work.model.dto.MemberDto"%>
+<%@page import="com.work.model.dto.BusinessMemberDto"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
@@ -22,16 +22,16 @@
 	Connection con = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
-	MemberDto dto = new MemberDto();
+	BusinessMemberDto dto = new BusinessMemberDto();
 	try{
 		Context init = new InitialContext();
 		DataSource ds = (DataSource)init.lookup("java:comp/env/jdbc/Oracle11g");
 		con = ds.getConnection();
-		pstmt = con.prepareStatement("SELECT * FROM MEMBER WHERE MEMBER_ID = ?");
+		pstmt = con.prepareStatement("SELECT * FROM BUSINESS WHERE BUSINESS_ID = ?");
 		pstmt.setString(1, memberId);
 		rs = pstmt.executeQuery();
 		if(rs.next()){
-			cId = rs.getString("member_Id");
+			cId = rs.getString("business_Id");
 		}
 	}catch(Exception e){
 		e.printStackTrace();

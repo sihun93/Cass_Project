@@ -6,17 +6,36 @@
 <meta charset="UTF-8">
 <title>회원 정보 찾기 페이지</title>
 <link type="text/css" rel="stylesheet" href="../css/management.css">
+<style>
+@font-face{
+	font-family:'InkLipquid';
+	font-weight:normal;
+	font-style:normal;
+	font-color:white;
+    src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff')format('woff');
+    }
+.bTitle{
+	font-family:'InkLipquid';
+}
+</style>
 </head>
 <body>
-<a href="${CONTEXT_PATH}/welcome.jsp">[Cass Main]</a>
-<table border="1">
+<div id="wrapper">
+      <jsp:include page="/inc/header_menu2.jsp" />
+</div>
+<div class="bTitle">
+<a href="${CONTEXT_PATH }/welcome.jsp">
+CASS
+</a>
+</div>
+<table class="cl">
 <tr>
-<th colspan="2" id="title">원하시는 서비스를 선택해주세요.</th>
-</tr>
-<tr>
-<th><a href="${CONTEXT_PATH }/member/frontController?action=findIdForm">아이디 찾기</a></th>
-<th><a href="${CONTEXT_PATH }/member/frontController?action=findPwForm">비밀번호 찾기</a></th>
+<th><button class="formbt" onclick="location.href='${CONTEXT_PATH }/member/frontController?action=findIdForm'"><b>일반 회원님<br>아이디 찾기</b></button></th>
+	<th><button class="formbt" onclick="location.href='${CONTEXT_PATH }/member/frontController?action=findPwForm'"><b>일반 회원님<br>비밀번호 찾기</b></button></th>
 </tr>
 </table>
+<div id="wrapper">
+	<jsp:include page="/inc/footer_menu.jsp"/>
+</div> 
 </body>
 </html>
