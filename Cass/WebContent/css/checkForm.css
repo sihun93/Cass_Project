@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+body{
+	background-color: #F4F3EF;
+}
+
+tDiv{
+	margin-left: 120px;
+}
+
+input{
+	border-radius: 20px;
+}
+
+#memberId{
+	padding: 10px 10px 10px 20px;
+	width: 250px;
+	margin-top: 1%;
+}
+
+
+
+.bt{
+	padding: 10px;
+	width: 100px;
+	margin-top: 30px;
+	margin-left: 65px;
+}
+
+input:hover {
+	background: #D1DAE7;
+}
+
+a{
+	text-decoration: none;
+	color: black;
+}
+
+h3{
+	color: blue;
+}
+
+.ne{
+	color:red;
+}
