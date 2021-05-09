@@ -10,6 +10,11 @@
 <title>Companion Animal Service Site</title>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css">
+<style type="text/css">
+html, body {
+	height: 0;
+}
+</style>
 </head>
 <body>
    <c:choose>
