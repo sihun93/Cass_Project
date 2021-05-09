@@ -16,27 +16,35 @@
     }
 .Title{
 	font-family:'InkLipquid';
-	margin-bottom: -2%;
+	margin-left: -6%;
+    margin-bottom: 5%;
+}
+.text{
+		font-family:'InkLipquid';
+		font-size: 20px;
 }
 
 #findDiv {
-    margin: 50px auto;
-    width: 20%;
+    margin: 12% 43%;
+    width: 40%;
 }
 </style>
 </head>
 <body>
-<div class="Title" align="center">
-	<a href="${CONTEXT_PATH}/welcome.jsp">CASS 회원 아이디 찾기</a>
-</div>
 <div id="findDiv">
 	<form action="${CONTEXT_PATH}/member/frontController?action=memberIdFind" method="post">
+	<div class="Title"><a href="${CONTEXT_PATH}/welcome.jsp">Cass 회원 아이디 찾기</a></div>
+	<div class="ip">
+		<p class="text">생년월일</p>
 		<input type="text" class="input" pattern="\d{4}-\d{2}-\d{2}" name="memberBirth" id="memberBirth" required="required" placeholder="ex)생년월일 : yyyy-mm-dd"><br>
+		<p class="text">휴대폰</p>
 		<input type="text" class="input" pattern="\d{4}-\d{4}" id="memberMobile" name="memberMobile" placeholder="ex)휴대폰 : 1111-2222 형식 입력" required="required">
+	
 			<br>
 		<div id="loginDiv">
 			<input class="memfind" type="submit" value="찾기"><br>
 		</div>
+	</div>	
 	</form>
 </div>
 </body>

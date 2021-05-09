@@ -22,6 +22,5 @@
 		<input class="submit" type="submit" value="찾기"> <br>
 	</div>
 </form>	
-	<br>
 </body>
 </html>
