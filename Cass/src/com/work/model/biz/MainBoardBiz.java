@@ -244,7 +244,7 @@ public class MainBoardBiz {
 			return;
 		}
 		if(dao.getTime(dto,columndate,columncount)) {
-			dao.setdata(dto,columncount);
+			dao.setdata(dto,columndate,columncount);
 		}
 	}
 }
