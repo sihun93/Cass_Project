@@ -136,7 +136,7 @@ public class MemberDao {
 	 * @throws CommonException
 	 */
 	public void updateMyInfo(Connection con, MemberDto dto) throws CommonException{
-		String sql = "update MEMBER set member_Pw = ?, member_Addr = ?, member_Email = ?, member_Mobile = ?, point = ? where member_Id = ?";
+		String sql = "update MEMBER set member_Pw = ?, member_Addr = ?, member_Email = ?, member_Mobile = ? where member_Id = ?";
 		PreparedStatement pstmt = null;
 		
 		try {
@@ -145,8 +145,7 @@ public class MemberDao {
 			pstmt.setString(2, dto.getMemberAddr());
 			pstmt.setString(3, dto.getMemberEmail());
 			pstmt.setString(4, dto.getMemberMobile());
-			pstmt.setInt(5, dto.getPoint());
-			pstmt.setString(6, dto.getMemberId());
+			pstmt.setString(5, dto.getMemberId());
 			int rows = pstmt.executeUpdate();
 			if(rows == 0) {
 				throw new Exception();

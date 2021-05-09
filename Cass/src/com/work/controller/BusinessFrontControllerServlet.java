@@ -250,8 +250,8 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 				}
 				session.invalidate();
 			}
-			String url = "/welcome.jsp";
-			response.sendRedirect(url);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/welcome.jsp");
+			dispatcher.forward(request, response);
 		}
 		
 		/**
@@ -369,6 +369,7 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 			}
 			String memberId = ((BusinessMemberDto)session.getAttribute("dto")).getMemberId();
 			String businessPw = request.getParameter("businessPw");
+			String businessNum = request.getParameter("businessNum");
 			String businessTitle = request.getParameter("businessTitle");
 			String addrCode = request.getParameter("addrCode");
 			String businessAddr1 = request.getParameter("businessAddr1");
@@ -376,52 +377,31 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 			String businessAddr = addrCode + "/" + businessAddr1 + "/" + businessAddr2;
 			String businessPhone = request.getParameter("businessPhone");
 			String businessHomepage = request.getParameter("businessHomepage");
-			System.out.println("memberId : [" + memberId + "]");
-			System.out.println("businessPw : [" + businessPw + "]");
-			System.out.println("businessTitle : [" + businessTitle + "]");
-			System.out.println("businessAddr : [" + businessAddr + "]");
-			System.out.println("businessPhone : [" + businessPhone + "]");
-			System.out.println("businessHomepage : [" + businessHomepage + "]");
 			
 			BusinessBiz biz = new BusinessBiz();
 			BusinessMemberDto dto = new BusinessMemberDto();
 			dto.setMemberId(memberId);
 			dto.setBusinessPw(businessPw);
+			dto.setBusinessNum(businessNum);
 			dto.setBusinessTitle(businessTitle);
 			dto.setBusinessAddr(businessAddr);
 			dto.setBusinessPhone(businessPhone);
 			dto.setBusinessHomepage(businessHomepage);
-			
-			BusinessMemberDto chkDto = new BusinessMemberDto();
+			dto.setGrade("B");
 			try {
-				
-				chkDto.setMemberId(memberId);
-				biz.businessInfo(chkDto);
-				System.out.println(">>> chkDto.getBusinessPw() : " + chkDto.getBusinessPw());
-				if(chkDto.getBusinessPw() != null) { //  가입된 아이디인 경우
-					MessageEntity messageEntity = new MessageEntity("validation", 8);
-					messageEntity.setLinkTitle("회원가입 재시도");
-					messageEntity.setUrl(CONTEXT_PATH + "/business/frontController?action=businessInputForm");
-					request.setAttribute("messageEntity", messageEntity);
-					request.getRequestDispatcher("/message/message.jsp").forward(request, response);
-					return;
-				}else {
-					biz.addBusiness(dto);
-					RequestDispatcher dispatcher = request.getRequestDispatcher("/business/bsLogin.jsp");
-					dispatcher.forward(request, response);
-					return;
-				}
+				biz.bsUpdateInfo(dto);
+				session.setAttribute("dto", dto);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/welcome.jsp");
+				dispatcher.forward(request, response);
+				return;
 			}catch (CommonException e) {
 				e.printStackTrace();
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/message/message.jsp");
-				dispatcher.forward(request, response);
 				MessageEntity messageEntity = e.getMessageEntity();
-				messageEntity.setUrl(CONTEXT_PATH + "/business/frontController?action=businessInputForm");
-				messageEntity.setLinkTitle("회원가입 재시도");
+				messageEntity.setUrl(CONTEXT_PATH + "/welcome.jsp");
+				messageEntity.setLinkTitle("메인으로");
 				request.setAttribute("message", messageEntity);
 				request.getRequestDispatcher("/message/message.jsp").forward(request, response);
 			}
-			
 		}
 		
 		/**

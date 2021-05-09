@@ -23,9 +23,14 @@
 	function blankCheck(f){
 		
 		var memberId = f.memberId.value;
+		var engPattern = /[^a-zA-Z]/;
 		memberId = memberId.trim();
 		if(memberId.length<6){
 			alert("아이디는 최소 6자 이상 입력해주십시오.");
+			return false;
+		}
+		if (engPattern.test(memberId)) {
+			alert("아이디는 영어만 입력 가능합니다.");
 			return false;
 		}
 		return true;
