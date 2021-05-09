@@ -652,8 +652,9 @@ public class MainBoardDao {
 		return false;
 	}
 
-	public void setdata(MasterMemberDto dto, String columncount) {
-		String sql = "UPDATE DATACENTER set "+columncount+" = to_number("+columncount+")+1 WHERE member_id = ?";
+	public void setdata(MasterMemberDto dto, String columndate, String columncount) {
+		String sql = "UPDATE DATACENTER set "+columncount+" = to_number("+columncount+")+1 , "+
+				columndate+" = sysdate WHERE member_id = ?";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		int row = 0;
@@ -662,16 +663,17 @@ public class MainBoardDao {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, dto.getMemberId());
 			row = stmt.executeUpdate();
+			JdbcTemplate.commit(conn);
 			if (row != 1) {
 				throw new Exception();
 			}
 		} catch (Exception e) {
+			JdbcTemplate.rollback(conn);
 			e.printStackTrace();
 		} finally {
 			JdbcTemplate.close(stmt);
 			JdbcTemplate.close(conn);
 		}
-		
 	}
 
 
