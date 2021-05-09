@@ -125,14 +125,18 @@
   cursor: pointer;
 }
 
-#img_div {
-	width: 300px;
+#img_divs {
+	width: 400px;
 	margin-left: 10%; 
 }
 
-img {
-	width: 90px; 
-	height: 90px;
+.img_div {
+	width: 100px; 
+	float: left;
+	margin-left: 5%;
+}
+
+.imgs {
 	image-rendering : -moz-auto;
 	image-rendering: -o-auto;
 	image-rendering: -webkit-optimize-contrast;
