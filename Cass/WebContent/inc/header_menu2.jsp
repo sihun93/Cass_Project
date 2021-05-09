@@ -2,13 +2,13 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <link type="text/css" rel="stylesheet" href="css/management.css">
+    <link type="text/css" rel="stylesheet" href="css/welcome.css">
     
     
 <div id="header">
    <a href="${CONTEXT_PATH}/welcome.jsp"><div id="header_logo"><h1>CASS</h1></div></a>
    <div id="main_menu">
-   		<a href="${CONTEXT_PATH}/MainBoard/mainboardController?action=mainbaordListform&pageNum=1
-   		">반려동물 서비스</a><span class="seperator">|</span>
+   		<a href="${CONTEXT_PATH}/MainBoard/mainboardController?action=mainbaordListform&pageNum=1">반려동물 서비스</a><span class="seperator">|</span>
    		<a href="${CONTEXT_PATH}/cass/qboardController?action=qboardList">Q&A 게시판</a><span class="seperator">|</span>
    		<c:if test="${ dto.grade eq 'G' || dto.grade eq 'A' || empty dto.grade  }">
 	   		<a href="${CONTEXT_PATH}/point/pointController?action=pointMain">포인트 샵</a> <span class="seperator">|</span>
@@ -28,7 +28,12 @@
 		</c:choose>
 		<c:choose>
 			<c:when test="${!empty dto }">
-		   		<a href="${CONTEXT_PATH}/member/frontController?action=myInfoForm">내정보조회</a><span class="seperator">|</span>
+		   		<c:if test="${dto.grade eq 'A' || dto.grade eq 'G'}">
+			   		<a href="${CONTEXT_PATH}/member/frontController?action=myInfoForm">내정보조회</a><span class="seperator">|</span>
+				</c:if>
+				<c:if test="${dto.grade eq 'B'}">
+			   		<a href="${CONTEXT_PATH}/business/frontController?action=businessInfoForm">내정보조회</a><span class="seperator">|</span>
+				</c:if>
 			</c:when>
 			<c:when test="${empty dto}">
 		   		<a href="${CONTEXT_PATH}/cassInput.jsp">회원가입</a><span class="seperator">|</span>
