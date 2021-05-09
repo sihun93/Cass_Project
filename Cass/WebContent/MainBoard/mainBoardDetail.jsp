@@ -314,8 +314,9 @@ src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainb
 </table>
 
 <form action="${CONTEXT_PATH}/MainBoard/mainboardController?action=updatereview" method="post" id="${state.index}-1-1">
-<input type="hidden" value="${detaildto.mboardNum }" name="mboardNum">
-<input type="hidden" value="${review.memberId}" name="memberId"> 
+<input type="hidden" value="${review.mboardNum }" name="mboardNum">
+<input type="hidden" value="${review.memberId}" name="memberId">
+<input type="hidden" value="${review.reviewNum}" name="reviewNum"> 
 <table class="retable"  id="${state.index}-1" style="display: none;">
 <tr style="padding: 0">
 <td colspan="2" width="75%" height="90%" style="text-align: left; padding-top: 1px padding-bottom: 1px">
