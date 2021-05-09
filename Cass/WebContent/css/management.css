@@ -181,6 +181,7 @@ h4.Title{
 	font-size:1.2em;
 	padding-top:33px;
 	padding-left:15%;
+	font-family:'InkLipquid';
 	}
 #header_logo{
 	font-size:1.5em;
@@ -206,6 +207,10 @@ a:visited{
 	color:black;
 	
 	}
+a:link { 
+	color: black; 
+	text-decoration: none;
+	}
 a:hover{
 	text-decoration:none;
 	color:black;
@@ -219,6 +224,7 @@ a:active{
 	font-size: 1.2em;
 	float:right;
 	margin-top:-35px; 
+	font-family:'InkLipquid';
 	}
 span.seperator{
 	padding:0px 10px;
@@ -333,8 +339,6 @@ img[src^="img/service"] {
 	margin-left: 500px;
 	font-family: 'InkLipquid';
 	font-size: 1.5em;
-	font-family: 'InkLipquid';
-	font-size: 1.8em;
 }
 
 .table {
