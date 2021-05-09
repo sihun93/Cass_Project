@@ -46,38 +46,7 @@ function resize(imgThis){
 <link type="text/css" rel="stylesheet"href="${pageContext.request.contextPath}/css/common.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/welcome.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/star.css">
-<style type="text/css">
-.sky {
-	font-family: 'InkLipquid';
-	font-size: 1.9em;
-	position: absolute;
-	width: 160px;
-	left: 60px;
-	top: 180px;
-	height: 250px;
-}
-
-.review {
-	margin-left: 500px;
-	font-family: 'InkLipquid';
-	font-size: 1.5em;
-	font-family: 'InkLipquid';
-	font-size: 1.8em;
-}
-#pageNumber{
-	text-align: center;
-}
-
-.retable {
-	width: 730px;
-	margin-left: auto;
-	margin-right: auto;
-}
-#inputTable{
-	height: 100px;
-	text-align: center;
-}
-</style>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/mainboardDetail.css">
 </head>
 <body>
 	<div id="wrapper">
@@ -105,15 +74,15 @@ function resize(imgThis){
 <!-- 회사 정보 -->
 <tr>
 <td>
-<img id="bImage_container" style=" width: 200px; height: 200px" src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainboard%2F${detaildto.businessId}%2F${detaildto.mboardImg }?alt=media">
+<img id="bImage_container" src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainboard%2F${detaildto.businessId}%2F${detaildto.mboardImg }?alt=media">
 </td>
-<td width="80%">
+<td id="keyword">
 <c:set var="keywordArr" value="${fn:split(detaildto.mboardInfo,'\\\\')}"/>
-회사이름:${keywordArr[0]}<br><br>
-회사주소:<a onclick="mapup()">${keywordArr[1] }</a><br><br>
+회사이름: ${keywordArr[0]}<br><br>
+회사주소: <a onclick="mapup()">${keywordArr[1] }</a><br><br>
 <input type="hidden" value="${keywordArr[1] }" id="mapaddr">
-전화번호:${keywordArr[2] }<br><br>
-홈페이지:<a href="${keywordArr[3] }" target ="_blank">${keywordArr[3] }</a>
+전화번호: ${keywordArr[2] }<br><br>
+홈페이지: <a href="${keywordArr[3] }" target ="_blank">${keywordArr[3] }</a>
 </td>
 </tr>
 
@@ -127,12 +96,12 @@ function resize(imgThis){
 <c:choose>
 
 <c:when test="${fn:substring(detaildto.mboardContent,0,7) == iValue }">
-<img id="mbImage" width="100%" height="100%" 
+<img id="mbImage"
 src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainboard%2F${detaildto.businessId}%2F${fn:substring(detaildto.mboardContent,7,imglength) }?alt=media">
 </c:when>
 
 <c:otherwise>
-<c:out value=" ${fn:substring(detaildto.mboardContent,6,imglength) }"/>
+${fn:substring(detaildto.mboardContent,6,imglength) }
 </c:otherwise>
 
 </c:choose>
@@ -140,9 +109,11 @@ src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainb
 </tr>
 
 </table>
+<div id="deletebtn">
 <c:if test="${(dto.grade eq 'A') or (dto.grade eq 'B' and dto.memberId eq detaildto.businessId)}">
 <input type="button" value="게시글 삭제" onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=deleteMainBoard&mboardNum=${detaildto.mboardNum}'">
 </c:if>
+</div>
 
 <br>
 <!-- 리뷰 입력창 -->
@@ -151,14 +122,14 @@ src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainb
 <table id="inputTable" class="retable" >
 <thead>
 <tr style="padding: 0">
-<td colspan="2" width="75%" height="90%" style="text-align: left; padding-top: 1px padding-bottom: 1px">
-<textarea id="reviewTextarea" name="reviewTextarea" style="resize: none; width: 99%; height: 75px">
+<td colspan="2" style="text-align: left; padding-top: 1px padding-bottom: 1px">
+<textarea id="reviewTextarea" name="reviewTextarea" style="resize: none; width: 89%; height: 75px; margin-left: 5%;">
 </textarea><br>
 <img id="img0" width="75px" height="75px" style="display: none;">
 <img id="img1" width="75px" height="75px" style="display: none;">
 <img id="img2" width="75px" height="75px" style="display: none;">
 </td>
-<td align="center" rowspan="2" width="10%" id="inputbtn">
+<td align="center" rowspan="2" id="inputbtn">
 등록
 </td>
 </tr>
