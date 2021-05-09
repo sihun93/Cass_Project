@@ -34,7 +34,7 @@ function postcode(){
 }
 
 function idCheck(){
-	window.open("IdCheckForm.jsp", "IdCheckForm", "width=400, height=300");
+	window.open("IdCheckForm.jsp", "IdCheckForm", "width=480, height=300");
 }
 </script>
 </head>

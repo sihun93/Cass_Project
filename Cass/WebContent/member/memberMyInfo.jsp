@@ -147,7 +147,7 @@ function addCommas(x) {
       	</tr>
    </table>
 </form>
-         <button onclick="javascript:memberDelete('${dto.memberId}');" style="margin-top:2%; width: 300px; margin-left: 41%;">회원탈퇴</button>
+         <button onclick="javascript:memberDelete('${dto.memberId}');" style="margin-top:2%; width: 300px; margin-left: 43%;">회원탈퇴</button>
          
 </div>
 </body>

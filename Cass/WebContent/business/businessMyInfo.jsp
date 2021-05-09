@@ -116,7 +116,7 @@ function businessDelete(memberId){
 	<tr>
 		<th>휴대번호 </th>
 		<td>
-			<input style="text-align: left;" type="text" pattern="\d{3}-\d{4}-\d{4}" value="${dto.businessPhone }" name="businessPhone" id="businessPhone" required="required" placeholder="ex)010-1111-1111">
+			<input style="text-align: center;" type="text" pattern="\d{3}-\d{4}-\d{4}" value="${dto.businessPhone }" name="businessPhone" id="businessPhone" required="required" placeholder="ex)010-1111-1111">
 		</td>
 	</tr>
 
@@ -133,7 +133,7 @@ function businessDelete(memberId){
 		</tr>
 	</table>
 </form>
-			<button onclick="javascript:businessDelete('${dto.memberId}');"style="margin-top:2%; width: 300px; margin-left: 41%;">회원탈퇴</button>
+			<button onclick="javascript:businessDelete('${dto.memberId}');"style="margin-top:2%; width: 300px; margin-left: 43%;">회원탈퇴</button>
 </div>
 </body>
 </html>

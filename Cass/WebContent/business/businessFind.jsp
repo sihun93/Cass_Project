@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>사업자 회원 정보 찾기 페이지</title>
 <link type="text/css" rel="stylesheet" href="../css/management.css">
+<link type="text/css" rel="stylesheet" href="../css/welcome.css">
 <style>
 @font-face{
 	font-family:'InkLipquid';
