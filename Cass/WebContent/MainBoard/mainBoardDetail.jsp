@@ -130,10 +130,16 @@ ${fn:substring(detaildto.mboardContent,6,imglength) }
 <td colspan="2" style="text-align: left; padding-top: 1px padding-bottom: 1px">
 <textarea id="reviewTextarea" name="reviewTextarea" style="resize: none; width: 89%; height: 75px; margin-left: 5%;">
 </textarea><br>
-<div id="img_div">
-<img id="img0" width="75px" height="75px" style="display: none;">
-<img id="img1" width="75px" height="75px" style="display: none;">
-<img id="img2" width="75px" height="75px" style="display: none;">
+<div id="img_divs">
+<div class="img_div">
+<img id="img0" class="imgs" width="100px" height="100px" style="display: none;">
+</div>
+<div class="img_div">
+<img id="img1" class="imgs" width="100px" height="100px" style="display: none;">
+</div>
+<div class="img_div">
+<img id="img2" class="imgs" width="100px" height="100px" style="display: none;">
+</div>
 </div>
 </td>
 <td align="center" rowspan="2" id="inputbtn">
@@ -185,7 +191,7 @@ ${fn:substring(detaildto.mboardContent,6,imglength) }
     <span class="startRadio__img"><span class="blind">별 5개</span></span>
   </label>
 </div>
-<input id="reviewscore" name="reviewscore" type="hidden">
+<input id="reviewscore" name="reviewscore" type="hidden" value="1">
 </td>
 <td>
 <label class="input-file-button" for="reviewimg">이미지 업로드</label>
@@ -311,7 +317,7 @@ onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=del
 <td colspan="2" width="77%" height="80px">
 ${review.reviewContent}<br>
 <c:forEach items="${fn:split(review.reviewImg,'\\\\') }" var="imgName">
-<img width="75px" height="75px" onclick="resize(this)";
+<img class="imgs" width="75px" height="75px" onclick="resize(this)";
 src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainboard%2F${detaildto.businessId}%2F${review.memberId }%2F${imgName }?alt=media">
 </c:forEach>
 </td>
