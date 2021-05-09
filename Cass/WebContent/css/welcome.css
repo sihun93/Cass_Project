@@ -71,14 +71,14 @@ img[src^="img/service"] {
 
 .review {
 	font-family:'InkLipquid';
-	margin-left: 500px;
+	margin-left: 20%;
 	font-size: 1.8em;
 }
 
 .table {
 	font-family:'InkLipquid';
 	margin-top: 5%;
-	margin-left: 500px;
+	margin-left: 20%;
 	font-size: 1.8em;
 }
 
@@ -89,7 +89,7 @@ img[src^="img/service"] {
 	-webkit-animation: fadein 10s;
 	-o-animation: fadein 10s;
 	margin-top: 60px;
-	margin-left: 500px;
+	margin-left: 20%;
 	font-family: 'InkLipquid';
 	font-size: 5em;
 }

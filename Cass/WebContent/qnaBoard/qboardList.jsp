@@ -12,6 +12,12 @@
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/welcome.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/qboard.css">
+<style type="text/css">
+#ulTable>li:first-child>ul>li {
+	text-align: center;
+	background-color: #D1DAE7;
+}
+</style>
 </head>
 <body>
 <div id="wrapper">
