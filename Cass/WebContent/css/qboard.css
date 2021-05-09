@@ -12,9 +12,6 @@
 .left{
 	text-align:center;
 }
-td{
-	border-bottom: 1px solid silver;
-}
 table{
 	border-spacing: 10px;
 	width:800px;
@@ -24,7 +21,6 @@ ul, li {
 	list-style: none;
 	text-align: center;
 	padding: 0;
-	margin: 0;
 }
 
 #mainWrapper {
@@ -87,4 +83,10 @@ ul, li {
 }
 .boardTable{
 	border-radius: 20px;
+}
+.input-file-button{
+  padding: 3px 25px;
+  background-color:#D1DAE7;
+  border-radius: 20px;
+  cursor: pointer;
 }

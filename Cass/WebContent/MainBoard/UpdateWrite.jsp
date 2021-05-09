@@ -52,14 +52,6 @@ $(document).ready(function() {
 	height: 250px;
 }
 
-.review {
-	margin-left: 500px;
-	font-family: 'InkLipquid';
-	font-size: 1.5em;
-	font-family: 'InkLipquid';
-	font-size: 1.8em;
-}
-
 table#contable {
 	width: 40%;
 	margin-left: auto;
@@ -81,6 +73,26 @@ table#contable {
 }
 textarea {
 	resize: none;
+}
+#resetbtn, #filebtn{
+	width: 100px;
+	height: 40px;
+	border-radius: 20px;
+	background-color: #D1DAE7;
+	border:none;
+}
+#imgbtn{
+	width: 150px;
+	height: 40px;
+	border-radius: 20px;
+	background-color: #D1DAE7;
+	border:none;
+}
+.input-file-button{
+  padding: 6px 25px;
+  background-color:#D1DAE7;
+  border-radius: 20px;
+  cursor: pointer;
 }
 </style>
 </head>
@@ -113,7 +125,7 @@ textarea {
 
 <input type="hidden" value="${MainBoardDto.businessId }" id="loginId"> 
 <input type="hidden" value="${MainBoardDto.mboardNum }" name="mboardNum"> 
-<table border="2" id="updatetable">
+<table id="updatetable">
 <tr>
 <td colspan="2" align="center">
 <input name="title" id="title" type="text" autofocus="autofocus" style="width: 98%" value="${MainBoardDto.mboardTitle }">
@@ -195,8 +207,9 @@ src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainb
 <tr>
 <td colspan="2">
 <input type="hidden" name="bimgval" id="bimgval" value="${MainBoardDto.mboardImg }">
+<label class="input-file-button" for="bimg">이미지 업로드</label>
 <input type="file" name="bimg" id="bimg" 
-onchange="setBImg(event);" style="display: block;">
+onchange="setBImg(event);" style="display: none;">
 </td>
 </tr>
 
@@ -205,13 +218,15 @@ onchange="setBImg(event);" style="display: block;">
 <c:choose>
 <c:when test="${fn:substring(MainBoardDto.mboardContent,0,7) == iValue }">
 <input type="hidden" name="mbimgval" id="mbimgval" value="${fn:substring(MainBoardDto.mboardContent,7,imglength) }">
+<label class="input-file-button" for="bimg">이미지 업로드</label>
 <input type="file" name="mbimg" id="mbimg" value=""
-onchange="setMbImg(event);" style="display: block;">
+onchange="setMbImg(event);" style="display: none;">
 </c:when>
 <c:otherwise>
 <input type="hidden" name="mbimgval" id="mbimgval">
+<label class="input-file-button" for="bimg">이미지 업로드</label>
 <input type="file" name="mbimg" id="mbimg" 
-onchange="setMbImg(event);" style="display: block;">
+onchange="setMbImg(event);" style="display: none;">
 </c:otherwise>
 </c:choose>
 </td>
@@ -221,7 +236,7 @@ onchange="setMbImg(event);" style="display: block;">
 <tr>
 <td colspan="2" align="left">
 <input id="imgbtn" type="button" value="게시글 이미지 초기화" >
-<input type="reset" value="초기화">
+<input type="reset" value="초기화" id="resetbtn">
 <input id="filebtn" type="button" value="수정">
 </td>
 </tr>

@@ -9,6 +9,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Q&A 게시판</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript">
+$(function () {
+    $(window).scroll(function () {
+        var curpos = $(window).scrollTop()+180;
+        $(".sky").stop().animate({"top":curpos}); 
+    });
+});
+
+</script>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/welcome.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/qboard.css">
@@ -20,8 +30,21 @@
 </style>
 </head>
 <body>
+<div class="sky">
+  	<table>
+  		<tr>
+  			<td><a href="#">▲ 위로</a></td>
+  		</tr>
+  		<c:forEach var="mainCategoryList" items="${mainCategoryList}">
+  		<tr>
+  			<td><a href="${CONTEXT_PATH}/MainBoard/mainboardController?action=mainbaordListform&pageNum=1&mcategoryNum=${mainCategoryList.mcategoryNum}">${mainCategoryList.mcategoryName }</a></td>
+  		</tr>
+  		</c:forEach>
+  	</table>
+  </div>
 <div id="wrapper">
 	<jsp:include page="/inc/header_menu.jsp" />
+	
    <div id="container">
   	<div id="mainWrapper">
 		<ul>
