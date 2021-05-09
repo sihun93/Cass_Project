@@ -75,33 +75,36 @@
 <jsp:include page="/inc/footer_menu.jsp"/>
 </div>
 <script>
-		var firebaseConfig = {
-			apiKey : "AIzaSyAqSBsp8MVYfepmDrJH59y_3kDyo2IqUYc",
-			authDomain : "clever-cass.firebaseapp.com",
-			projectId : "clever-cass",
-			storageBucket : "clever-cass.appspot.com",
-			messagingSenderId : "1040299710220",
-			appId : "1:1040299710220:web:ba3a12d171aed2c47ddb29",
-			measurementId : "G-VX528GR619"
-		};
-		firebase.initializeApp(firebaseConfig);
-		firebase.analytics();
+var firebaseConfig = {
+		apiKey : "AIzaSyAqSBsp8MVYfepmDrJH59y_3kDyo2IqUYc",
+		authDomain : "clever-cass.firebaseapp.com",
+		projectId : "clever-cass",
+		storageBucket : "clever-cass.appspot.com",
+		messagingSenderId : "1040299710220",
+		appId : "1:1040299710220:web:ba3a12d171aed2c47ddb29",
+		measurementId : "G-VX528GR619"
+	};
+	firebase.initializeApp(firebaseConfig);
+	firebase.analytics();
 
-		var qboardImg = document.getElementById('qboardImg');
-		var btn = document.getElementById('btn');
-		var file = null;
-		var storageRef = null;
-		qboardImg.addEventListener('change', function(e) {
-			file = e.target.files[0];
+	var qboardImg = document.getElementById('qboardImg');
+	var btn = document.getElementById('btn');
+	var file = null;
+	var storageRef = null;
+	qboardImg.addEventListener('change', function(e) {
+		file = e.target.files[0];
+	});
+	btn.addEventListener('click', function() {
+		if(file==null){	
+			$("#Inputform").submit();
+			return;
+	}
+		storageRef = firebase.storage().ref('qboard/' + file.name);
+		storageRef.put(file).then(function (snapshot) {
+			console.log('업로드');
+			$("#Inputform").submit();		
 		});
-		btn.addEventListener('click', function() {
-			storageRef = firebase.storage().ref('qboard/' + file.name);
-			storageRef.put(file).then(function (snapshot) {
-				console.log('업로드');
-				$("#Inputform").submit();		
-			});
-			
-		});
+	});
 	</script>	
 </body>
 </html>

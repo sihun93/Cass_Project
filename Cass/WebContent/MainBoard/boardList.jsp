@@ -30,25 +30,41 @@ function fsubmit(eventClass) {
 	top: 180px;
 	height: 250px;
 }
-
-.review {
-	margin-left: 500px;
-	font-family: 'InkLipquid';
-	font-size: 1.5em;
-	font-family: 'InkLipquid';
-	font-size: 1.8em;
-}
 table#contable{
-	width: 580px;
+	width: 1000px;
 	height: 220px;
 	margin-left: auto;
 	margin-right: auto;
-	background-color: #D1DAE7;
 	padding-bottom: 5px;
+	border:3px outset;
 }
 #pageNumber{
+	margin-top:4%;
 	text-align: center;
+	font-family: 'InkLipquid';
+	font-size: 1.8em;
 }
+#content{
+	font-family: 'InkLipquid';
+	font-size: 1.8em;
+}
+#inputbtn{
+	margin-left:65%;
+	margin-bottom:1%;
+	width: 100px;
+	height: 40px;
+	border-radius: 20px;
+	background-color: #D1DAE7;
+	border:none;
+}
+#logoImg{
+	image-rendering: -moz-auto;
+	image-rendering: -o-auto;
+	image-rendering: -webkit-optimize-contrast;
+	image-rendering: auto;
+	-ms-interpolation-mode: nearest-neighbor;
+}
+
 </style>
 </head>
 <body>

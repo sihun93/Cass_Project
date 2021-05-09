@@ -135,6 +135,9 @@ public class QboardControllerServlet extends HttpServlet {
 		String qboardTitle = request.getParameter("qboardTitle");
 		String qboardContent = request.getParameter("qboardContent");
 		String qboardImg = request.getParameter("qboardImg");
+		if(qboardImg == null) {
+			qboardImg = "null";
+		}
 		HttpSession session = request.getSession(false);
 		String memberId = ((MasterMemberDto)session.getAttribute("dto")).getMemberId();		
 		QboardBiz biz = new QboardBiz();
