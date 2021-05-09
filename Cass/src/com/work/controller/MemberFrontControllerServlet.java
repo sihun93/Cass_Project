@@ -365,8 +365,7 @@ public class MemberFrontControllerServlet extends HttpServlet {
 			String memberAddr = addrCode + "/" + memberAddr1 + "/" + memberAddr2;
 			String memberEmail = request.getParameter("memberEmail");
 			String memberMobile = request.getParameter("memberMobile");
-			int point = Integer.parseInt(request.getParameter("point"));
-
+			
 			MemberBiz biz = new MemberBiz();
 			MemberDto dto = new MemberDto();
 			dto.setMemberId(memberId);
@@ -374,11 +373,9 @@ public class MemberFrontControllerServlet extends HttpServlet {
 			dto.setMemberAddr(memberAddr);
 			dto.setMemberEmail(memberEmail);
 			dto.setMemberMobile(memberMobile);
-			dto.setPoint(point);
 			try {
 				biz.updateInfo(dto);
 				session.setAttribute("dto", dto);
-				System.out.println(memberId+"/"+memberPw+"/"+memberAddr+"/"+memberEmail+"/"+memberMobile+"/"+point);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/welcome.jsp");
 				dispatcher.forward(request, response);
 			} catch (CommonException e) {
@@ -429,7 +426,6 @@ public class MemberFrontControllerServlet extends HttpServlet {
 			MemberBiz biz = new MemberBiz();
 			MemberDto dto = biz.getPoint(memberId);
 			if (dto != null) {
-				System.out.println(memberId);
 				request.setAttribute("dto", dto);
 				RequestDispatcher requestView = request.getRequestDispatcher("/member/pointModify.jsp");
 				requestView.forward(request, response);
@@ -459,7 +455,6 @@ public class MemberFrontControllerServlet extends HttpServlet {
 			String sPoint = request.getParameter("point");
 			
 			if (memberId.isEmpty()) {
-				System.out.println(">>> memberId.isEmpty() error ");
 				MessageEntity messageEntity = new MessageEntity("error", 16);
 				messageEntity.setLinkTitle("포인트 수정");
 				messageEntity.setUrl(CONTEXT_PATH + "/member/frontController?action=pointModifyForm");
@@ -468,7 +463,6 @@ public class MemberFrontControllerServlet extends HttpServlet {
 				return;
 			}
 			if (sPoint.isEmpty() || !(Utility.isNumber(sPoint))) {
-				System.out.println(">>> sPoint.isEmpty() || !(Utility.isNumber(sPoint)) error ");
 				MessageEntity messageEntity = new MessageEntity("error", 16);
 				messageEntity.setLinkTitle("포인트 수정");
 				messageEntity.setUrl(CONTEXT_PATH + "/member/frontController?action=pointModifyForm");
@@ -485,14 +479,10 @@ public class MemberFrontControllerServlet extends HttpServlet {
 			
 			try {
 				biz.pointModify(dto);
-				MessageEntity messageEntity = new MessageEntity("success", 9);
-				messageEntity.setLinkTitle("메인으로");
-				messageEntity.setUrl(CONTEXT_PATH + "/welcome.jsp");
-				request.setAttribute("messageEntity", messageEntity);
-				request.getRequestDispatcher("/message/message.jsp").forward(request, response);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/welcome.jsp");
+				dispatcher.forward(request, response);
 			}catch(Exception e) {
 				e.getStackTrace();
-				System.out.println(">>> pointModify error ");
 				MessageEntity messageEntity = new MessageEntity("error", 16);
 				messageEntity.setLinkTitle("포인트 수정");
 				messageEntity.setUrl(CONTEXT_PATH + "/member/frontController?action=pointModifyForm");
@@ -650,7 +640,7 @@ public class MemberFrontControllerServlet extends HttpServlet {
 			try {
 				biz.memberList(list);
 				request.setAttribute("list", list);
-				request.getRequestDispatcher("memberList.jsp").forward(request, response);
+				request.getRequestDispatcher("/member/memberList.jsp").forward(request, response);
 			} catch(Exception e) {
 				MessageEntity messageEntity = new MessageEntity("error", 4);
 				messageEntity.setLinkTitle("메인으로");
