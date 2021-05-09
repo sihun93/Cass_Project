@@ -56,9 +56,6 @@
     pointer-events: none;
 }
 
-#reviewStar :checked :disabled + .startRadio__img {
-    background-color: #0084ff;
-}
 #reviewStar1{
 	background-color: #0084ff;
 }

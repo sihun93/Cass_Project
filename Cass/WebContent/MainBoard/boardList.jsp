@@ -102,7 +102,95 @@ table#contable{
 <img style="width: 175px; height: 175px" src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainboard%2F${mainbaord.businessId}%2F${mainbaord.mboardImg }?alt=media">
 </td>
 <td>제목:${mainbaord.mboardTitle }</td>
-<td align="right">${mainbaord.mboardScore }점</td>
+<td align="right" width="110px;" style="margin-right: 2px;">
+<c:if test="${mainbaord.mboardScore == 0}">
+리뷰가 부족합니다.
+</c:if>
+<c:if test="${mainbaord.mboardScore != 0}">
+<div class="startRadio">
+  <label class="startRadio__box">
+    <c:if test="${mainbaord.mboardScore >=1 }">
+    <span class="startRadio__img" id="reviewStar1"><span class="blind">별 0.5개</span></span>
+    </c:if>
+    <c:if test="${mainbaord.mboardScore <1 }">
+    <span class="startRadio__img" ><span class="blind">별 0.5개</span></span>
+    </c:if>
+  </label>
+  <label class="startRadio__box">
+    <c:if test="${mainbaord.mboardScore >=2 }">
+    <span class="startRadio__img" id="reviewStar1"><span class="blind">별 1개</span></span>
+    </c:if>
+    <c:if test="${mainbaord.mboardScore <2 }">
+    <span class="startRadio__img" ><span class="blind">별 1개</span></span>
+    </c:if>
+  </label>
+  <label class="startRadio__box">
+    <c:if test="${mainbaord.mboardScore >=3 }">
+    <span class="startRadio__img" id="reviewStar1"><span class="blind">별 1.5개</span></span>
+    </c:if>
+    <c:if test="${mainbaord.mboardScore <3 }">
+    <span class="startRadio__img" ><span class="blind">별 1.5개</span></span>
+    </c:if>
+  </label>
+  <label class="startRadio__box">
+    <c:if test="${mainbaord.mboardScore >=4 }">
+    <span class="startRadio__img" id="reviewStar1"><span class="blind">별 2개</span></span>
+    </c:if>
+    <c:if test="${mainbaord.mboardScore <4 }">
+    <span class="startRadio__img" ><span class="blind">별 2개</span></span>
+    </c:if>
+  </label>
+  <label class="startRadio__box">
+    <c:if test="${mainbaord.mboardScore >=5 }">
+    <span class="startRadio__img" id="reviewStar1"><span class="blind">별 2.5개</span></span>
+    </c:if>
+    <c:if test="${mainbaord.mboardScore <5 }">
+    <span class="startRadio__img" ><span class="blind">별 2.5개</span></span>
+    </c:if>
+  </label>
+  <label class="startRadio__box">
+    <c:if test="${mainbaord.mboardScore >=6 }">
+    <span class="startRadio__img" id="reviewStar1"><span class="blind">별 3개</span></span>
+    </c:if>
+    <c:if test="${mainbaord.mboardScore <6 }">
+    <span class="startRadio__img" ><span class="blind">별 3개</span></span>
+    </c:if>
+  </label>
+  <label class="startRadio__box">
+    <c:if test="${mainbaord.mboardScore >=7 }">
+    <span class="startRadio__img" id="reviewStar1"><span class="blind">별 3.5개</span></span>
+    </c:if>
+    <c:if test="${mainbaord.mboardScore <7 }">
+    <span class="startRadio__img" ><span class="blind">별 3.5개</span></span>
+    </c:if>
+  </label>
+  <label class="startRadio__box">
+    <c:if test="${mainbaord.mboardScore >=8 }">
+    <span class="startRadio__img" id="reviewStar1"><span class="blind">별 4개</span></span>
+    </c:if>
+    <c:if test="${mainbaord.mboardScore <8 }">
+    <span class="startRadio__img" ><span class="blind">별 4개</span></span>
+    </c:if>
+  </label>
+  <label class="startRadio__box">
+    <c:if test="${mainbaord.mboardScore >=9 }">
+    <span class="startRadio__img" id="reviewStar1"><span class="blind">별 4.5개</span></span>
+    </c:if>
+    <c:if test="${mainbaord.mboardScore <9 }">
+    <span class="startRadio__img" ><span class="blind">별 4.5개</span></span>
+    </c:if>
+  </label>
+  <label class="startRadio__box">
+    <c:if test="${mainbaord.mboardScore >=10 }">
+    <span class="startRadio__img" id="reviewStar1"><span class="blind">별 5개</span></span>
+    </c:if>
+    <c:if test="${mainbaord.mboardScore <10 }">
+    <span class="startRadio__img" ><span class="blind">별 5개</span></span>
+    </c:if>
+  </label>
+</div>
+</c:if>
+</td>
 </tr>
 
 <tr>

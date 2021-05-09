@@ -187,6 +187,9 @@ ${fn:substring(detaildto.mboardContent,6,imglength) }
 </tr>
 </table>
 </form>
+<c:if test="${(detaildto.businessId eq dto.memberId  and dto.grade eq 'B') or dto.grade eq 'A'}">
+	<input type="button" value="수정" onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=upDateWriteForm&mBoardNum=${detaildto.mboardNum}'">
+</c:if>
 <br>
 
 <!-- 리뷰 출력 창 -->
@@ -202,94 +205,84 @@ ${fn:substring(detaildto.mboardContent,6,imglength) }
 별점:
 <div class="startRadio">
   <label class="startRadio__box">
-  <c:if test="${review.score == 1}">
-    <input type="radio" name="star" id="reviewStar1"  checked="checked">
-  </c:if>
-    <c:if test="${review.score != 1}">
-    <input type="radio" name="star" >
-  </c:if>
+    <c:if test="${review.score >=1 }">
     <span class="startRadio__img" id="reviewStar1"><span class="blind">별 0.5개</span></span>
+    </c:if>
+    <c:if test="${review.score <1 }">
+    <span class="startRadio__img" ><span class="blind">별 0.5개</span></span>
+    </c:if>
   </label>
   <label class="startRadio__box">
-  <c:if test="${review.score == 2}">
-    <input type="radio" name="star"  checked="checked">
-  </c:if>
-    <c:if test="${review.score != 2}">
-    <input type="radio" name="star" >
-  </c:if>
-    <span class="startRadio__img"><span class="blind">별 1개</span></span>
+    <c:if test="${review.score >=2 }">
+    <span class="startRadio__img" id="reviewStar1"><span class="blind">별 1개</span></span>
+    </c:if>
+    <c:if test="${review.score <2 }">
+    <span class="startRadio__img" ><span class="blind">별 1개</span></span>
+    </c:if>
   </label>
   <label class="startRadio__box">
-  <c:if test="${review.score >= 3}">
-    <input type="radio" name="star"  checked="checked">
-  </c:if>
-    <c:if test="${review.score != 3}">
-    <input type="radio" name="star" >
-  </c:if>
-    <span class="startRadio__img"><span class="blind">별 1.5개</span></span>
+    <c:if test="${review.score >=3 }">
+    <span class="startRadio__img" id="reviewStar1"><span class="blind">별 1.5개</span></span>
+    </c:if>
+    <c:if test="${review.score <3 }">
+    <span class="startRadio__img" ><span class="blind">별 1.5개</span></span>
+    </c:if>
   </label>
   <label class="startRadio__box">
-  <c:if test="${review.score == 4}">
-    <input type="radio" name="star"  checked="checked">
-  </c:if>
-    <c:if test="${review.score != 4}">
-    <input type="radio" name="star" >
-  </c:if>
-    <span class="startRadio__img"><span class="blind">별 2개</span></span>
+    <c:if test="${review.score >=4 }">
+    <span class="startRadio__img" id="reviewStar1"><span class="blind">별 2개</span></span>
+    </c:if>
+    <c:if test="${review.score <4 }">
+    <span class="startRadio__img" ><span class="blind">별 2개</span></span>
+    </c:if>
   </label>
   <label class="startRadio__box">
-  <c:if test="${review.score == 5}">
-    <input type="radio" name="star"  checked="checked">
-  </c:if>
-    <c:if test="${review.score != 5}">
-    <input type="radio" name="star" >
-  </c:if>
-    <span class="startRadio__img"><span class="blind">별 2.5개</span></span>
+    <c:if test="${review.score >=5 }">
+    <span class="startRadio__img" id="reviewStar1"><span class="blind">별 2.5개</span></span>
+    </c:if>
+    <c:if test="${review.score <5 }">
+    <span class="startRadio__img" ><span class="blind">별 2.5개</span></span>
+    </c:if>
   </label>
   <label class="startRadio__box">
-  <c:if test="${review.score == 6}">
-    <input type="radio" name="star"  checked="checked">
-  </c:if>
-    <c:if test="${review.score != 6}">
-    <input type="radio" name="star" >
-  </c:if>
-    <span class="startRadio__img"><span class="blind">별 3개</span></span>
+    <c:if test="${review.score >=6 }">
+    <span class="startRadio__img" id="reviewStar1"><span class="blind">별 3개</span></span>
+    </c:if>
+    <c:if test="${review.score <6 }">
+    <span class="startRadio__img" ><span class="blind">별 3개</span></span>
+    </c:if>
   </label>
   <label class="startRadio__box">
-  <c:if test="${review.score == 7}">
-    <input type="radio" name="star"  checked="checked">
-  </c:if>
-    <c:if test="${review.score != 7}">
-    <input type="radio" name="star" >
-  </c:if>
-    <span class="startRadio__img"><span class="blind">별 3.5개</span></span>
+    <c:if test="${review.score >=7 }">
+    <span class="startRadio__img" id="reviewStar1"><span class="blind">별 3.5개</span></span>
+    </c:if>
+    <c:if test="${review.score <7 }">
+    <span class="startRadio__img" ><span class="blind">별 3.5개</span></span>
+    </c:if>
   </label>
   <label class="startRadio__box">
-  <c:if test="${review.score == 8}">
-    <input type="radio" name="star"  checked="checked">
-  </c:if>
-    <c:if test="${review.score != 8}">
-    <input type="radio" name="star" >
-  </c:if>
-    <span class="startRadio__img"><span class="blind">별 4개</span></span>
+    <c:if test="${review.score >=8 }">
+    <span class="startRadio__img" id="reviewStar1"><span class="blind">별 4개</span></span>
+    </c:if>
+    <c:if test="${review.score <8 }">
+    <span class="startRadio__img" ><span class="blind">별 4개</span></span>
+    </c:if>
   </label>
   <label class="startRadio__box">
-  <c:if test="${review.score == 9}">
-    <input type="radio" name="star"  checked="checked">
-  </c:if>
-    <c:if test="${review.score != 9}">
-    <input type="radio" name="star" >
-  </c:if>
-    <span class="startRadio__img"><span class="blind">별 4.5개</span></span>
+    <c:if test="${review.score >=9 }">
+    <span class="startRadio__img" id="reviewStar1"><span class="blind">별 4.5개</span></span>
+    </c:if>
+    <c:if test="${review.score <9 }">
+    <span class="startRadio__img" ><span class="blind">별 4.5개</span></span>
+    </c:if>
   </label>
   <label class="startRadio__box">
-  <c:if test="${review.score == 10}">
-    <input type="radio" name="star" checked="checked" >
-  </c:if>
-    <c:if test="${review.score != 10}">
-    <input type="radio" name="star" ">
-  </c:if>
-    <span class="startRadio__img"><span class="blind">별 5개</span></span>
+    <c:if test="${review.score >=10 }">
+    <span class="startRadio__img" id="reviewStar1"><span class="blind">별 5개</span></span>
+    </c:if>
+    <c:if test="${review.score <10 }">
+    <span class="startRadio__img" ><span class="blind">별 5개</span></span>
+    </c:if>
   </label>
 </div>
 </td>

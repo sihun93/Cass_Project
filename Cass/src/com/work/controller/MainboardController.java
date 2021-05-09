@@ -95,18 +95,18 @@ public class MainboardController extends HttpServlet {
 		HashMap<Integer, ArrayList<MainBoardDto>> boardAllList = new HashMap<Integer, ArrayList<MainBoardDto>>();
 		if(mcategoryNum != null) {
 			biz.getBoardListforMc(boardAllList,mcategoryNum);
-			boardcounter = biz.getBoardCounterMc(mcategoryNum);
+			boardcounter = boardAllList.size();
 		}else if(scategoryNum != null){
 			biz.getBoardListforSc(boardAllList,scategoryNum);
-			boardcounter = biz.getBoardCounterSc(scategoryNum);
+			boardcounter = boardAllList.size();
 		}else {
 			biz.getBoardList(boardAllList);
-			boardcounter = biz.getBoardCounter();
+			boardcounter = boardAllList.size();
 		}
 		
 		int maxPageNum = 1;
 		if(boardcounter != 0) {
-			if(maxPageNum%10 != 0) {
+			if(maxPageNum%5 != 0) {
 				maxPageNum = boardcounter/5 + 1;
 			}else {
 				maxPageNum = boardcounter/5;

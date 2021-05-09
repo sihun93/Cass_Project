@@ -111,21 +111,6 @@ public class MainBoardBiz {
 		}
 	}
 
-	/** 게시글 갯수 반환 */
-	public int getBoardCounter() {
-		return dao.boardcount();
-	}
-
-	public int getBoardCounterMc(String mcategoryNum) {
-
-		return dao.boardcountMc(mcategoryNum);
-	}
-
-	public int getBoardCounterSc(String scategoryNum) {
-
-		return dao.boardcountSc(scategoryNum);
-	}
-
 	/**
 	 * 게시글 삭제
 	 * 
@@ -258,15 +243,8 @@ public class MainBoardBiz {
 		default:
 			return;
 		}
-		String checkTime = dao.getTime(dto,columndate);
-		String currentTime = Utility.getCurrentDate("HH-mm-ss");
-		String[] checkTimeArray = checkTime.split("-");
-		String[] currentTimeArray = currentTime.split("-");
-		int checkTimeValue = Integer.parseInt(checkTimeArray[0])*60+Integer.parseInt(checkTimeArray[1]);
-		int currentTimeValue = Integer.parseInt(currentTimeArray[0])*60+Integer.parseInt(currentTimeArray[1]);
-		if((currentTimeValue-checkTimeValue) >=30 || ((currentTimeValue-checkTimeValue) >=-1410 && (currentTimeValue-checkTimeValue) <0)) {
+		if(dao.getTime(dto,columndate,columncount)) {
 			dao.setdata(dto,columncount);
 		}
-		
 	}
 }
