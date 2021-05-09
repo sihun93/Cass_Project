@@ -20,9 +20,11 @@
 </style>
 </head>
 <body>
+<div class="Title" align="center">
+	<a href="${CONTEXT_PATH}/welcome.jsp">Cass 회원 아이디 찾기</a>
+</div><br>
 <div id="findDiv">
 	<form action="${CONTEXT_PATH}/member/frontController?action=memberIdFind" method="post">
-		<div class="Title"><a href="${CONTEXT_PATH}/welcome.jsp">Cass 회원 아이디 찾기</a></div><br>
 		<input type="text" class="input" pattern="\d{4}-\d{2}-\d{2}" name="memberBirth" id="memberBirth" required="required" placeholder="ex)생년월일 : yyyy-mm-dd"><br>
 		<input type="text" class="input" pattern="\d{4}-\d{4}" id="memberMobile" name="memberMobile" placeholder="ex)휴대폰 : 1111-2222 형식 입력" required="required">
 			<br>

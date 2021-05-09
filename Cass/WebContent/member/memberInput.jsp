@@ -18,7 +18,8 @@
     src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff')format('woff');
     }
 .Title{
-	font-family:'InkLipquid';
+font-family:'InkLipquid';
+margin-top: 3%;
 }
 </style>
 <script>
@@ -42,21 +43,21 @@ function idCheck(){
 <form action="${CONTEXT_PATH}/member/frontController?action=memberInput" method="post">
 <div class="Title"><a href="${CONTEXT_PATH}/welcome.jsp">Cass 회원 가입</a></div><br>
 	<div class="inputForm">
-		<h4 class="Title">아이디</h4> <input type="text" class="input" name="memberId" id="memberId" autofocus="autofocus" required="required" placeholder="아이디를 6자 이상 입력해주세요.">
+		<h4 class="TitleText">아이디</h4> <input type="text" class="input" name="memberId" id="memberId" autofocus="autofocus" required="required" placeholder="아이디를 6자 이상 입력해주세요.">
 		<input type="button" class="find" onclick="idCheck()" value="아이디 중복확인"><br>
-		<h4 class="Title">비밀번호</h4><input type="password" class="input" name="memberPw" id="memberPw" required="required" placeholder="비밀번호를 6자 이상 입력해주세요."><br>
+		<h4 class="TitleText">비밀번호</h4><input type="password" class="input" name="memberPw" id="memberPw" required="required" placeholder="비밀번호를 6자 이상 입력해주세요."><br>
 		<span id="memberPwMessage"></span>
-		<h4 class="Title">비밀번호 확인</h4><input type="password" class="input" name="memberPwConfirm" id="memberPwConfirm" required="required" onblur="checkMemberPw()" placeholder="비밀번호 재확인">
+		<h4 class="TitleText">비밀번호 확인</h4><input type="password" class="input" name="memberPwConfirm" id="memberPwConfirm" required="required" onblur="checkMemberPw()" placeholder="비밀번호 재확인">
 			<input type="checkbox" name="memberPwShow" id="memberPwShow" 
 				onclick="showMemberPw()">비밀번호 보이기
 			<div id="memberPwConfirmMessage"></div><br>
-		<h4 class="Title">우편번호</h4><input type="text" class="input" name="addrCode" size="7" id="addrCode" readonly="readonly" required="required" placeholder="우편번호">
+		<h4 class="TitleText">우편번호</h4><input type="text" class="input" name="addrCode" size="7" id="addrCode" readonly="readonly" required="required" placeholder="우편번호">
 		<input type="button" class="find" value="우편번호찾기" onclick="postcode()"><br>
 	
-		<h4 class="Title">주소</h4><input type="text" class="input" name="memberAddr1" id="memberAddr1" size="70" required="required" readonly="readonly" placeholder="도로명주소" ><br>
+		<h4 class="TitleText">주소</h4><input type="text" class="input" name="memberAddr1" id="memberAddr1" size="70" required="required" readonly="readonly" placeholder="도로명주소" ><br>
 		<input type="text" class="input" name="memberAddr2" id="memberAddr2" size="70" placeholder="상세주소" required="required"><br>
 		
-		<h4 class="Title">이메일</h4><input type="text" class="input" name="email1" id="email1"  required="required" placeholder="이메일 아이디"> 
+		<h4 class="TitleText">이메일</h4><input type="text" class="input" name="email1" id="email1"  required="required" placeholder="이메일 아이디"> 
 			<input type="text" class="input" name="email2" id="email2" required="required" readonly="readonly" placeholder="이메일 주소"> 
 			<select name="emailDomain" class="find" id="emailDomain" onchange="changeEmailDomain()">
 				<option value="none"> ==선택==</option>
@@ -67,12 +68,12 @@ function idCheck(){
 			</select>
 			<br>
 		
-		<h4 class="Title">휴대폰</h4><input type="text" class="input" pattern="\d{4}-\d{4}" name="memberMobile" id="memberMobile" required="required" placeholder="ex)휴대폰 : 1111-1111 형식 입력">
+		<h4 class="TitleText">휴대폰</h4><input type="text" class="input" pattern="\d{4}-\d{4}" name="memberMobile" id="memberMobile" required="required" placeholder="ex)휴대폰 : 1111-1111 형식 입력">
 		<br>
 		
-		<h4 class="Title">생년월일</h4><input type="text" class="input" pattern="\d{4}-\d{2}-\d{2}" name="memberBirth" id="memberBirth" required="required" placeholder="ex)yyyy-mm-dd 형식 입력">
+		<h4 class="TitleText">생년월일</h4><input type="text" class="input" pattern="\d{4}-\d{2}-\d{2}" name="memberBirth" id="memberBirth" required="required" placeholder="ex)yyyy-mm-dd 형식 입력">
 		<br>
-		<h4 class="Title">성별</h4> 
+		<h4 class="TitleText">성별</h4> 
 			남  <input type="radio" name="sex" id="sex" value="M" checked>
 			여  <input type="radio" name="sex" id="sex" value="F" >
 	</div>
