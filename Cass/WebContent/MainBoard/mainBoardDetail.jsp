@@ -1,3 +1,4 @@
+<%@page import="com.work.model.dto.ReviewDto"%>
 <%@page import="com.work.model.dto.BusinessMemberDto"%>
 <%@page import="com.work.model.dto.MemberDto"%>
 <%@page import="com.sun.org.apache.bcel.internal.generic.INSTANCEOF"%>
@@ -63,22 +64,18 @@ function resize(imgThis){
 	font-family: 'InkLipquid';
 	font-size: 1.8em;
 }
-table#contable{
-	width: 40%;
-	margin-left: auto;
-	margin-right: auto;
-}
 #pageNumber{
 	text-align: center;
 }
 
 .retable {
-	width: 50%;
+	width: 730px;
 	margin-left: auto;
 	margin-right: auto;
 }
-#detailtable{
-	height: 70%;
+#inputTable{
+	height: 100px;
+	text-align: center;
 }
 </style>
 </head>
@@ -91,21 +88,14 @@ table#contable{
 		<!-- 이동 메뉴바 -->
 			<div class="sky">
 				<table>
-					<tr>
-						<td><a href="#">▲ 위로</a></td>
-					</tr>
-					<tr>
-						<td><a href="#">메인 카테고리1</a></td>
-					</tr>
-					<tr>
-						<td><a href="#">메인 카테고리2</a></td>
-					</tr>
-					<tr>
-						<td><a href="#">메인 카테고리3</a></td>
-					</tr>
-					<tr>
-						<td><a href="#">메인 카테고리4</a></td>
-					</tr>
+  		<tr>
+  			<td><a href="#">▲ 위로</a></td>
+  		</tr>
+  		<c:forEach var="mainCategoryList" items="${mainCategoryList}">
+  		<tr>
+  			<td><a href="${CONTEXT_PATH}/MainBoard/mainboardController?action=mainbaordListform&pageNum=1&mcategoryNum=${mainCategoryList.mcategoryNum}">${mainCategoryList.mcategoryName }</a></td>
+  		</tr>
+  		</c:forEach>
 				</table>
 			</div>
 			
@@ -119,11 +109,11 @@ table#contable{
 </td>
 <td width="80%">
 <c:set var="keywordArr" value="${fn:split(detaildto.mboardInfo,'\\\\')}"/>
-회사이름:${keywordArr[0]}<br>
-회사주소:<a onclick="mapup()">${keywordArr[1] }</a><br>
+회사이름:${keywordArr[0]}<br><br>
+회사주소:<a onclick="mapup()">${keywordArr[1] }</a><br><br>
 <input type="hidden" value="${keywordArr[1] }" id="mapaddr">
-전화번호:${keywordArr[2] }<br>
-홈페이지:${keywordArr[3] }
+전화번호:${keywordArr[2] }<br><br>
+홈페이지:<a href="${keywordArr[3] }" target ="_blank">${keywordArr[3] }</a>
 </td>
 </tr>
 
@@ -158,7 +148,7 @@ src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainb
 <!-- 리뷰 입력창 -->
 <form id="inputreviewform" method="post" action="${CONTEXT_PATH}/MainBoard/mainboardController?action=inputreview">
 <input type="hidden" name="mboardNum" value="${detaildto.mboardNum }">
-<table id="inputTable" class="retable"  style="width: 50%; height: 100px; margin-left: auto; margin-right: auto; text-align: center;" border="1">
+<table id="inputTable" class="retable" >
 <thead>
 <tr style="padding: 0">
 <td colspan="2" width="75%" height="90%" style="text-align: left; padding-top: 1px padding-bottom: 1px">
@@ -217,7 +207,7 @@ src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainb
     <span class="startRadio__img"><span class="blind">별 5개</span></span>
   </label>
 </div>
-<input id="reviewscore" name="reviewscore" type="hidden" value="1">
+<input id="reviewscore" name="reviewscore" type="hidden">
 </td>
 <td align="right">
 <input type="file" id="reviewimg" name="reviewimg" multiple="multiple">
@@ -238,7 +228,99 @@ src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainb
 아이디 : ${review.memberId}
 </td>
 <td align="right" >
-별점: ${review.score}
+별점:
+<div class="startRadio">
+  <label class="startRadio__box">
+  <c:if test="${review.score == 1}">
+    <input type="radio" name="star" id="reviewStar" disabled="disabled" checked="checked">
+  </c:if>
+    <c:if test="${review.score != 1}">
+    <input type="radio" name="star" disabled="disabled">
+  </c:if>
+    <span class="startRadio__img"><span class="blind">별 0.5개</span></span>
+  </label>
+  <label class="startRadio__box">
+  <c:if test="${review.score == 2}">
+    <input type="radio" name="star" disabled="disabled" checked="checked">
+  </c:if>
+    <c:if test="${review.score != 2}">
+    <input type="radio" name="star" disabled="disabled">
+  </c:if>
+    <span class="startRadio__img"><span class="blind">별 1개</span></span>
+  </label>
+  <label class="startRadio__box">
+  <c:if test="${review.score >= 3}">
+    <input type="radio" name="star" disabled="disabled" checked="checked">
+  </c:if>
+    <c:if test="${review.score != 3}">
+    <input type="radio" name="star" disabled="disabled">
+  </c:if>
+    <span class="startRadio__img"><span class="blind">별 1.5개</span></span>
+  </label>
+  <label class="startRadio__box">
+  <c:if test="${review.score == 4}">
+    <input type="radio" name="star" disabled="disabled" checked="checked">
+  </c:if>
+    <c:if test="${review.score != 4}">
+    <input type="radio" name="star" disabled="disabled">
+  </c:if>
+    <span class="startRadio__img"><span class="blind">별 2개</span></span>
+  </label>
+  <label class="startRadio__box">
+  <c:if test="${review.score == 5}">
+    <input type="radio" name="star" disabled="disabled" checked="checked">
+  </c:if>
+    <c:if test="${review.score != 5}">
+    <input type="radio" name="star" disabled="disabled">
+  </c:if>
+    <span class="startRadio__img"><span class="blind">별 2.5개</span></span>
+  </label>
+  <label class="startRadio__box">
+  <c:if test="${review.score == 6}">
+    <input type="radio" name="star" disabled="disabled" checked="checked">
+  </c:if>
+    <c:if test="${review.score != 6}">
+    <input type="radio" name="star" disabled="disabled">
+  </c:if>
+    <span class="startRadio__img"><span class="blind">별 3개</span></span>
+  </label>
+  <label class="startRadio__box">
+  <c:if test="${review.score == 7}">
+    <input type="radio" name="star" disabled="disabled" checked="checked">
+  </c:if>
+    <c:if test="${review.score != 7}">
+    <input type="radio" name="star" disabled="disabled">
+  </c:if>
+    <span class="startRadio__img"><span class="blind">별 3.5개</span></span>
+  </label>
+  <label class="startRadio__box">
+  <c:if test="${review.score == 8}">
+    <input type="radio" name="star" disabled="disabled" checked="checked">
+  </c:if>
+    <c:if test="${review.score != 8}">
+    <input type="radio" name="star" disabled="disabled">
+  </c:if>
+    <span class="startRadio__img"><span class="blind">별 4개</span></span>
+  </label>
+  <label class="startRadio__box">
+  <c:if test="${review.score == 9}">
+    <input type="radio" name="star" disabled="disabled" checked="checked">
+  </c:if>
+    <c:if test="${review.score != 9}">
+    <input type="radio" name="star" disabled="disabled">
+  </c:if>
+    <span class="startRadio__img"><span class="blind">별 4.5개</span></span>
+  </label>
+  <label class="startRadio__box">
+  <c:if test="${review.score == 10}">
+    <input type="radio" name="star" checked="checked" >
+  </c:if>
+    <c:if test="${review.score != 10}">
+    <input type="radio" name="star" ">
+  </c:if>
+    <span class="startRadio__img"><span class="blind">별 5개</span></span>
+  </label>
+</div>
 </td>
 <td align="center" rowspan="2"  width="10%" >
 <c:choose>
@@ -307,16 +389,7 @@ ${review.reviewContent}
 
 			<br> <br> <br> <br> <br> <br>
 
-			<hr>
 
-
-			<hr>
-			<div class="info">
-				Companion Animal Service Site<br> 반려동물 플랫폼 사이트
-				<h6>
-					<a href="">+더 알아보기</a>
-				</h6>
-			</div>
 		</div>
 
 		<jsp:include page="/inc/footer_menu.jsp" />

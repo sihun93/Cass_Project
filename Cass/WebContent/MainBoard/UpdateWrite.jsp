@@ -98,21 +98,14 @@ textarea {
 		<div id="container">
 			<div class="sky">
 				<table>
-					<tr>
-						<td><a href="#">▲ 위로</a></td>
-					</tr>
-					<tr>
-						<td><a href="#">메인 카테고리1</a></td>
-					</tr>
-					<tr>
-						<td><a href="#">메인 카테고리2</a></td>
-					</tr>
-					<tr>
-						<td><a href="#">메인 카테고리3</a></td>
-					</tr>
-					<tr>
-						<td><a href="#">메인 카테고리4</a></td>
-					</tr>
+  		<tr>
+  			<td><a href="#">▲ 위로</a></td>
+  		</tr>
+  		<c:forEach var="mainCategoryList" items="${mainCategoryList}">
+  		<tr>
+  			<td><a href="${CONTEXT_PATH}/MainBoard/mainboardController?action=mainbaordListform&pageNum=1&mcategoryNum=${mainCategoryList.mcategoryNum}">${mainCategoryList.mcategoryName }</a></td>
+  		</tr>
+  		</c:forEach>
 				</table>
 			</div>
 
@@ -236,14 +229,7 @@ onchange="setMbImg(event);" style="display: block;">
 </table>
 </form>
 
-			<hr>
-			<div class="info">
-				Companion Animal Service Site<br> 반려동물 플랫폼 사이트
-				<h6>
-					<a href="">+더 알아보기</a>
-				</h6>
-			</div>
-		</div>
+
 
 		<jsp:include page="/inc/footer_menu.jsp" />
 	</div>

@@ -19,7 +19,7 @@ function fsubmit(eventClass) {
 }
 </script>
 <link type="text/css" rel="stylesheet"href="${pageContext.request.contextPath}/css/common.css">
-<link type="text/css" rel="stylesheet" href="/css/welcome.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/welcome.css">
 <style type="text/css">
 .sky {
 	font-family: 'InkLipquid';
@@ -39,9 +39,12 @@ function fsubmit(eventClass) {
 	font-size: 1.8em;
 }
 table#contable{
-	width: 40%;
+	width: 580px;
+	height: 220px;
 	margin-left: auto;
 	margin-right: auto;
+	background-color: #D1DAE7;
+	padding-bottom: 5px;
 }
 #pageNumber{
 	text-align: center;
@@ -56,34 +59,28 @@ table#contable{
 		<div id="container">
 			<div class="sky">
 				<table>
-					<tr>
-						<td><a href="#">▲ 위로</a></td>
-					</tr>
-					<tr>
-						<td><a href="#">메인 카테고리1</a></td>
-					</tr>
-					<tr>
-						<td><a href="#">메인 카테고리2</a></td>
-					</tr>
-					<tr>
-						<td><a href="#">메인 카테고리3</a></td>
-					</tr>
-					<tr>
-						<td><a href="#">메인 카테고리4</a></td>
-					</tr>
+  		<tr>
+  			<td><a href="#">▲ 위로</a></td>
+  		</tr>
+  		<c:forEach var="mainCategoryList" items="${mainCategoryList}">
+  		<tr>
+  			<td><a href="${CONTEXT_PATH}/MainBoard/mainboardController?action=mainbaordListform&pageNum=1&mcategoryNum=${mainCategoryList.mcategoryNum}">${mainCategoryList.mcategoryName }</a></td>
+  		</tr>
+  		</c:forEach>
 				</table>
 			</div>
 
 
 <div id="content">
+<div style="margin-top: 5%;"></div>
 <c:if test="${dto.grade eq 'B' }">
 <input type="button" value="게시글 작성" onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=writeForm'">
 </c:if>
 <c:if test="${!empty mainbaordList }">
 <c:forEach items="${mainbaordList}" var="mainbaord">
-<form action="${CONTEXT_PATH}/MainBoard/mainboardController?action=mainbaordDetail&pageNum=1" id="listcolumn" class="${mainbaord.mboardNum }" onclick="fsubmit('${mainbaord.mboardNum }')" method="post">
+<form action="${CONTEXT_PATH}/MainBoard/mainboardController?action=mainbaordDetail&pageNum=1" id="listcolumn" class="${mainbaord.mboardNum }" method="post">
 <input type="hidden" value="${mainbaord.mboardNum }" name="mBoardNum">
-<table id="contable" border="2">
+<table id="contable"  onclick="fsubmit('${mainbaord.mboardNum }')" >
 <tr>
 <td rowspan="2">
 <img style="width: 175px; height: 175px" src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainboard%2F${mainbaord.businessId}%2F${mainbaord.mboardImg }?alt=media">
@@ -93,17 +90,13 @@ table#contable{
 </tr>
 
 <tr>
-<td colspan="2" width="500px"; height="160px";>
+<td colspan="2" width="500px"; height="130px";>
 <c:set var="keywordArr" value="${fn:split(mainbaord.mboardInfo,'\\\\')}"/>
 회사이름:${keywordArr[0]}<br>
 회사주소:${keywordArr[1] }<br>
 전화번호:${keywordArr[2] }<br>
 홈페이지:${keywordArr[3] }
 </td>
-</tr>
-
-<tr>
-
 </tr>
 </table>
 </form>
@@ -124,18 +117,7 @@ table#contable{
 %>
 |&gt;
 </div>
-			<br> <br> <br> <br> <br> <br>
 
-			<hr>
-
-
-			<hr>
-			<div class="info">
-				Companion Animal Service Site<br> 반려동물 플랫폼 사이트
-				<h6>
-					<a href="">+더 알아보기</a>
-				</h6>
-			</div>
 		</div>
 
 		<jsp:include page="/inc/footer_menu.jsp" />
