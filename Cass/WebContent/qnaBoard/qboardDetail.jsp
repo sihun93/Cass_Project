@@ -13,6 +13,11 @@
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/qboard.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/welcome.css">
+<style type="text/css">
+	td{
+	border-bottom: 1px solid silver;
+	}
+</style>
 </head>
 <body>
 <div id="wrapper">

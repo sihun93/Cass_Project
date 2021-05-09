@@ -95,7 +95,26 @@ table#contable {
 textarea {
 	resize: none;
 }
-
+#resetbtn, #filebtn{
+	width: 100px;
+	height: 40px;
+	border-radius: 20px;
+	background-color: #D1DAE7;
+	border:none;
+}
+#imgbtn{
+	width: 150px;
+	height: 40px;
+	border-radius: 20px;
+	background-color: #D1DAE7;
+	border:none;
+}
+.input-file-button{
+  padding: 6px 25px;
+  background-color:#D1DAE7;
+  border-radius: 20px;
+  cursor: pointer;
+}
 
 </style>
 </head>
@@ -129,7 +148,7 @@ textarea {
 			<form
 				action="${CONTEXT_PATH}/MainBoard/mainboardController?action=write "
 				method="post" id="write">
-				<table border="1" id="writetable">
+				<table id="writetable">
 					<!-- 제목 입력 창 -->
 					<tr>
 						<td colspan="2" align="center"><input name="title" id="title"
@@ -175,13 +194,15 @@ textarea {
 						</td>
 					</tr>
 					<tr>
+						<td><label class="input-file-button" for="bimg">이미지 업로드</label></td>
 						<td colspan="2"><input type="file" name="bimg" id="bimg"
-							onchange="setBImg(event);" style="display: block;"></td>
+							onchange="setBImg(event);" style="display: none;"></td>
 					</tr>
 					<tr>
+					<td><label class="input-file-button" for="mbimg">이미지 업로드</label></td>
 						<td colspan="2"><input type="file" name="mbimg" id="mbimg"
 							required="required" onchange="setMbImg(event);"
-							style="display: block;"></td>
+							style="display: none;"></td>
 					</tr>
 					<tr>
 						<td colspan="2" align="left"><input id="imgbtn" type="button"

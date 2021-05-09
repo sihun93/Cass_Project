@@ -43,10 +43,10 @@ $(function () {
   <h1>Service</h1>
   <table>
   	<tr>
-  		<td><a href=""><img src="${CONTEXT_PATH}/img/service/play.jpg"></a></td>
-  		<td><a href=""><img src="${CONTEXT_PATH}/img/service/beauty.jpg"></a></td>
-  		<td><a href=""><img src="${CONTEXT_PATH}/img/service/school.jpg"></a></td>
-  		<td><a href=""><img src="${CONTEXT_PATH}/img/service/food.jpeg"></a></td>
+  		<td><a href="${CONTEXT_PATH}/MainBoard/mainboardController?action=mainbaordListform&pageNum=1&mcategoryNum=mc1"><img src="${CONTEXT_PATH}/img/service/play.jpg"></a></td>
+  		<td><a href="${CONTEXT_PATH}/MainBoard/mainboardController?action=mainbaordListform&pageNum=1&mcategoryNum=mc2"><img src="${CONTEXT_PATH}/img/service/beauty.jpg"></a></td>
+  		<td><a href="${CONTEXT_PATH}/MainBoard/mainboardController?action=mainbaordListform&pageNum=1&mcategoryNum=mc3"><img src="${CONTEXT_PATH}/img/service/school.jpg"></a></td>
+  		<td><a href="${CONTEXT_PATH}/MainBoard/mainboardController?action=mainbaordListform&pageNum=1&mcategoryNum=mc4"><img src="${CONTEXT_PATH}/img/service/food.jpeg"></a></td>
   	</tr>
   	<tr>
   	<c:forEach var="mainCategoryList" items="${mainCategoryList}">
@@ -92,7 +92,7 @@ $(function () {
   <div class="info">
   	 Companion Animal Service Site<br>
   	 반려동물 플랫폼 사이트
-  	 <h6><a href="intro.jsp">+더 알아보기</a></h6>
+  	 <h6><a href="${CONTEXT_PATH}/intro.jsp">+더 알아보기</a></h6>
   </div>
    </div>
 

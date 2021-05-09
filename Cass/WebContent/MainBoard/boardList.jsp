@@ -49,7 +49,7 @@ table#contable{
 	font-size: 1.8em;
 }
 #inputbtn{
-	margin-left:65%;
+	margin-left:71%;
 	margin-bottom:1%;
 	width: 100px;
 	height: 40px;
@@ -90,7 +90,7 @@ table#contable{
 <div id="content">
 <div style="margin-top: 5%;"></div>
 <c:if test="${dto.grade eq 'B' }">
-<input type="button" value="게시글 작성" onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=writeForm'">
+<input type="button" value="게시글 작성" onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=writeForm'" id="inputbtn">
 </c:if>
 <c:if test="${!empty mainbaordList }">
 <c:forEach items="${mainbaordList}" var="mainbaord">
