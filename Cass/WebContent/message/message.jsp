@@ -25,11 +25,13 @@
 <div id="wrapper">
       <jsp:include page="/inc/header_menu2.jsp" />
 </div>
-<div id="findDiv" align="center">
-<div class="msgTitle"><a href="${CONTEXT_PATH}/welcome.jsp">Cass Error Message</a></div><br>
-<h4 class="msgTitle">응답처리결과</h4>
-<h4 class="msgTitle">${requestScope.messageEntity.message}</h4>
-<input type="button" class="input" onclick="location.href='${messageEntity.url}'" value="${messageEntity.linkTitle}">
+	<div class="msgTitle" align="center" style="margin-left: 0; margin-top: 5%;">
+		<a href="${CONTEXT_PATH}/welcome.jsp">Cass Error Message</a>
+	</div><br>
+<div  align="center">
+	<h4 class="msgTitle">응답처리결과</h4>
+	<h4 class="msgTitle">${requestScope.messageEntity.message}</h4>
+	<input type="button" class="input" onclick="location.href='${messageEntity.url}'" value="${messageEntity.linkTitle}">
 </div>
 <div id="wrapper">
 	<jsp:include page="/inc/footer_menu.jsp"/>

@@ -220,10 +220,8 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 			System.out.println("businessPw : [" + businessPw + "]");
 			biz.bsLogin(dto);
 			if(dto.getBusinessNum() != null) {
-				System.out.println(CONTEXT_PATH);
 				HttpSession session = request.getSession();
 				session.setAttribute("dto", dto);
-				System.out.println("로그인성공");
 				RequestDispatcher requestView = request.getRequestDispatcher("/welcome.jsp");
 				requestView.forward(request, response);
 			}else {
@@ -252,7 +250,7 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 				}
 				session.invalidate();
 			}
-			String url = "/Cass/member/main.jsp";
+			String url = "/welcome.jsp";
 			response.sendRedirect(url);
 		}
 		
