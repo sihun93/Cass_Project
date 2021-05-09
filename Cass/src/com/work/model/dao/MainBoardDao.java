@@ -195,6 +195,7 @@ public class MainBoardDao {
 		try {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, mcategoryNum);
+			rs = stmt.executeQuery();
 			int count = 0;
 			int key = 1;
 			while (rs.next()) {
@@ -264,6 +265,7 @@ public class MainBoardDao {
 		try {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, scategoryNum);
+			rs = stmt.executeQuery();
 			int count = 0;
 			int key = 1;
 			while (rs.next()) {
@@ -657,7 +659,7 @@ public class MainBoardDao {
 	}
 
 	public void setdata(MasterMemberDto dto, String columncount) {
-		String sql = "UPDATE DATACENTER set "+columncount+" = ("+columncount+"+1) WHERE member_id = ?";
+		String sql = "UPDATE DATACENTER set "+columncount+" = to_number(+columncount)+1 WHERE member_id = ?";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		int row = 0;
