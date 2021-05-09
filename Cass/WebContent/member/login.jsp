@@ -7,6 +7,10 @@
 <title>회원 로그인 페이지</title>
 <link type="text/css" rel="stylesheet" href="../css/login.css">
 <style type="text/css">
+html, body {
+	height: 0;
+}
+
 #memberId, #memberPw{
 	padding: 10px 10px 10px 20px;
 	width: 20%;
@@ -34,7 +38,7 @@ h1{
 <center>
 <form action="${CONTEXT_PATH}/member/frontController?action=login" method="post">
 	<div style="margin-top: 10%;">
-		<a href="${CONTEXT_PATH}/welcome.jsp"><h1>Cass 일반 회원 로그인</h1></a><br>
+		<a href="${CONTEXT_PATH}/welcome.jsp"><h1>CASS 일반 회원 로그인</h1></a><br>
 		<input type="text" name="memberId" id="memberId" required="required" placeholder="아이디"><br>
 		<input type="password" name="memberPw" id="memberPw" required="required" placeholder="비밀번호">
 		<br>

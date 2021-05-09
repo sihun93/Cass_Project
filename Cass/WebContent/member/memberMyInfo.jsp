@@ -12,7 +12,11 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css">
-
+<style type="text/css">
+html, body {
+	height: 0;
+}
+</style>
 <script>
 function postcode(){
       new daum.Postcode({

@@ -9,7 +9,7 @@
 </head>
 <body>
 <form action="${CONTEXT_PATH }/business/frontController?action=memberIdFind" method="post">
-	<a href="${CONTEXT_PATH }/welcome.jsp"><h1 class="text" align="center">Cass 사업자 회원 아이디 찾기</h1></a><br>
+	<a href="${CONTEXT_PATH }/welcome.jsp"><h1 id="h1id" align="center">CASS 사업자 회원 아이디 찾기</h1></a>
 	<div class="totalForm">
 		<p class="text">사업자번호</p>
 		<input type="text" pattern="\d{3}-\d{2}-\d{5}"

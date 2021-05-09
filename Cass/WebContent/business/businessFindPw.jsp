@@ -9,7 +9,7 @@
 </head>
 <body>
 <form action="${CONTEXT_PATH }/business/frontController?action=businessPwFind" method="post">
-	<a href="${CONTEXT_PATH }/welcome.jsp"><h1 align="center">Cass 사업자 회원 비밀번호 찾기</h1></a><br>
+	<a href="${CONTEXT_PATH }/welcome.jsp"><h1 id="h1" align="center">CASS 사업자 회원 비밀번호 찾기</h1></a>
 	<div class="totalForm">
 		<p class="text">아이디</p>
 		<input type="text" name="memberId" id="memberId" required="required" placeholder="회원 아이디">
