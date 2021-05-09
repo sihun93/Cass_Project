@@ -115,7 +115,7 @@ public class MainBoardDao {
 	public void getBoardList(Connection conn, HashMap<Integer, ArrayList<MainBoardDto>> boardAllList)
 			throws SQLException {
 		String sql = "SELECT * FROM mainboard m "
-				+ "JOIN (SELECT trunc(AVG(r.review_score)) as score ,COUNT(*), mboard_num FROM  mainboard m JOIN review  r USING(mboard_num) GROUP BY mboard_num) s "
+				+ "JOIN (SELECT trunc(AVG(r.review_score)) as score ,COUNT(*) as count, mboard_num FROM  mainboard m JOIN review  r USING(mboard_num) GROUP BY mboard_num) s "
 				+ "USING(mboard_num) "
 				+ "order by mboard_score, to_number(REGEXP_REPLACE(mboard_num,'[^0-9]+'))";
 
@@ -182,7 +182,7 @@ public class MainBoardDao {
 	public void getBoardListForMc(Connection conn, HashMap<Integer, ArrayList<MainBoardDto>> boardAllList,
 			String mcategoryNum) throws SQLException {
 		String sql = "SELECT * FROM mainboard m "
-				+ "JOIN (SELECT trunc(AVG(r.review_score)) as score ,COUNT(*), mboard_num FROM  mainboard m JOIN review  r USING(mboard_num) GROUP BY mboard_num) s "
+				+ "JOIN (SELECT trunc(AVG(r.review_score)) as score ,COUNT(*) as count, mboard_num FROM  mainboard m JOIN review  r USING(mboard_num) GROUP BY mboard_num) s "
 				+ "USING(mboard_num) "
 				+ "WHERE mcategory_Num = ? "
 				+ "order by mboard_score, to_number(REGEXP_REPLACE(mboard_num,'[^0-9]+'))";
@@ -251,7 +251,7 @@ public class MainBoardDao {
 	public void getBoardListForSc(Connection conn, HashMap<Integer, ArrayList<MainBoardDto>> boardAllList,
 			String scategoryNum) throws SQLException {
 		String sql = "SELECT * FROM mainboard m "
-				+ "JOIN (SELECT trunc(AVG(r.review_score)) as score ,COUNT(*), mboard_num FROM  mainboard m JOIN review  r USING(mboard_num) GROUP BY mboard_num) s "
+				+ "JOIN (SELECT trunc(AVG(r.review_score)) as score ,COUNT(*) as count, mboard_num FROM  mainboard m JOIN review  r USING(mboard_num) GROUP BY mboard_num) s "
 				+ "USING(mboard_num) "
 				+ "WHERE scategory_Num = ? "
 				+ "order by mboard_score, to_number(REGEXP_REPLACE(mboard_num,'[^0-9]+'))";
@@ -360,7 +360,7 @@ public class MainBoardDao {
 	 */
 	public void boardDetail(Connection conn, MainBoardDto dto) throws SQLException {
 		String sql = "SELECT * FROM mainboard m "
-				+ "JOIN (SELECT trunc(AVG(r.review_score)) as score ,COUNT(*), mboard_num FROM  mainboard m JOIN review  r USING(mboard_num) GROUP BY mboard_num) s "
+				+ "JOIN (SELECT trunc(AVG(r.review_score)) as score ,COUNT(*) as count, mboard_num FROM  mainboard m JOIN review  r USING(mboard_num) GROUP BY mboard_num) s "
 				+ "USING(mboard_num) "
 				+ "WHERE mboard_Num = ? "
 				+ "order by mboard_score, to_number(REGEXP_REPLACE(mboard_num,'[^0-9]+'))";
