@@ -70,18 +70,19 @@ $(function () {
   <br>
   <hr>
   <div class="review">
-  <h1>Best Review</h1>
-  <c:forEach var="bestReviewList" items="${bestReviewList}">
-  	<table>
+  <h1>Best Service</h1>
+  <c:forEach var="bestMainList" items="${bestMainList}">
+  	<table width="1000px">
   		<tr class="review_">
-  			<td><img src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/review%2F${bestReviewList.reviewImg}?alt=media" width="150px" height="150px"></td>
-  			<td>${bestReviewList.reviewContent }</td>
-  		</tr>
-  		<tr>
-  			<td>${bestReviewList.memberId}님의 후기</td>
-  		</tr>
-  		<tr>
-  			<td>평점 : ${bestReviewList.score}점</td>
+  			<c:if test="${not empty bestMainList.mboardImg}">
+  			<td><img src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainboard%2F${bestMainList.businessId}%2F${bestMainList.mboardImg}?alt=media" width="150px" height="150px"></td>
+  			</c:if>
+  			<td><c:set var="keywordArr" value="${fn:split(bestMainList.mboardInfo,'\\\\')}"/>
+	${keywordArr[0]}<br><br>
+	<a onclick="mapup()">${keywordArr[1] }</a><br><br>
+	<input type="hidden" value="${keywordArr[1] }" id="mapaddr">
+	${keywordArr[2] }<br><br>
+	<a href="${keywordArr[3] }" target ="_blank">${keywordArr[3] }</a></td>
   		</tr>
   	</table>
   	</c:forEach>
