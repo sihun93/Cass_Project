@@ -16,13 +16,19 @@
     }
 .Title{
 	font-family:'InkLipquid';
+	margin-bottom: -2%;
+}
+
+#findDiv {
+    margin: 50px auto;
+    width: 20%;
 }
 </style>
 </head>
 <body>
 <div class="Title" align="center">
-	<a href="${CONTEXT_PATH}/welcome.jsp">Cass 회원 아이디 찾기</a>
-</div><br>
+	<a href="${CONTEXT_PATH}/welcome.jsp">CASS 회원 아이디 찾기</a>
+</div>
 <div id="findDiv">
 	<form action="${CONTEXT_PATH}/member/frontController?action=memberIdFind" method="post">
 		<input type="text" class="input" pattern="\d{4}-\d{2}-\d{2}" name="memberBirth" id="memberBirth" required="required" placeholder="ex)생년월일 : yyyy-mm-dd"><br>

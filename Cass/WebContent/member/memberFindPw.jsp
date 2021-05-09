@@ -16,13 +16,20 @@
     }
 .Title{
 	font-family:'InkLipquid';
+	margin-left: -6%;
+    margin-bottom: 5%;
+}
+
+#findDiv {
+    margin: 12% 40%;
+    width: 40%;
 }
 </style>
 </head>
 <body>
 <div id="findDiv">
 	<form action="${CONTEXT_PATH}/member/frontController?action=memberPwFind" method="post">
-		<div class="Title"><a href="${CONTEXT_PATH}/welcome.jsp">Cass 회원 비밀번호 찾기</a></div><br>
+		<div class="Title"><a href="${CONTEXT_PATH}/welcome.jsp">Cass 회원 비밀번호 찾기</a></div>
 		<input type="text" class="input" name="memberId" id="memberId" required="required" placeholder="아이디"><br>
 		<input type="text" class="input" pattern="\d{4}-\d{4}" id="memberMobile" name="memberMobile" placeholder="ex)휴대폰 : 1111-2222 형식 입력" required="required">
 			<br>

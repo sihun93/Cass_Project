@@ -10,6 +10,11 @@
 <title>Cass 회원 리스트 페이지</title>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css">
+<style type="text/css">
+html, body {
+	height: 0;
+}
+</style>
 <script>
 function memberDelete(memberId){
 
