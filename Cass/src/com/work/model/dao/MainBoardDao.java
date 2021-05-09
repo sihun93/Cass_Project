@@ -653,7 +653,7 @@ public class MainBoardDao {
 	}
 
 	public void setdata(MasterMemberDto dto, String columncount) {
-		String sql = "UPDATE DATACENTER set "+columncount+" = to_number(+columncount)+1 WHERE member_id = ?";
+		String sql = "UPDATE DATACENTER set "+columncount+" = to_number("+columncount+")+1 WHERE member_id = ?";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		int row = 0;
