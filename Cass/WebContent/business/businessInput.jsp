@@ -41,7 +41,7 @@ function idCheck(){
 <body>
 <div id="center">
 <form action="${CONTEXT_PATH}/business/frontController?action=businessInput" method="post">
-	<div class="Title"><a href="${CONTEXT_PATH}/welcome.jsp">Cass 사업자 등록</a></div><br>
+	<div class="Title" style="margin-top: 3%;"><a href="${CONTEXT_PATH}/welcome.jsp">Cass 사업자 등록</a></div><br>
 	<div class="inputForm">
 		<h4 class="TitleText">아이디</h4> <input type="text" class="input" name="memberId" id="memberId" autofocus="autofocus" required="required" placeholder="아이디를 영문 6자 이상 입력해주세요.">
 		<input type="button" class="find" onclick="idCheck()" value="아이디 중복확인"><br>
