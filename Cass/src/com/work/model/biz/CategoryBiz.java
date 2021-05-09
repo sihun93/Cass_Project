@@ -25,7 +25,7 @@ public class CategoryBiz {
 	public ArrayList<SubCategoryDto> getSubCategory() {
 		return dao.getSubCategory();
 	}
-	/** 게시글 조회*/
+	/** 평균 평점이 높은 게시글 조회*/
 	public ArrayList<MainBoardDto> getBestMain() {
 		return dao.getBestMain();
 	}

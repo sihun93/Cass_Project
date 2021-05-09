@@ -197,10 +197,10 @@ table#contable{
 <tr>
 <td colspan="2" width="500px"; height="130px";>
 <c:set var="keywordArr" value="${fn:split(mainbaord.mboardInfo,'\\\\')}"/>
-회사이름:${keywordArr[0]}<br>
-회사주소:${keywordArr[1] }<br>
-전화번호:${keywordArr[2] }<br>
-홈페이지:${keywordArr[3] }
+${keywordArr[0]}<br>
+${keywordArr[1] }<br>
+${keywordArr[2] }<br>
+${keywordArr[3] }
 </td>
 </tr>
 </table>
