@@ -213,11 +213,7 @@ public class MemberFrontControllerServlet extends HttpServlet {
 				}
 				session.invalidate();
 			}
-			MessageEntity messageEntity = new MessageEntity("success", 4);
-			messageEntity.setLinkTitle("메인으로");
-			messageEntity.setUrl(CONTEXT_PATH + "/welcome.jsp");
-			request.setAttribute("messageEntity", messageEntity);
-			request.getRequestDispatcher("/message/message.jsp").forward(request, response);
+			request.getRequestDispatcher("/welcome.jsp").forward(request, response);
 		}
 
 		/**
