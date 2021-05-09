@@ -78,11 +78,11 @@ function resize(imgThis){
 </td>
 <td id="keyword">
 <c:set var="keywordArr" value="${fn:split(detaildto.mboardInfo,'\\\\')}"/>
-회사이름: ${keywordArr[0]}<br><br>
-회사주소: <a onclick="mapup()">${keywordArr[1] }</a><br><br>
+${keywordArr[0]}<br><br>
+<a onclick="mapup()">${keywordArr[1] }</a><br><br>
 <input type="hidden" value="${keywordArr[1] }" id="mapaddr">
-전화번호: ${keywordArr[2] }<br><br>
-홈페이지: <a href="${keywordArr[3] }" target ="_blank">${keywordArr[3] }</a>
+${keywordArr[2] }<br><br>
+<a href="${keywordArr[3] }" target ="_blank">${keywordArr[3] }</a>
 </td>
 </tr>
 

@@ -6,8 +6,8 @@ package com.work.model.biz;
 import java.util.ArrayList;
 
 import com.work.model.dao.CategoryDao;
+import com.work.model.dto.MainBoardDto;
 import com.work.model.dto.MainCategoryDto;
-import com.work.model.dto.ReviewDto;
 import com.work.model.dto.SubCategoryDto;
 
 /**
@@ -25,9 +25,9 @@ public class CategoryBiz {
 	public ArrayList<SubCategoryDto> getSubCategory() {
 		return dao.getSubCategory();
 	}
-	/** 리뷰 조회*/
-	public ArrayList<ReviewDto> getBestReviewList() {
-		return dao.getBestReviewList();
+	/** 게시글 조회*/
+	public ArrayList<MainBoardDto> getBestMain() {
+		return dao.getBestMain();
 	}
 
 }

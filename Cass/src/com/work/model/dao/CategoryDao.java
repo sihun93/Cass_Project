@@ -9,8 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.work.model.dto.MainBoardDto;
 import com.work.model.dto.MainCategoryDto;
-import com.work.model.dto.ReviewDto;
 import com.work.model.dto.SubCategoryDto;
 
 /**
@@ -89,13 +89,20 @@ public class CategoryDao {
 		return null;
 	}
 	
-	/** 리뷰 조회
+	/** 게시글 조회
 	 * @param 
-	 * @return ArrayList<ReviewDto> 없으면 null
+	 * @return ArrayList<MainBoardDto> 없으면 null
 	 */
-	public ArrayList<ReviewDto> getBestReviewList() {
-		ArrayList<ReviewDto> list = new ArrayList<ReviewDto>();
-		String sql = "select * from review";
+	public ArrayList<MainBoardDto> getBestMain() {
+		ArrayList<MainBoardDto> list = new ArrayList<MainBoardDto>();
+		String sql = "SELECT * " +  
+				"FROM(SELECT * " + 
+				"FROM mainboard m " + 
+				"JOIN (SELECT trunc(AVG(r.review_score)) as score ,COUNT(*) as count, mboard_num FROM  mainboard m JOIN review  r USING(mboard_num) " + 
+				"GROUP BY mboard_num) s " + 
+				"USING(mboard_num) " + 
+				"order by score desc, to_number(REGEXP_REPLACE(mboard_num,'[^0-9]+'))) " + 
+				"WHERE ROWNUM <=2";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -104,14 +111,14 @@ public class CategoryDao {
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			while(rs.next()) {
-				ReviewDto dto = new ReviewDto();
-				dto.setMboardNum(rs.getString("mboard_num"));
-				dto.setMemberId(rs.getString("member_id"));
-				dto.setReviewContent(rs.getString("review_content"));
-				dto.setReviewDate(rs.getString("review_date"));
-				dto.setReviewImg(rs.getString("review_img"));
-				dto.setReviewNum(rs.getInt("review_num"));
-				dto.setScore(rs.getInt("review_score"));
+				MainBoardDto dto = new MainBoardDto();
+				dto.setMboardNum(rs.getString("mboard_Num"));
+				dto.setBusinessId(rs.getString("business_Id"));
+				dto.setMcategoryNum(rs.getString("mcategory_Num"));
+				dto.setScategoryNum(rs.getString("scategory_Num"));
+				dto.setMboardTitle(rs.getString("mboard_Title"));
+				dto.setMboardImg(rs.getString("mboard_Img"));
+				dto.setMboardInfo(rs.getString("mboard_Info"));
 				list.add(dto);	
 			}
 			return list;
@@ -125,5 +132,6 @@ public class CategoryDao {
 		}
 		return null;
 	}
+
 
 }

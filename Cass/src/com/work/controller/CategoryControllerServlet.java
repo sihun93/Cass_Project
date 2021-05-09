@@ -7,13 +7,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
 import com.work.model.biz.CategoryBiz;
+import com.work.model.dto.MainBoardDto;
 import com.work.model.dto.MainCategoryDto;
-import com.work.model.dto.ReviewDto;
 import com.work.model.dto.SubCategoryDto;
 
 /**
  * @author 박민주
- * 시작 페이지에 카테고리와 후기 데이터를 가져오기 위한 서블릿
+ * 시작 페이지에 카테고리와 게시글 데이터를 가져오기 위한 서블릿
  */
 @WebServlet(urlPatterns = { "/cass/categoryController" }, loadOnStartup = 1)
 public class CategoryControllerServlet extends HttpServlet {
@@ -34,7 +34,7 @@ public class CategoryControllerServlet extends HttpServlet {
 			application.setAttribute("mainCategoryList", mainCategoryList);
 			application.setAttribute("subCategoryList", subCategoryList);
 			
-			ArrayList<ReviewDto> bestReviewList = biz.getBestReviewList();
-			application.setAttribute("bestReviewList", bestReviewList);	
+			ArrayList<MainBoardDto> bestMainList = biz.getBestMain();
+			application.setAttribute("bestMainList", bestMainList);	
 		}
 }
