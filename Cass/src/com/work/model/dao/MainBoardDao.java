@@ -12,6 +12,7 @@ import com.work.model.dto.MainCategoryDto;
 import com.work.model.dto.MasterMemberDto;
 import com.work.model.dto.ReviewDto;
 import com.work.model.dto.SubCategoryDto;
+import com.work.util.Utility;
 
 public class MainBoardDao {
 	private static MainBoardDao instance = new MainBoardDao();
@@ -24,7 +25,7 @@ public class MainBoardDao {
 	}
 	
 	/**
-	 * 게시글 작성 수정중
+	 * 게시글 작성
 	 * 
 	 * @param dto
 	 * @throws SQLException
@@ -113,7 +114,11 @@ public class MainBoardDao {
 	 */
 	public void getBoardList(Connection conn, HashMap<Integer, ArrayList<MainBoardDto>> boardAllList)
 			throws SQLException {
-		String sql = "SELECT * FROM (SELECT * FROM mainboard order by mboard_score, to_number(REGEXP_REPLACE(mboard_num,'[^0-9]+')) )";
+		String sql = "SELECT * FROM mainboard m "
+				+ "JOIN (SELECT trunc(AVG(r.review_score)) as score ,COUNT(*), mboard_num FROM  mainboard m JOIN review  r USING(mboard_num) GROUP BY mboard_num) s "
+				+ "USING(mboard_num) "
+				+ "order by mboard_score, to_number(REGEXP_REPLACE(mboard_num,'[^0-9]+'))";
+
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		MainBoardDto dto = null;
@@ -133,7 +138,11 @@ public class MainBoardDao {
 					dto.setMboardTitle(rs.getString("mboard_Title"));
 					dto.setMboardImg(rs.getString("mboard_Img"));
 					dto.setMboardInfo(rs.getString("mboard_Info"));
-					dto.setMboardScore(rs.getInt("mboard_Score"));
+					if(rs.getInt("count") >9) {
+						dto.setMboardScore(rs.getInt("score"));
+					}else {
+						dto.setMboardScore(rs.getInt("mboard_Score"));
+					}
 					list.add(dto);
 					count += 1;
 				} else {
@@ -149,7 +158,11 @@ public class MainBoardDao {
 					dto.setMboardTitle(rs.getString("mboard_Title"));
 					dto.setMboardImg(rs.getString("mboard_Img"));
 					dto.setMboardInfo(rs.getString("mboard_Info"));
-					dto.setMboardScore(rs.getInt("mboard_Score"));
+					if(rs.getInt("count") >9) {
+						dto.setMboardScore(rs.getInt("score"));
+					}else {
+						dto.setMboardScore(rs.getInt("mboard_Score"));
+					}
 					list.add(dto);
 					count += 1;
 				}
@@ -168,7 +181,13 @@ public class MainBoardDao {
 	/** 메인 카테고리 게시글 */
 	public void getBoardListForMc(Connection conn, HashMap<Integer, ArrayList<MainBoardDto>> boardAllList,
 			String mcategoryNum) throws SQLException {
-		String sql = "SELECT * FROM (SELECT * FROM mainboard where mcategory_Num = ?  order by mboard_score,to_number(REGEXP_REPLACE(mboard_num,'[^0-9]+')) )";
+		String sql = "SELECT * FROM mainboard m "
+				+ "JOIN (SELECT trunc(AVG(r.review_score)) as score ,COUNT(*), mboard_num FROM  mainboard m JOIN review  r USING(mboard_num) GROUP BY mboard_num) s "
+				+ "USING(mboard_num) "
+				+ "WHERE mcategory_Num = ? "
+				+ "order by mboard_score, to_number(REGEXP_REPLACE(mboard_num,'[^0-9]+'))";
+
+		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		MainBoardDto dto = null;
@@ -188,7 +207,11 @@ public class MainBoardDao {
 					dto.setMboardTitle(rs.getString("mboard_Title"));
 					dto.setMboardImg(rs.getString("mboard_Img"));
 					dto.setMboardInfo(rs.getString("mboard_Info"));
-					dto.setMboardScore(rs.getInt("mboard_Score"));
+					if(rs.getInt("count") >9) {
+						dto.setMboardScore(rs.getInt("score"));
+					}else {
+						dto.setMboardScore(rs.getInt("mboard_Score"));
+					}
 					list.add(dto);
 					count += 1;
 				} else {
@@ -204,7 +227,11 @@ public class MainBoardDao {
 					dto.setMboardTitle(rs.getString("mboard_Title"));
 					dto.setMboardImg(rs.getString("mboard_Img"));
 					dto.setMboardInfo(rs.getString("mboard_Info"));
-					dto.setMboardScore(rs.getInt("mboard_Score"));
+					if(rs.getInt("count") >9) {
+						dto.setMboardScore(rs.getInt("score"));
+					}else {
+						dto.setMboardScore(rs.getInt("mboard_Score"));
+					}
 					list.add(dto);
 					count += 1;
 				}
@@ -223,7 +250,13 @@ public class MainBoardDao {
 	/** 서브 카테고리 게시글 */
 	public void getBoardListForSc(Connection conn, HashMap<Integer, ArrayList<MainBoardDto>> boardAllList,
 			String scategoryNum) throws SQLException {
-		String sql = "SELECT * FROM (SELECT * FROM mainboard where scategory_Num = ?  order by mboard_score, to_number(REGEXP_REPLACE(mboard_num,'[^0-9]+')) )";
+		String sql = "SELECT * FROM mainboard m "
+				+ "JOIN (SELECT trunc(AVG(r.review_score)) as score ,COUNT(*), mboard_num FROM  mainboard m JOIN review  r USING(mboard_num) GROUP BY mboard_num) s "
+				+ "USING(mboard_num) "
+				+ "WHERE scategory_Num = ? "
+				+ "order by mboard_score, to_number(REGEXP_REPLACE(mboard_num,'[^0-9]+'))";
+
+		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		MainBoardDto dto = null;
@@ -243,7 +276,11 @@ public class MainBoardDao {
 					dto.setMboardTitle(rs.getString("mboard_Title"));
 					dto.setMboardImg(rs.getString("mboard_Img"));
 					dto.setMboardInfo(rs.getString("mboard_Info"));
-					dto.setMboardScore(rs.getInt("mboard_Score"));
+					if(rs.getInt("count") >9) {
+						dto.setMboardScore(rs.getInt("score"));
+					}else {
+						dto.setMboardScore(rs.getInt("mboard_Score"));
+					}
 					list.add(dto);
 					count += 1;
 				} else {
@@ -259,7 +296,11 @@ public class MainBoardDao {
 					dto.setMboardTitle(rs.getString("mboard_Title"));
 					dto.setMboardImg(rs.getString("mboard_Img"));
 					dto.setMboardInfo(rs.getString("mboard_Info"));
-					dto.setMboardScore(rs.getInt("mboard_Score"));
+					if(rs.getInt("count") >9) {
+						dto.setMboardScore(rs.getInt("score"));
+					}else {
+						dto.setMboardScore(rs.getInt("mboard_Score"));
+					}
 					list.add(dto);
 					count += 1;
 				}
@@ -276,89 +317,9 @@ public class MainBoardDao {
 		}
 	}
 
-	/**
-	 * 게시글 수 반환
-	 * 
-	 * @throws SQLException
-	 */
-	public int boardcount() {
-		String sql = "select COUNT(*)  from mainboard";
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		Connection conn = JdbcTemplate.getConnection();
-		int counter = 0;
-		try {
-			conn= JdbcTemplate.getConnection();
-			stmt = conn.prepareStatement(sql);
-			rs = stmt.executeQuery();
-			if (rs.next()) {
-				counter = rs.getInt(1);
-				return counter;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			JdbcTemplate.close(rs);
-			JdbcTemplate.close(stmt);
-			JdbcTemplate.close(conn);
-		}
-		return 0;
-	}
-	public int boardcountMc(String mcategoryNum) {
-		String sql = "select COUNT(*)  from mainboard whwere mcategory_Num = ?";
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		Connection conn = JdbcTemplate.getConnection();
-		int counter = 0;
-		try {
-			conn= JdbcTemplate.getConnection();
-			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, mcategoryNum);
-			rs = stmt.executeQuery();
-			if (rs.next()) {
-				counter = rs.getInt(1);
-				return counter;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			JdbcTemplate.close(rs);
-			JdbcTemplate.close(stmt);
-			JdbcTemplate.close(conn);
-		}
-		return 0;
-	}
-
-	public int boardcountSc(String scategoryNum) {
-		String sql = "select COUNT(*)  from mainboard whwere scategory_Num = ?";
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		Connection conn = JdbcTemplate.getConnection();
-		int counter = 0;
-		try {
-			conn= JdbcTemplate.getConnection();
-			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, scategoryNum);
-			rs = stmt.executeQuery();
-			if (rs.next()) {
-				counter = rs.getInt(1);
-				return counter;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			JdbcTemplate.close(rs);
-			JdbcTemplate.close(stmt);
-			JdbcTemplate.close(conn);
-		}
-		return 0;
-	}
-
-	/** 게시글 삭제 
-	 * @param dto 
-	 * @throws Exception */
+	/** 게시글 삭제  */
 	public void boardDelete(Connection conn, MainBoardDto dto) throws Exception {
-		String sql = "DELETE MEMBER WHERE mboard_Num =?";
+		String sql = "DELETE mainboard WHERE mboard_Num =?";
 		PreparedStatement stmt = null;
 		int row = 0;
 		try {
@@ -398,7 +359,11 @@ public class MainBoardDao {
 	 * @throws SQLException
 	 */
 	public void boardDetail(Connection conn, MainBoardDto dto) throws SQLException {
-		String sql = "select * from mainboard where mboard_num = ?";
+		String sql = "SELECT * FROM mainboard m "
+				+ "JOIN (SELECT trunc(AVG(r.review_score)) as score ,COUNT(*), mboard_num FROM  mainboard m JOIN review  r USING(mboard_num) GROUP BY mboard_num) s "
+				+ "USING(mboard_num) "
+				+ "WHERE mboard_Num = ? "
+				+ "order by mboard_score, to_number(REGEXP_REPLACE(mboard_num,'[^0-9]+'))";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -410,7 +375,11 @@ public class MainBoardDao {
 				dto.setMcategoryNum(rs.getString("mcategory_Num"));
 				dto.setScategoryNum(rs.getString("scategory_Num"));
 				dto.setMboardTitle(rs.getString("mboard_Title"));
-				dto.setMboardScore(rs.getInt("mboard_Score"));
+				if(rs.getInt("count") >9) {
+					dto.setMboardScore(rs.getInt("score"));
+				}else {
+					dto.setMboardScore(rs.getInt("mboard_Score"));
+				}
 				dto.setMboardImg(rs.getString("mboard_Img"));
 				dto.setMboardInfo(rs.getString("mboard_Info"));
 				dto.setMboardContent(rs.getString("mboard_Content"));
@@ -651,9 +620,9 @@ public class MainBoardDao {
 		return false;
 	}
 
-	public String getTime(MasterMemberDto dto, String columndate) {
+	public boolean getTime(MasterMemberDto dto, String columndate, String columncount) {
 		String sql = "select to_char("+columndate
-				+ ",'HH24-MI-SS') from DATACENTER where member_Id = ?";
+				+ ",'HH24-MI-SS') as T,"+columncount+" from DATACENTER where member_Id = ?";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -663,7 +632,19 @@ public class MainBoardDao {
 			stmt.setString(1, dto.getMemberId());
 			rs = stmt.executeQuery();
 			if (rs.next()) {
-				return rs.getString(1);
+				if(rs.getInt(columncount) == 0) {
+					return true;
+				}else {
+					String checkTime = rs.getString("T");
+					String currentTime = Utility.getCurrentDate("HH-mm-ss");
+					String[] checkTimeArray = checkTime.split("-");
+					String[] currentTimeArray = currentTime.split("-");
+					int checkTimeValue = Integer.parseInt(checkTimeArray[0])*60+Integer.parseInt(checkTimeArray[1]);
+					int currentTimeValue = Integer.parseInt(currentTimeArray[0])*60+Integer.parseInt(currentTimeArray[1]);
+					if((currentTimeValue-checkTimeValue) >=30 || ((currentTimeValue-checkTimeValue) >=-1410 && (currentTimeValue-checkTimeValue) <0)) {
+						return true;
+					}
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -672,7 +653,7 @@ public class MainBoardDao {
 			JdbcTemplate.close(stmt);
 			JdbcTemplate.close(conn);
 		}
-		return null;
+		return false;
 	}
 
 	public void setdata(MasterMemberDto dto, String columncount) {
