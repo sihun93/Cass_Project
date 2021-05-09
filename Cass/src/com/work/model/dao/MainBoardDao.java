@@ -663,10 +663,10 @@ public class MainBoardDao {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, dto.getMemberId());
 			row = stmt.executeUpdate();
-			JdbcTemplate.commit(conn);
 			if (row != 1) {
 				throw new Exception();
 			}
+			JdbcTemplate.commit(conn);
 		} catch (Exception e) {
 			JdbcTemplate.rollback(conn);
 			e.printStackTrace();
