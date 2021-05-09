@@ -22,7 +22,7 @@
 }
 
 .retable {
-	width: 800px;
+	width: 700px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -45,7 +45,8 @@
 }
 
 #mbImage {
-	width: 700px; image-rendering : -moz-auto;
+	width: 700px; 
+	image-rendering : -moz-auto;
 	image-rendering: -o-auto;
 	image-rendering: -webkit-optimize-contrast;
 	image-rendering: auto;
@@ -81,6 +82,61 @@
 	border-radius: 20px;
 	background-color: #d3d3d3;
 	border: none;
-	margin-left: -150%;
 	font-family: 'InkLipquid';
+}
+
+#updatebtn input[type='button'] {
+	width: 150px;
+	height: 30px;
+	margin-left: 30%;
+	background-color: #D1DAE7;
+	border: none;
+	border-radius: 20px;
+	font-size: 1.2em;
+	font-family: 'InkLipquid';
+	float: left;
+}
+
+.update {
+	width: 100px;
+	height: 30px;
+	background-color: #D1DAE7;
+	border: none;
+	border-radius: 20px;
+	font-size: 1.2em;
+	font-family: 'InkLipquid';
+	
+}
+
+.delete {
+	width: 100px;
+	height: 30px;
+	font-size: 1.2em;
+	border-radius: 20px;
+	background-color: #d3d3d3;
+	border: none;
+	font-family: 'InkLipquid';
+}
+
+.input-file-button{
+  padding: 6px 25px;
+  background-color:#D1DAE7;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+#img_div {
+	width: 300px;
+	margin-left: 10%; 
+}
+
+img {
+	width: 90px; 
+	height: 90px;
+	image-rendering : -moz-auto;
+	image-rendering: -o-auto;
+	image-rendering: -webkit-optimize-contrast;
+	image-rendering: auto;
+	-ms-interpolation-mode: nearest-neighbor;
+	image-rendering: -moz-auto;
 }

@@ -109,6 +109,11 @@ ${fn:substring(detaildto.mboardContent,6,imglength) }
 </tr>
 
 </table>
+<div id="updatebtn">
+<c:if test="${(detaildto.businessId eq dto.memberId  and dto.grade eq 'B') or dto.grade eq 'A'}">
+<input type="button" value="게시글 수정" onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=upDateWriteForm&mBoardNum=${detaildto.mboardNum}'">
+</c:if>
+</div>
 <div id="deletebtn">
 <c:if test="${(dto.grade eq 'A') or (dto.grade eq 'B' and dto.memberId eq detaildto.businessId)}">
 <input type="button" value="게시글 삭제" onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=deleteMainBoard&mboardNum=${detaildto.mboardNum}'">
@@ -125,9 +130,11 @@ ${fn:substring(detaildto.mboardContent,6,imglength) }
 <td colspan="2" style="text-align: left; padding-top: 1px padding-bottom: 1px">
 <textarea id="reviewTextarea" name="reviewTextarea" style="resize: none; width: 89%; height: 75px; margin-left: 5%;">
 </textarea><br>
+<div id="img_div">
 <img id="img0" width="75px" height="75px" style="display: none;">
 <img id="img1" width="75px" height="75px" style="display: none;">
 <img id="img2" width="75px" height="75px" style="display: none;">
+</div>
 </td>
 <td align="center" rowspan="2" id="inputbtn">
 등록
@@ -180,16 +187,14 @@ ${fn:substring(detaildto.mboardContent,6,imglength) }
 </div>
 <input id="reviewscore" name="reviewscore" type="hidden">
 </td>
-<td align="right">
-<input type="file" id="reviewimg" name="reviewimg" multiple="multiple">
-
+<td>
+<label class="input-file-button" for="reviewimg">이미지 업로드</label>
+<input type="file" id="reviewimg" style="display: none;"
+ name="reviewimg" multiple="multiple">
 </td>
 </tr>
 </table>
 </form>
-<c:if test="${(detaildto.businessId eq dto.memberId  and dto.grade eq 'B') or dto.grade eq 'A'}">
-	<input type="button" value="수정" onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=upDateWriteForm&mBoardNum=${detaildto.mboardNum}'">
-</c:if>
 <br>
 
 <!-- 리뷰 출력 창 -->
@@ -289,14 +294,14 @@ ${fn:substring(detaildto.mboardContent,6,imglength) }
 <td align="center" rowspan="2"  width="10%" >
 <c:choose>
 <c:when test="${review.memberId eq dto.memberId }">
-<input  type="button" value="수정" 
+<input  type="button" value="수정" class="update"
 onclick="updatereviewform('${state.index}')"><br><br>
-<input  type="button" value="삭제" 
+<input  type="button" value="삭제" class="delete"
 onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=deletereview&mboardNum=${review.mboardNum}&memberId=${review.memberId}&reviewNum=${review.reviewNum}'">
 </c:when>
 <c:otherwise>
-<input  type="button" value="수정" disabled="disabled"><br><br>
-<input  type="button" value="삭제" disabled="disabled">
+<input  type="button" value="수정" class="update" disabled="disabled"><br><br>
+<input  type="button" value="삭제" class="delete" disabled="disabled">
 </c:otherwise>
 </c:choose>
 </td>
@@ -325,8 +330,8 @@ ${review.reviewContent}
 </textarea>
 </td>
 <td align="center" width="10%">
-<input type="button" value="저장" onclick="updatereview(${state.index})"><br>
-<input type="button" value="취소" onclick="updatecancel(${state.index})"><br>
+<input type="button" value="저장" class="update" onclick="updatereview(${state.index})"><br>
+<br><input type="button" value="취소" class="delete" onclick="updatecancel(${state.index})"><br>
 </td>
 </tr>
 </table>
