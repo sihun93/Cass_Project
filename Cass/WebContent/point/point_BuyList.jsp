@@ -9,6 +9,16 @@
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/welcome.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/pointPage.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript">
+$(function () {
+    $(window).scroll(function () {
+        var curpos = $(window).scrollTop()+180;
+        $(".sky").stop().animate({"top":curpos}); 
+    });
+});
+
+</script>
 </head>
 <body>
 	<div id="wrapper">
@@ -16,7 +26,26 @@
 
 
 		<div id="container">
-			<jsp:include page="/inc/point_submenu.jsp" />
+			<div class="sky">
+  	<table>
+  		<tr>
+  			<td><a href="#">▲ 위로</a></td>
+  		</tr>
+  		<tr>
+  			<td><a href="${CONTEXT_PATH}/point/pointController?action=pointMain">상품 보기</a></td>
+  		</tr>
+  		<tr>
+  		<c:if test="${dto.grade == 'A'}">
+  			<td><a href="${CONTEXT_PATH}/point/pointController?action=pointInputForm">상품 등록</a></td>
+  		</c:if>
+  		</tr>
+  		<tr>
+  		<c:if test="${dto.grade == 'G'}">
+  			<td><a href="${CONTEXT_PATH}/point/pointController?action=pointBuyList">구매 내역</a></td>
+  		</c:if>
+  		</tr>	
+  	</table>
+  </div>
 
 			<div class="buy_list">
 				<h3>구매내역</h3>
