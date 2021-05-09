@@ -270,22 +270,10 @@ public class MemberFrontControllerServlet extends HttpServlet {
 					point, sex);
 			MemberBiz biz = new MemberBiz();
 
-			MemberDto chkDto = new MemberDto();
 			try {
-				chkDto.setMemberId(memberId);
-				biz.myInfo(chkDto);
-				if (chkDto.getMemberPw() != null) { // 가입된 아이디인 경우
-
-					MessageEntity messageEntity = new MessageEntity("validation", 8);
-					messageEntity.setLinkTitle("회원가입 재시도");
-					messageEntity.setUrl(CONTEXT_PATH + "/member/frontController?action=memberInputForm");
-					request.setAttribute("messageEntity", messageEntity);
-					request.getRequestDispatcher("/message/message.jsp").forward(request, response);
-				} else {
-					biz.addMember(dto);
-					RequestDispatcher dispatcher = request.getRequestDispatcher("/member/login.jsp");
-					dispatcher.forward(request, response);
-				}
+				biz.addMember(dto);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/member/login.jsp");
+				dispatcher.forward(request, response);
 			} catch (CommonException e) {
 				e.printStackTrace();
 				MessageEntity messageEntity = new MessageEntity("error", 0);
@@ -365,7 +353,9 @@ public class MemberFrontControllerServlet extends HttpServlet {
 			String memberAddr = addrCode + "/" + memberAddr1 + "/" + memberAddr2;
 			String memberEmail = request.getParameter("memberEmail");
 			String memberMobile = request.getParameter("memberMobile");
-			
+			String email = request.getParameter("email");
+			String memberBirth = request.getParameter("memberBirth");
+			String grade = request.getParameter("grade");
 			MemberBiz biz = new MemberBiz();
 			MemberDto dto = new MemberDto();
 			dto.setMemberId(memberId);
@@ -373,6 +363,9 @@ public class MemberFrontControllerServlet extends HttpServlet {
 			dto.setMemberAddr(memberAddr);
 			dto.setMemberEmail(memberEmail);
 			dto.setMemberMobile(memberMobile);
+			dto.setMemberEmail(email);
+			dto.setMemberBirth(memberBirth);
+			dto.setGrade(grade);
 			try {
 				biz.updateInfo(dto);
 				session.setAttribute("dto", dto);

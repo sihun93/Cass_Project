@@ -378,6 +378,7 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 			String businessPhone = request.getParameter("businessPhone");
 			String businessHomepage = request.getParameter("businessHomepage");
 			
+			
 			BusinessBiz biz = new BusinessBiz();
 			BusinessMemberDto dto = new BusinessMemberDto();
 			dto.setMemberId(memberId);
