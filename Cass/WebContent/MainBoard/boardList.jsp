@@ -20,6 +20,7 @@ function fsubmit(eventClass) {
 </script>
 <link type="text/css" rel="stylesheet"href="${pageContext.request.contextPath}/css/common.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/welcome.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/star.css">
 <style type="text/css">
 .sky {
 	font-family: 'InkLipquid';
