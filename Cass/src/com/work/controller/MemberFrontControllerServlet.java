@@ -179,8 +179,6 @@ public class MemberFrontControllerServlet extends HttpServlet {
 			dto.setMemberId(memberId);
 			dto.setMemberPw(memberPw);
 
-			System.out.println("memberId : [" + memberId + "]");
-			System.out.println("memberPw : [" + memberPw + "]");
 			biz.login(dto);
 			if (dto.getGrade() != null) {
 				if(dto.getGrade().equals("A")) {
@@ -188,11 +186,7 @@ public class MemberFrontControllerServlet extends HttpServlet {
 				}
 				HttpSession session = request.getSession(true);
 				session.setAttribute("dto", dto);
-				MessageEntity messageEntity = new MessageEntity("success", 1);
-				messageEntity.setLinkTitle("메인으로");
-				messageEntity.setUrl(CONTEXT_PATH + "/welcome.jsp");
-				request.setAttribute("messageEntity", messageEntity);
-				request.getRequestDispatcher("/message/message.jsp").forward(request, response);
+				request.getRequestDispatcher("/welcome.jsp").forward(request, response);
 			} else {
 				MessageEntity messageEntity = new MessageEntity("error", 2);
 				messageEntity.setLinkTitle("로그인");
@@ -265,17 +259,6 @@ public class MemberFrontControllerServlet extends HttpServlet {
 			String grade = "G";
 			int point = 1000;
 			String sex = request.getParameter("sex");
-
-
-			System.out.println("memberId : [" + memberId + "]");
-			System.out.println("memberPw : [" + memberPw + "]");
-			System.out.println("memberAddr : [" + memberAddr + "]");
-			System.out.println("memberMobile : [" + memberMobile + "]");
-			System.out.println("memberEmail : [" + memberEmail + "]");
-			System.out.println("memberBirth : [" + memberBirth + "]");
-			System.out.println("grade : [" + grade + "]");
-			System.out.println("point : [" + point + "]");
-			System.out.println("sex : [" + sex + "]");
 
 			if (memberId.isEmpty() || memberPw.isEmpty() || memberAddr.isEmpty() || memberEmail.isEmpty()
 					|| memberBirth.isEmpty() || sex.isEmpty()) {
@@ -476,13 +459,8 @@ public class MemberFrontControllerServlet extends HttpServlet {
 		protected void pointUpdate(HttpServletRequest request, HttpServletResponse response)
 				throws ServletException, IOException {
 			
-			System.out.println("[pointUpdate] START");
-			
 			String memberId = request.getParameter("memberId");
 			String sPoint = request.getParameter("point");
-			
-			System.out.println("memberId : ["+memberId+"]");
-			System.out.println("sPoint : ["+sPoint+"]");
 			
 			if (memberId.isEmpty()) {
 				System.out.println(">>> memberId.isEmpty() error ");
