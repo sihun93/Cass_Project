@@ -28,7 +28,12 @@
 		</c:choose>
 		<c:choose>
 			<c:when test="${!empty dto }">
-		   		<a href="${CONTEXT_PATH}/member/frontController?action=myInfoForm">내정보조회</a><span class="seperator">|</span>
+				<c:if test="${dto.grade eq 'A' || dto.grade eq 'G'}">
+			   		<a href="${CONTEXT_PATH}/member/frontController?action=myInfoForm">내정보조회</a><span class="seperator">|</span>
+				</c:if>
+				<c:if test="${dto.grade eq 'B'}">
+			   		<a href="${CONTEXT_PATH}/business/frontController?action=businessInfoForm">내정보조회</a><span class="seperator">|</span>
+				</c:if>
 			</c:when>
 			<c:when test="${empty dto}">
 		   		<a href="${CONTEXT_PATH}/cassInput.jsp">회원가입</a><span class="seperator">|</span>

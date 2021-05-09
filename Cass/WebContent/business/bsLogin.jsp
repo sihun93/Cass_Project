@@ -45,7 +45,6 @@ h1{
 	</div>
 </form>
 </center>
-	<jsp:include page="/inc/footer_menu.jsp"/>
 </div> 
 </body>
 </html>
