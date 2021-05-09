@@ -101,7 +101,7 @@ function businessDelete(memberId){
 		<th>우편번호 </th>
 		<td>
 		<input type="text" name="addrCode" size="7" id="addrCode" value="<%=addrSplit[0]%>" readonly="readonly">
-		<input type="button" value="우편번호찾기" onclick="postcode()">
+		<input type="button" value="우편번호찾기" onclick="postcode()" style="margin-left: 6%; width: 200px;">
 		</td>
 	</tr>
 	
@@ -128,13 +128,12 @@ function businessDelete(memberId){
 			</tr>
 			<tr>
 			<th colspan="2" id="myInfo_th">
-			<input type="submit" value="회원정보수정">
-			<input type="reset" value="취소">
-			<button onclick="javascript:businessDelete('${dto.memberId}');">회원탈퇴</button>
+			<input type="submit" value="회원정보수정" style="width: 300px; margin-top: 3%;">
 			</th>
 		</tr>
 	</table>
 </form>
+			<button onclick="javascript:businessDelete('${dto.memberId}');"style="margin-top:2%; width: 300px; margin-left: 41%;">회원탈퇴</button>
 </div>
 </body>
 </html>
