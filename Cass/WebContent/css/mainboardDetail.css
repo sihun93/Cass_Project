@@ -1,0 +1,86 @@
+@charset "UTF-8";
+.sky {
+	font-family: 'InkLipquid';
+	font-size: 1.9em;
+	position: absolute;
+	width: 160px;
+	left: 60px;
+	top: 180px;
+	height: 250px;
+}
+
+.review {
+	margin-left: 500px;
+	font-family: 'InkLipquid';
+	font-size: 1.5em;
+	font-family: 'InkLipquid';
+	font-size: 1.8em;
+}
+
+#pageNumber {
+	text-align: center;
+}
+
+.retable {
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#inputTable {
+	width: 52%;
+	height: 100px;
+	text-align: center;
+	padding-right: 2%;
+}
+
+#bImage_container {
+	width: 200px;
+	margin-left: 10%;
+	image-rendering: -moz-auto;
+	image-rendering: -o-auto;
+	image-rendering: -webkit-optimize-contrast;
+	image-rendering: auto;
+	-ms-interpolation-mode: nearest-neighbor;
+}
+
+#mbImage {
+	width: 700px; image-rendering : -moz-auto;
+	image-rendering: -o-auto;
+	image-rendering: -webkit-optimize-contrast;
+	image-rendering: auto;
+	-ms-interpolation-mode: nearest-neighbor;
+	image-rendering: -moz-auto;
+}
+
+.startRadio {
+	display: inline-block;
+	overflow: hidden;
+	height: 20px;
+	margin-left: 15%;
+}
+
+#inputbtn {
+	width: 18%;
+	margin-right: 15%;
+	background-color: #D1DAE7;
+	border-radius: 20px;
+	font-size: 1.5em;
+	font-family: 'InkLipquid';
+}
+
+#deletebtn {
+	margin: 0 auto;
+	width: 150px;
+}
+
+#deletebtn input[type='button'] {
+	width: 150px;
+	height: 30px;
+	font-size: 1.2em;
+	border-radius: 20px;
+	background-color: #d3d3d3;
+	border: none;
+	margin-left: -150%;
+	font-family: 'InkLipquid';
+}
