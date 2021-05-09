@@ -286,7 +286,6 @@ public class MainboardController extends HttpServlet {
 			if(!mboardContent.substring(0, 7).equals("/Image/")) {
 				boardDto.setMboardContent(mboardContent.replaceAll("\r\n", "<br>"));
 			}
-			
 			String pageNum = request.getParameter("pageNum");
 			int pnum = Integer.parseInt(pageNum);
 			HashMap<Integer, ArrayList<ReviewDto>> reviewAllList = new HashMap<Integer, ArrayList<ReviewDto>>();

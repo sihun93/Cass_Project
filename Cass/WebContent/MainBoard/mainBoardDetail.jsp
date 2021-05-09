@@ -105,7 +105,7 @@ function resize(imgThis){
 <!-- 회사 정보 -->
 <tr>
 <td>
-<img id="bImage_container" style=" width: 200px; height: 200px" src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainboard%2F${MainBoardDto.businessId}%2F${MainBoardDto.mboardImg }?alt=media">
+<img id="bImage_container" style=" width: 200px; height: 200px" src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainboard%2F${detaildto.businessId}%2F${detaildto.mboardImg }?alt=media">
 </td>
 <td width="80%">
 <c:set var="keywordArr" value="${fn:split(detaildto.mboardInfo,'\\\\')}"/>
@@ -140,7 +140,7 @@ src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainb
 </tr>
 
 </table>
-<c:if test="${(dto.grade eq 'A') or (dto.grade eq 'B' and dto.memberId eq detaildto.memberId)}">
+<c:if test="${(dto.grade eq 'A') or (dto.grade eq 'B' and dto.memberId eq detaildto.businessId)}">
 <input type="button" value="게시글 삭제" onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=deleteMainBoard&mboardNum=${detaildto.mboardNum}'">
 </c:if>
 
@@ -232,82 +232,82 @@ src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainb
 <div class="startRadio">
   <label class="startRadio__box">
   <c:if test="${review.score == 1}">
-    <input type="radio" name="star" id="reviewStar" disabled="disabled" checked="checked">
+    <input type="radio" name="star" id="reviewStar1"  checked="checked">
   </c:if>
     <c:if test="${review.score != 1}">
-    <input type="radio" name="star" disabled="disabled">
+    <input type="radio" name="star" >
   </c:if>
-    <span class="startRadio__img"><span class="blind">별 0.5개</span></span>
+    <span class="startRadio__img" id="reviewStar1"><span class="blind">별 0.5개</span></span>
   </label>
   <label class="startRadio__box">
   <c:if test="${review.score == 2}">
-    <input type="radio" name="star" disabled="disabled" checked="checked">
+    <input type="radio" name="star"  checked="checked">
   </c:if>
     <c:if test="${review.score != 2}">
-    <input type="radio" name="star" disabled="disabled">
+    <input type="radio" name="star" >
   </c:if>
     <span class="startRadio__img"><span class="blind">별 1개</span></span>
   </label>
   <label class="startRadio__box">
   <c:if test="${review.score >= 3}">
-    <input type="radio" name="star" disabled="disabled" checked="checked">
+    <input type="radio" name="star"  checked="checked">
   </c:if>
     <c:if test="${review.score != 3}">
-    <input type="radio" name="star" disabled="disabled">
+    <input type="radio" name="star" >
   </c:if>
     <span class="startRadio__img"><span class="blind">별 1.5개</span></span>
   </label>
   <label class="startRadio__box">
   <c:if test="${review.score == 4}">
-    <input type="radio" name="star" disabled="disabled" checked="checked">
+    <input type="radio" name="star"  checked="checked">
   </c:if>
     <c:if test="${review.score != 4}">
-    <input type="radio" name="star" disabled="disabled">
+    <input type="radio" name="star" >
   </c:if>
     <span class="startRadio__img"><span class="blind">별 2개</span></span>
   </label>
   <label class="startRadio__box">
   <c:if test="${review.score == 5}">
-    <input type="radio" name="star" disabled="disabled" checked="checked">
+    <input type="radio" name="star"  checked="checked">
   </c:if>
     <c:if test="${review.score != 5}">
-    <input type="radio" name="star" disabled="disabled">
+    <input type="radio" name="star" >
   </c:if>
     <span class="startRadio__img"><span class="blind">별 2.5개</span></span>
   </label>
   <label class="startRadio__box">
   <c:if test="${review.score == 6}">
-    <input type="radio" name="star" disabled="disabled" checked="checked">
+    <input type="radio" name="star"  checked="checked">
   </c:if>
     <c:if test="${review.score != 6}">
-    <input type="radio" name="star" disabled="disabled">
+    <input type="radio" name="star" >
   </c:if>
     <span class="startRadio__img"><span class="blind">별 3개</span></span>
   </label>
   <label class="startRadio__box">
   <c:if test="${review.score == 7}">
-    <input type="radio" name="star" disabled="disabled" checked="checked">
+    <input type="radio" name="star"  checked="checked">
   </c:if>
     <c:if test="${review.score != 7}">
-    <input type="radio" name="star" disabled="disabled">
+    <input type="radio" name="star" >
   </c:if>
     <span class="startRadio__img"><span class="blind">별 3.5개</span></span>
   </label>
   <label class="startRadio__box">
   <c:if test="${review.score == 8}">
-    <input type="radio" name="star" disabled="disabled" checked="checked">
+    <input type="radio" name="star"  checked="checked">
   </c:if>
     <c:if test="${review.score != 8}">
-    <input type="radio" name="star" disabled="disabled">
+    <input type="radio" name="star" >
   </c:if>
     <span class="startRadio__img"><span class="blind">별 4개</span></span>
   </label>
   <label class="startRadio__box">
   <c:if test="${review.score == 9}">
-    <input type="radio" name="star" disabled="disabled" checked="checked">
+    <input type="radio" name="star"  checked="checked">
   </c:if>
     <c:if test="${review.score != 9}">
-    <input type="radio" name="star" disabled="disabled">
+    <input type="radio" name="star" >
   </c:if>
     <span class="startRadio__img"><span class="blind">별 4.5개</span></span>
   </label>
