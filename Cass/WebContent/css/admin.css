@@ -114,7 +114,7 @@ button {
 }
 
 .myInfo input[type='text'], .myInfo input[type='password'], .myInfo input[type='email'] {
-	width: 200px;
+	width: 250px;
 	height: 30px;
 	background-color:#F4F3EF;
 	border: none;
