@@ -13,6 +13,7 @@
 <meta charset="UTF-8">
 <title>아이디 중복확인결과</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<link type="text/css" rel="stylesheet" href="../css/checkForm.css">
 </head>
 <body>
 <h2>아이디 중복 확인 결과</h2>
@@ -37,20 +38,20 @@
 		e.printStackTrace();
 	}
 	if(cId == null){
-		out.println("<h3>"+memberId+"<h3>");
-		out.println("<p>사용 가능한 아이디입니다.</p>");
-		out.println("<a href='javascript:apply(\"" + memberId + "\")'>[적용]</a>");
+		out.println("<h3>"+memberId+"</h3>");
+		out.println("<h3>사용 가능한 아이디입니다.</h3>");
+		out.println("<a href='javascript:apply(\"" + memberId + "\")'>적용</a>");
 	
 %>
 <%
 	}else{
-		out.println("<p class='ne'>해당 아이디는 사용하실 수 없습니다.</p>");
+		out.println("<h3 class='ne'>해당 아이디는 사용하실 수 없습니다.</h3>");
 	}
 %>
 <hr>
-	<a href="javascript:history.back()" class="bt">[재시도]</a>
+	<a href="javascript:history.back()" class="bt">재시도</a>
 	&nbsp; &nbsp;
-	<a href="javascript:window.close()" class="bt">[창닫기]</a>
+	<a href="javascript:window.close()" class="bt">창닫기</a>
 	
 	
 	<script>

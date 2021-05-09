@@ -6,12 +6,25 @@
 <meta charset="UTF-8">
 <title>아이디 중복체크</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<link type="text/css" rel="stylesheet" href="../css/checkForm.css">
+<style>
+@font-face{
+	font-family:'InkLipquid';
+	font-weight:normal;
+	font-style:normal;
+	font-color:white;
+    src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff')format('woff');
+    }
+.Title{
+	font-family:'InkLipquid';
+}
+</style>
 </head>
 <body>
 	<div id="ckMain">
-	<h2>아이디 중복 체크</h2><br><br>
+	<div id="tDiv"><h2 class="Title">아이디 중복 체크</h2></div><br><br>
 		<form method="post" action="idCheckOk.jsp" onsubmit="return blankCheck(this)">
-			<b>아이디 :</b> <input type="text" name="memberId" id="memberId" class="idbox">
+			<b>아이디 :</b> <input type="text" name="memberId" id="memberId" class="idbox"><br>
 			<input type="submit" value="중복확인" class="bt">
 			<input id="cbt" type="button" value="취소" onclick="window.close()" class="bt">
 		</form>
