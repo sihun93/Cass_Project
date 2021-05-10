@@ -58,7 +58,7 @@
 	function apply(cId){
 		opener.document.getElementById('memberId').value=cId;
 		window.opener.document.getElementById('memberId').readOnly = true;
-		window.opener.document.getElementById("memberPw").focus();
+		window.opener.document.getElementById("businessPw").focus();
 		window.close();
 	}
 	</script>
