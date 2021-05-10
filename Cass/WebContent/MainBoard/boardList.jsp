@@ -68,7 +68,7 @@ table#contable{
 
 </style>
 </head>
-<body>
+<body >
 	<div id="wrapper">
 		<jsp:include page="/inc/header_menu.jsp" />
 
@@ -216,11 +216,11 @@ ${keywordArr[3] }
 	int max = (Integer)request.getAttribute("maxPageNum");
 	for(int i = 1 ; i <= max;i++){
 %>
-	<a href="${CONTEXT_PATH}/MainBoard/mainboardController?action=mainbaordListform&pageNum=<%= i%>"><%= i%></a>
+	<a href="${CONTEXT_PATH}/MainBoard/mainboardController?action=mainbaordListform&pageNum=<%= i%>"><%= i%> |</a>
 <%
 	}
 %>
-|&gt;
+&gt;
 </div>
 
 		</div>

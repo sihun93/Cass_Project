@@ -91,32 +91,20 @@ public class MainboardController extends HttpServlet {
 		
 		MainBoardBiz biz = new MainBoardBiz();
 		int pnum = Integer.parseInt(pageNum);
-		int boardcounter = 0;
+		int maxPageNum = 1;
 		HashMap<Integer, ArrayList<MainBoardDto>> boardAllList = new HashMap<Integer, ArrayList<MainBoardDto>>();
 		if(mcategoryNum != null) {
 			biz.getBoardListforMc(boardAllList,mcategoryNum);
-			boardcounter = boardAllList.size();
+			maxPageNum = boardAllList.size();
 		}else if(scategoryNum != null){
 			biz.getBoardListforSc(boardAllList,scategoryNum);
-			boardcounter = boardAllList.size();
+			maxPageNum = boardAllList.size();
 		}else {
 			biz.getBoardList(boardAllList);
-			boardcounter = boardAllList.size();
-		}
-		
-		int maxPageNum = 1;
-		if(boardcounter != 0) {
-			if(maxPageNum%5 != 0) {
-				maxPageNum = boardcounter/5 + 1;
-			}else {
-				maxPageNum = boardcounter/5;
-			}
+			maxPageNum = boardAllList.size();
 		}
 		
 		ArrayList<MainBoardDto> list = boardAllList.get(pnum);
-		
-		
-		
 		
 		request.setAttribute("mainbaordList", list);
 		request.setAttribute("maxPageNum", maxPageNum);
