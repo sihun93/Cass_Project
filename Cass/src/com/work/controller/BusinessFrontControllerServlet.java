@@ -452,10 +452,10 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 			String memberId = biz.findBsId(businessNum, businessPhone);
 			if(memberId != null) {
 				MessageEntity messageEntity = new MessageEntity("success", 7);
-				messageEntity.setLinkTitle("아이디 찾기 성공 : [" + memberId + "] 클릭시 로그인창으로 이동됩니다.");
+				messageEntity.setLinkTitle("아이디 찾기 성공 : [" + memberId + "]");
 				messageEntity.setUrl(CONTEXT_PATH + "/business/frontController?action=businessLoginForm");
 				request.setAttribute("messageEntity", messageEntity);
-				request.getRequestDispatcher("/message/message.jsp").forward(request, response);
+				request.getRequestDispatcher("/message/findMessage.jsp").forward(request, response);
 				return;
 			} else {
 				MessageEntity messageEntity = new MessageEntity("error", 13);
@@ -496,10 +496,10 @@ public class BusinessFrontControllerServlet extends HttpServlet {
 			System.out.println(memberId+ "/" +businessPhone);
 			if(businessPw != null) {
 				MessageEntity messageEntity = new MessageEntity("success", 8);
-				messageEntity.setLinkTitle("임시 비밀번호 발급 : [ "+businessPw+" ] 클릭시 로그인창으로 이동됩니다.");
+				messageEntity.setLinkTitle("임시 비밀번호 발급 : [ "+businessPw+" ]");
 				messageEntity.setUrl(CONTEXT_PATH +"/business/frontController?action=businessLoginForm");
 				request.setAttribute("messageEntity", messageEntity);
-				request.getRequestDispatcher("/message/message.jsp").forward(request, response);
+				request.getRequestDispatcher("/message/findMessage.jsp").forward(request, response);
 				System.out.println(businessPw);
 				return;
 			}else {
