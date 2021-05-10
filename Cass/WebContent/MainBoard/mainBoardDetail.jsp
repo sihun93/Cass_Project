@@ -111,12 +111,12 @@ ${fn:substring(detaildto.mboardContent,6,imglength) }
 </table>
 <div id="updatebtn">
 <c:if test="${(detaildto.businessId eq dto.memberId  and dto.grade eq 'B') or dto.grade eq 'A'}">
-<input type="button" value="게시글 수정" onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=upDateWriteForm&mBoardNum=${detaildto.mboardNum}'">
+<input type="button" value="게시글 수정" onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=upDateWriteForm&mBoardNum=${detaildto.mboardNum}&memberId=${detaildto.businessId}'">
 </c:if>
 </div>
 <div id="deletebtn">
 <c:if test="${(dto.grade eq 'A') or (dto.grade eq 'B' and dto.memberId eq detaildto.businessId)}">
-<input type="button" value="게시글 삭제" onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=deleteMainBoard&mboardNum=${detaildto.mboardNum}'">
+<input type="button" value="게시글 삭제" onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=deleteMainBoard&mboardNum=${detaildto.mboardNum}&memberId=${detaildto.businessId}'">
 </c:if>
 </div>
 
