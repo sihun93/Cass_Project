@@ -78,12 +78,34 @@ public class MainBoardBiz {
 	 */
 	public void getBoardList(HashMap<Integer, ArrayList<MainBoardDto>> boardAllList) {
 		Connection conn = JdbcTemplate.getConnection();
+		ArrayList<MainBoardDto> allList = new ArrayList<MainBoardDto>();
 		try {
-			dao.getBoardList(conn, boardAllList);
+			dao.getBoardList(conn, allList);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JdbcTemplate.close(conn);
+		}
+		int count = 0;
+		int key = 1;
+		ArrayList<MainBoardDto> splitLsit =null;
+		for(int index=0 ; index <allList.size();index++) {
+			if(count==0) {
+				splitLsit= new ArrayList<MainBoardDto>();
+			}
+			splitLsit.add(allList.get(index));
+			count +=1;
+			if(count == 5) {
+				count = 0;
+				boardAllList.put(key, splitLsit);
+				key +=1;
+			}
+			if(index+1 == allList.size() ) {
+				if(count != 0) {
+					boardAllList.put(key, splitLsit);
+					key +=1;
+				}
+			}
 		}
 	}
 
