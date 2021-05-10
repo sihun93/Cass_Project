@@ -30,7 +30,11 @@ $(function () {
 </style>
 </head>
 <body>
-<div class="sky">
+<div id="wrapper">
+	<jsp:include page="/inc/header_menu.jsp" />
+	
+   <div id="container">
+   <div class="sky">
   	<table>
   		<tr>
   			<td><a href="#">▲ 위로</a></td>
@@ -42,10 +46,6 @@ $(function () {
   		</c:forEach>
   	</table>
   </div>
-<div id="wrapper">
-	<jsp:include page="/inc/header_menu.jsp" />
-	
-   <div id="container">
   	<div id="mainWrapper">
 		<ul>
 			<li class="boardTable">

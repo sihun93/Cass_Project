@@ -218,13 +218,13 @@ onchange="setBImg(event);" style="display: none;">
 <c:choose>
 <c:when test="${fn:substring(MainBoardDto.mboardContent,0,7) == iValue }">
 <input type="hidden" name="mbimgval" id="mbimgval" value="${fn:substring(MainBoardDto.mboardContent,7,imglength) }">
-<label class="input-file-button" for="bimg">이미지 업로드</label>
+<label class="input-file-button" for="bimg">로고 이미지 업로드</label>
 <input type="file" name="mbimg" id="mbimg" value=""
 onchange="setMbImg(event);" style="display: none;">
 </c:when>
 <c:otherwise>
 <input type="hidden" name="mbimgval" id="mbimgval">
-<label class="input-file-button" for="bimg">이미지 업로드</label>
+<label class="input-file-button" for="bimg">게시글 이미지 업로드</label>
 <input type="file" name="mbimg" id="mbimg" 
 onchange="setMbImg(event);" style="display: none;">
 </c:otherwise>
