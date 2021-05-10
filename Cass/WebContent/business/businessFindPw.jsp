@@ -6,6 +6,11 @@
 <meta charset="UTF-8">
 <title>Companion Animal Service Site</title>
 <link type="text/css" rel="stylesheet" href="../css/businessFind.css">
+<style type="text/css">
+input:focus {
+	outline: none;
+}
+</style>
 </head>
 <body>
 <form action="${CONTEXT_PATH }/business/frontController?action=businessPwFind" method="post">

@@ -28,6 +28,10 @@
     margin: 12% 43%;
     width: 40%;
 }
+
+input:focus {
+	outline: none;
+}
 </style>
 </head>
 <body>

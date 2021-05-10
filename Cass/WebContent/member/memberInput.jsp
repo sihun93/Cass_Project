@@ -21,6 +21,10 @@
 font-family:'InkLipquid';
 margin-top: 3%;
 }
+
+input:focus {
+	outline: none;
+}
 </style>
 <script>
 function postcode(){

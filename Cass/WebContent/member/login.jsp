@@ -31,7 +31,12 @@ h1{
 	font-style:normal;
 	font-color:white;
 	font-size: 3em;
-    src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff')format('woff');}
+    src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff')format('woff');
+    }
+
+input:focus {
+	outline: none;
+}
 </style>
 </head>
 <body>
