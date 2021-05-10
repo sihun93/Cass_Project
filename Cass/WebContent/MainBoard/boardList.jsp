@@ -99,11 +99,18 @@ table#contable{
 <input type="hidden" value="${mainbaord.mboardNum }" name="mBoardNum">
 <table id="contable"  onclick="fsubmit('${mainbaord.mboardNum }')" >
 <tr>
-<td rowspan="2">
+<td rowspan="2" width="180px">
 <img style="width: 175px; height: 175px" src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainboard%2F${mainbaord.businessId}%2F${mainbaord.mboardImg }?alt=media">
 </td>
-<td>${mainbaord.mboardTitle }</td>
-<td align="right" width="110px;" style="margin-right: 2px;">
+<c:choose>
+<c:when test="${fn:length(mainbaord.mboardTitle) > 33}">
+<td width="480px;" title="${mainbaord.mboardTitle }">${fn:substring(mainbaord.mboardTitle,0,33)}...</td>
+</c:when>
+<c:otherwise>
+<td width="480px">${mainbaord.mboardTitle }</td>
+</c:otherwise>
+</c:choose>
+<td align="right" width="180px;" style="margin-right: 2px;">
 <c:if test="${mainbaord.mboardScore == 0}">
 리뷰가 부족합니다.
 </c:if>
@@ -198,14 +205,13 @@ table#contable{
 <td colspan="2" width="500px"; height="130px";>
 <c:set var="keywordArr" value="${fn:split(mainbaord.mboardInfo,'\\\\')}"/>
 ${keywordArr[0]}<br>
-${keywordArr[1]}<br>
-${keywordArr[2]}<br>
-${keywordArr[3]}
+${keywordArr[1] }<br>
+${keywordArr[2] }<br>
+${keywordArr[3] }
 </td>
 </tr>
 </table>
 </form>
-<br>
 
 </c:forEach>
 </c:if>
