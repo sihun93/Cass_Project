@@ -315,10 +315,11 @@ onclick="location.href='${CONTEXT_PATH}/MainBoard/mainboardController?action=del
 
 <tr>
 <td colspan="2" width="77%" height="80px">
-${review.reviewContent}<br>
+<% pageContext.setAttribute("newLine", "\r\n"); %>
+${fn:replace(review.reviewContent, newLine, '<br>')}
+<br>
 <c:forEach items="${fn:split(review.reviewImg,'\\\\') }" var="imgName">
-<img class="imgs" width="75px" height="75px" onclick="resize(this)";
-src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainboard%2F${detaildto.businessId}%2F${review.memberId }%2F${imgName }?alt=media">
+<img class="imgs" width="75px" height="75px" onclick="resize(this)" src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainboard%2F${detaildto.businessId}%2F${review.memberId }%2F${imgName }?alt=media">
 </c:forEach>
 </td>
 </tr>
