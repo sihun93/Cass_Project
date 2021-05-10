@@ -22,6 +22,11 @@
 		window.history.back();
 	</script>
 </c:if>
+<c:if test="${alram eq 'on'}">
+	<script type="text/javascript">
+		alert("게시글을 작성한 회원만 사용이 가능합니다");
+	</script>
+</c:if>
 <div id="wrapper">
 			<jsp:include page="/inc/header_menu.jsp" />
 	<div id="container">

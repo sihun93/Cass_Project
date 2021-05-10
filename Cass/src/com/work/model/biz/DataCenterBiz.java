@@ -228,4 +228,8 @@ public class DataCenterBiz {
             }
         }
 	}
+
+	public boolean checkboard(String memberId) {
+		return dao.checkboard(memberId);
+	}
 }
