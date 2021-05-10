@@ -209,7 +209,7 @@ public class PointDao {
 	 * @throws IOException
 	 */
 	public void titlesearch(Connection con, ArrayList<PointDto> pointlist, String searchName) throws IOException {
-		String sql = "select * from point_board where pboard_title like ?";
+		String sql = "select * from point_board where pboard_title like ? order by pboard_price";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -251,14 +251,14 @@ public class PointDao {
 	 * @throws IOException 
 	 */
 	public void pricesearch(Connection con, ArrayList<PointDto> pointlist, String searchName) throws IOException {
-        String sql = "select * from point_board where pboard_price like ?";
+        String sql = "select * from point_board where pboard_price >= ? order by pboard_price";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setString(1, "%"+searchName+"%");
+			stmt.setString(1, searchName);
 			rs = stmt.executeQuery();
 			
 			PointDto pointDto = null;
@@ -293,7 +293,7 @@ public class PointDao {
 	 * @throws IOException 
 	 */
 	public void mcategorysearch(Connection con, ArrayList<PointDto> pointlist, String mcategoryNum) throws IOException {
-        String sql = "select * from point_board where mcategory_num = ?";
+        String sql = "select * from point_board where mcategory_num = ? order by pboard_price";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
