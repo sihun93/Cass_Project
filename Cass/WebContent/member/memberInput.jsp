@@ -78,7 +78,7 @@ function idCheck(){
 			여  <input type="radio" name="sex" id="sex" value="F" >
 	</div>
 	<div id="loginDiv">
-			<input id="login" type="submit" value="회원가입"><br>
+			<input id="login" type="submit" value="회원가입" style="visibility: hidden;"><br>
 	</div>
 </form>
 </div>

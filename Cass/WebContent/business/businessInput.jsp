@@ -72,7 +72,7 @@ function idCheck(){
 		<input type="text" class="input" name="businessHomepage" id="businessHomepage" required="required" placeholder="홈페이지 메인 주소를 입력해주세요">
 	</div>		
 		<div id="loginDiv">
-			<input id="login" type="submit" value="사업자 등록"><br>
+			<input id="login" type="submit" value="사업자 등록" style="visibility: hidden;"><br>
 		</div>
 </form>
 </div>
