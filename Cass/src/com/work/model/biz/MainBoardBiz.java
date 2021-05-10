@@ -112,24 +112,68 @@ public class MainBoardBiz {
 	/** 메인카테고리별 게시글 목록 가저오기 */
 	public void getBoardListforMc(HashMap<Integer, ArrayList<MainBoardDto>> boardAllList, String mcategoryNum) {
 		Connection conn = JdbcTemplate.getConnection();
+		ArrayList<MainBoardDto> allList = new ArrayList<MainBoardDto>();
 		try {
-			dao.getBoardListForMc(conn, boardAllList, mcategoryNum);
+			dao.getBoardListForMc(conn, allList, mcategoryNum);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JdbcTemplate.close(conn);
+		}
+		int count = 0;
+		int key = 1;
+		ArrayList<MainBoardDto> splitLsit =null;
+		for(int index=0 ; index <allList.size();index++) {
+			if(count==0) {
+				splitLsit= new ArrayList<MainBoardDto>();
+			}
+			splitLsit.add(allList.get(index));
+			count +=1;
+			if(count == 5) {
+				count = 0;
+				boardAllList.put(key, splitLsit);
+				key +=1;
+			}
+			if(index+1 == allList.size() ) {
+				if(count != 0) {
+					boardAllList.put(key, splitLsit);
+					key +=1;
+				}
+			}
 		}
 	}
 
 	/** 서브카테고리별 게시글 목록 가저오기 */
 	public void getBoardListforSc(HashMap<Integer, ArrayList<MainBoardDto>> boardAllList, String scategoryNum) {
 		Connection conn = JdbcTemplate.getConnection();
+		ArrayList<MainBoardDto> allList = new ArrayList<MainBoardDto>();
 		try {
-			dao.getBoardListForSc(conn, boardAllList, scategoryNum);
+			dao.getBoardListForSc(conn, allList, scategoryNum);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JdbcTemplate.close(conn);
+		}
+		int count = 0;
+		int key = 1;
+		ArrayList<MainBoardDto> splitLsit =null;
+		for(int index=0 ; index <allList.size();index++) {
+			if(count==0) {
+				splitLsit= new ArrayList<MainBoardDto>();
+			}
+			splitLsit.add(allList.get(index));
+			count +=1;
+			if(count == 5) {
+				count = 0;
+				boardAllList.put(key, splitLsit);
+				key +=1;
+			}
+			if(index+1 == allList.size() ) {
+				if(count != 0) {
+					boardAllList.put(key, splitLsit);
+					key +=1;
+				}
+			}
 		}
 	}
 
