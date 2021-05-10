@@ -16,7 +16,12 @@
 <script type="text/javascript" src="js/grape_select.js"></script>
 </head>
 <body>
-
+<c:if test="${empty dto or dto.grade eq 'G'}">
+	<script type="text/javascript">
+		alert("사업자 회원만 사용이 가능합니다.");
+		window.history.back();
+	</script>
+</c:if>
 <div id="wrapper">
 			<jsp:include page="/inc/header_menu.jsp" />
 	<div id="container">

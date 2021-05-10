@@ -184,26 +184,30 @@ public class MainboardController extends HttpServlet {
 	/**게시글 수정 페이지*/
 	protected void upDateWriteForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		MasterMemberDto masterDto = (MasterMemberDto)session.getAttribute("dto");
-		String grade = masterDto.getGrade();
-		if(!(grade.equals("B")||grade.equals("A"))) {
+		MasterMemberDto dto = (MasterMemberDto)session.getAttribute("dto");
+		String grade = dto.getGrade();
+		String memberId= request.getParameter("memberId");
+		if(dto.getGrade().equals("G")) {
 			response.sendRedirect(CONTEXT_PATH+"/welcome.jsp");
 			return;
 		}
-		
+		if(dto.getGrade().equals("B") && !memberId.equals(dto.getMemberId()) ) {
+			response.sendRedirect(CONTEXT_PATH+"/welcome.jsp");
+			return;
+		}
 		String mBoardNum = request.getParameter("mBoardNum");
 		ArrayList<MainCategoryDto> mainCategorylist = new ArrayList<MainCategoryDto>();
 		ArrayList<SubCategoryDto> subCategorylist = new ArrayList<SubCategoryDto>();
 
-		MainBoardDto dto = new MainBoardDto();
-		dto.setMboardNum(mBoardNum);
+		MainBoardDto boardDto = new MainBoardDto();
+		boardDto.setMboardNum(mBoardNum);
 		MainBoardBiz biz = new MainBoardBiz();
 		biz.getMainCategoryList(mainCategorylist);
 		biz.getSubCategoryList(subCategorylist);
-		biz.boardDetail(dto);
+		biz.boardDetail(boardDto);
 		
 		if(mainCategorylist != null && mainCategorylist.size() >0) {
-			request.setAttribute("MainBoardDto", dto);
+			request.setAttribute("MainBoardDto", boardDto);
 			request.setAttribute("mainCategorylist", mainCategorylist);
 			request.setAttribute("subCategorylist", subCategorylist);
 			request.getRequestDispatcher("/MainBoard/UpdateWrite.jsp").forward(request, response);
@@ -213,8 +217,8 @@ public class MainboardController extends HttpServlet {
 	/**게시글 수정*/
 	protected void upDateWrite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		MasterMemberDto masterDto = (MasterMemberDto)session.getAttribute("dto");
-		String grade = masterDto.getGrade();
+		MasterMemberDto dto = (MasterMemberDto)session.getAttribute("dto");
+		String grade = dto.getGrade();
 		if(!(grade.equals("B")||grade.equals("A"))) {
 			response.sendRedirect(CONTEXT_PATH+"/welcome.jsp");
 			return;
@@ -233,25 +237,25 @@ public class MainboardController extends HttpServlet {
 		String mcontent = request.getParameter("mcontent");
 		
 		System.out.println(bimg+","+mbimg);
-		MainBoardDto  dto = new MainBoardDto();
+		MainBoardDto  boardDto = new MainBoardDto();
 		bimg = bimg.trim();
 		if(mbimg != null && mbimg.length() != 0) {
 			mcontent = null;
 			mbimg = "/Image/"+mbimg.trim();
-			dto.setMboardContent(mbimg);
+			boardDto.setMboardContent(mbimg);
 		}else {
 			mcontent = "/text/" + mcontent;
-			dto.setMboardContent(mcontent);
+			boardDto.setMboardContent(mcontent);
 		}
-		dto.setMboardNum(mboardNum);
-		dto.setMcategoryNum(mcategoryNum);
-		dto.setScategoryNum(scategoryNum);
-		dto.setMboardTitle(mboardTitle);
-		dto.setMboardImg(bimg);
-		dto.setMboardInfo(bcontent);
+		boardDto.setMboardNum(mboardNum);
+		boardDto.setMcategoryNum(mcategoryNum);
+		boardDto.setScategoryNum(scategoryNum);
+		boardDto.setMboardTitle(mboardTitle);
+		boardDto.setMboardImg(bimg);
+		boardDto.setMboardInfo(bcontent);
 		
 		MainBoardBiz biz = new MainBoardBiz();
-		biz.boardUpdate(dto);
+		biz.boardUpdate(boardDto);
 		
 		response.sendRedirect(CONTEXT_PATH+"/MainBoard/mainboardController?action=mainbaordDetail&pageNum=1&mBoardNum="+mboardNum);
 		}
@@ -298,11 +302,22 @@ public class MainboardController extends HttpServlet {
 	/** 게시글 삭제*/
 	protected void deleteMainBoard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String mboardNum = request.getParameter("mboardNum");
+		String memberId = request.getParameter("memberId");
+		HttpSession session = request.getSession();
+		MasterMemberDto dto = (MasterMemberDto)session.getAttribute("dto");
+		if(dto.getGrade().equals("G")) {
+			response.sendRedirect(CONTEXT_PATH+"/welcome.jsp");
+			return;
+		}
+		if(dto.getGrade().equals("B") && !memberId.equals(dto.getMemberId()) ) {
+			response.sendRedirect(CONTEXT_PATH+"/welcome.jsp");
+			return;
+		}
 		if(mboardNum!=null) {
-			MainBoardDto dto = new MainBoardDto();
-			dto.setMboardNum(mboardNum);
+			MainBoardDto mainBoardDto = new MainBoardDto();
+			mainBoardDto.setMboardNum(mboardNum);
 			MainBoardBiz biz = new MainBoardBiz();
-			biz.boardDelete(dto);
+			biz.boardDelete(mainBoardDto);
 			
 			response.sendRedirect(CONTEXT_PATH+"/MainBoard/mainboardController?action=mainbaordListform&pageNum=1");
 			}
