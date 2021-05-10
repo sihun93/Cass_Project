@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>응답결과 페이지</title>
+<title>Companion Animal Service Site</title>
 <link type="text/css" rel="stylesheet" href="../css/management.css">
 <style>
 @font-face{

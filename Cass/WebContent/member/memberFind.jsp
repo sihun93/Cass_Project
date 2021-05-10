@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 정보 찾기 페이지</title>
+<title>Companion Animal Service Site</title>
 <link type="text/css" rel="stylesheet" href="../css/management.css">
 <link type="text/css" rel="stylesheet" href="../css/welcome.css">
 <style>

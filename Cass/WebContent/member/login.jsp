@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 로그인 페이지</title>
+<title>Companion Animal Service Site</title>
 <link type="text/css" rel="stylesheet" href="../css/login.css">
 <style type="text/css">
 html, body {

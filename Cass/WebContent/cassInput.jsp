@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Cass의 회원가입 페이지입니다.</title>
+<title>Companion Animal Service Site</title>
 <link type="text/css" rel="stylesheet" href="css/management.css">
 <style>
 @font-face{

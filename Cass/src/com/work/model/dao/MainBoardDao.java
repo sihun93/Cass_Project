@@ -246,7 +246,7 @@ public class MainBoardDao {
 	/** 서브 카테고리 게시글 */
 	public void getBoardListForSc(Connection conn, HashMap<Integer, ArrayList<MainBoardDto>> boardAllList,
 			String scategoryNum) throws SQLException {
-		String sql = "left outer SELECT * FROM mainboard m "
+		String sql = "SELECT * FROM mainboard m "
 				+ "left outer JOIN (SELECT trunc(AVG(r.review_score)) as score ,COUNT(review_Num) as count, mboard_num FROM  mainboard m JOIN review  r USING(mboard_num) GROUP BY mboard_num) s "
 				+ "USING(mboard_num) "
 				+ "WHERE scategory_Num = ? "

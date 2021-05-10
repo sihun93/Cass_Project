@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Cass 회원 내 정보 조회 페이지</title>
+<title>Companion Animal Service Site</title>
 <script type="text/javascript" src="/Cass/js/members_input.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">

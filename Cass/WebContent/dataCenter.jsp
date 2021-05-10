@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>데이터 센터</title>
+<title>Companion Animal Service Site</title>
 <link rel="stylesheet" type="text/css" href="/Cass/css/common.css">
 <link rel="stylesheet" type="text/css" href="/Cass/css/dataCenterCSS.css">
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

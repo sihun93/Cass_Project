@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Cass 회원님의 아이디/비밀번호 찾기 페이지</title>
+<title>Companion Animal Service Site</title>
 <link type="text/css" rel="stylesheet" href="css/management.css">
 <style>
 @font-face{
