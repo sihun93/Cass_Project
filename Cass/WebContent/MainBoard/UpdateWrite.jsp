@@ -207,7 +207,7 @@ src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainb
 <tr>
 <td colspan="2">
 <input type="hidden" name="bimgval" id="bimgval" value="${MainBoardDto.mboardImg }">
-<label class="input-file-button" for="bimg">이미지 업로드</label>
+<label class="input-file-button" for="bimg">로고 이미지 업로드</label>
 <input type="file" name="bimg" id="bimg" 
 onchange="setBImg(event);" style="display: none;">
 </td>
@@ -217,16 +217,16 @@ onchange="setBImg(event);" style="display: none;">
 <td colspan="2">
 <c:choose>
 <c:when test="${fn:substring(MainBoardDto.mboardContent,0,7) == iValue }">
-<input type="hidden" name="mbimgval" id="mbimgval" value="${fn:substring(MainBoardDto.mboardContent,7,imglength) }">
-<label class="input-file-button" for="bimg">로고 이미지 업로드</label>
-<input type="file" name="mbimg" id="mbimg" value=""
-onchange="setMbImg(event);" style="display: none;">
+	<input type="hidden" name="mbimgval" id="mbimgval" value="${fn:substring(MainBoardDto.mboardContent,7,imglength) }">
+	<label class="input-file-button" for="mbimg">게시글 이미지 업로드</label>
+	<input type="file" name="mbimg" id="mbimg" value=""
+	onchange="setMbImg(event);" style="display: none;">
 </c:when>
 <c:otherwise>
-<input type="hidden" name="mbimgval" id="mbimgval">
-<label class="input-file-button" for="bimg">게시글 이미지 업로드</label>
-<input type="file" name="mbimg" id="mbimg" 
-onchange="setMbImg(event);" style="display: none;">
+	<input type="hidden" name="mbimgval" id="mbimgval">
+	<label class="input-file-button" for="mbimg">게시글 이미지 업로드</label>
+	<input type="file" name="mbimg" id="mbimg" 
+	onchange="setMbImg(event);" style="display: none;">
 </c:otherwise>
 </c:choose>
 </td>

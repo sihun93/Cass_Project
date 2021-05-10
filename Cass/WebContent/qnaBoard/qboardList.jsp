@@ -56,9 +56,6 @@ $(function () {
 							<li>제목</li>
 							<li>작성자</li>
 							<li>작성일</li>
-							<c:if test="${dto.grade eq 'A'}">
-							<li>삭제</li>
-							</c:if>
 						</ul>
 					</li>
 					<c:forEach var="qboardList" items="${qboardList}">
