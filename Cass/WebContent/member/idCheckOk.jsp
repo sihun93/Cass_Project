@@ -62,6 +62,7 @@
 		opener.document.getElementById('memberId').value=cId;
 		window.opener.document.getElementById('memberId').readOnly = true;
 		window.opener.document.getElementById("memberPw").focus();
+		$("#login", opener.document).css('visibility','visible');
 		window.close();
 	}
 	</script>
