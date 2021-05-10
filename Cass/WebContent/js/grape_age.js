@@ -13,11 +13,11 @@ function drawChart() {
     data.addColumn('string','Foods');
     data.addColumn('number','비중');
     data.addRows([ 
-        ['10대' + Count10 + '명',Count10],
-        ['20대' + Count20 + '명',Count20],
-        ['30대' + Count30 + '명',Count30],
-        ['40대' + Count40 + '명',Count40],
-        ['50대' + Count50 + '명',Count50]
+        ['10대',Count10],
+        ['20대',Count20],
+        ['30대',Count30],
+        ['40대',Count40],
+        ['50대',Count50]
     ]);
     var opt = {
             'title':'이용자 나이',
