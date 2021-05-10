@@ -20,6 +20,10 @@
 .Title{
 	font-family:'InkLipquid';
 }
+
+input:focus {
+	outline: none;
+}
 </style>
 <script>
 function postcode(){

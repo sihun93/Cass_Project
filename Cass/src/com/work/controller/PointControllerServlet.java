@@ -130,12 +130,16 @@ public class PointControllerServlet extends HttpServlet {
 	private void listsearchform(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String search = request.getParameter("search");
 		String searchName = request.getParameter("searchName");
-		
 		PointBiz pointBiz = new PointBiz();
 		ArrayList<PointDto> pointlist = new ArrayList<PointDto>();
 		
 		MainCategoryBiz mainCategoryBiz = new MainCategoryBiz();
 		ArrayList<MainCategoryDto> categorylist = new ArrayList<MainCategoryDto>();
+		
+		if (searchName.trim().length() == 0){
+			request.getRequestDispatcher("/point/pointController?action=pointMain").forward(request, response);
+			return;
+		}
 		
 		try {
 			if(search.equals("pboardTitle")) {

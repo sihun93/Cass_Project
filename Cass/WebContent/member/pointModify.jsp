@@ -14,6 +14,10 @@
 html, body {
 	height: 0;
 }
+
+input:focus {
+	outline: none;
+}
 </style>
 </head>
 <body>
