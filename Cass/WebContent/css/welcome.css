@@ -147,11 +147,15 @@ img[src^="img/img"] {
 }
 
 .dropdownss {
-	box-shadow: none;
+    box-shadow: none;
+    font-size: 1.2em;
+    width: 200px;
 }
+
 table{
 	border-spacing: 20px;
 	}
+	
 img[src*="img/service"]{
 		width:200px; height:200px;
 	}
