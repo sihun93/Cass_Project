@@ -36,6 +36,9 @@
 		}
 	}catch(Exception e){
 		e.printStackTrace();
+	}finally{
+		 if(pstmt != null ) pstmt.close();
+		 if(con != null) con.close();
 	}
 	if(cId == null){
 		out.println("<h3>"+memberId+"</h3>");

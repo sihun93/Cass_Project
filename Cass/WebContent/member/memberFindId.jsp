@@ -33,7 +33,7 @@
 <body>
 <div id="findDiv">
 	<form action="${CONTEXT_PATH}/member/frontController?action=memberIdFind" method="post">
-	<div class="Title"><a href="${CONTEXT_PATH}/welcome.jsp">Cass 회원 아이디 찾기</a></div>
+	<div class="Title"><a href="${CONTEXT_PATH}/welcome.jsp">CASS 회원 아이디 찾기</a></div>
 	<div class="ip">
 		<p class="text">생년월일</p>
 		<input type="text" class="input" pattern="\d{4}-\d{2}-\d{2}" name="memberBirth" id="memberBirth" required="required" placeholder="ex)생년월일 : yyyy-mm-dd"><br>
