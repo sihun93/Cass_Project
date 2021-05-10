@@ -9,7 +9,9 @@
 	top: 180px;
 	height: 250px;
 }
-
+.scroll{
+	font-size:0.9em;
+}
 .review {
 	margin-left: 500px;
 	font-family: 'InkLipquid';
