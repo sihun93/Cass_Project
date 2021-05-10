@@ -45,8 +45,7 @@
 					<li>
 						<ul>
 							<li>이미지</li>
-							<li><label class="input-file-button" for="qboardImg">이미지 업로드</label></li>
-							<li><input type="file" name="qboardImg" id="qboardImg" style="display: none;"></li>						
+							<li><input type="file" name="qboardImg" id="qboardImg"></li>						
 						</ul>
 					</li>
 					

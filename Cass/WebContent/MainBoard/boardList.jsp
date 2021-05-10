@@ -102,7 +102,7 @@ table#contable{
 <td rowspan="2">
 <img style="width: 175px; height: 175px" src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/mainboard%2F${mainbaord.businessId}%2F${mainbaord.mboardImg }?alt=media">
 </td>
-<td>제목:${mainbaord.mboardTitle }</td>
+<td>${mainbaord.mboardTitle }</td>
 <td align="right" width="110px;" style="margin-right: 2px;">
 <c:if test="${mainbaord.mboardScore == 0}">
 리뷰가 부족합니다.
@@ -198,9 +198,9 @@ table#contable{
 <td colspan="2" width="500px"; height="130px";>
 <c:set var="keywordArr" value="${fn:split(mainbaord.mboardInfo,'\\\\')}"/>
 ${keywordArr[0]}<br>
-${keywordArr[1] }<br>
-${keywordArr[2] }<br>
-${keywordArr[3] }
+${keywordArr[1]}<br>
+${keywordArr[2]}<br>
+${keywordArr[3]}
 </td>
 </tr>
 </table>

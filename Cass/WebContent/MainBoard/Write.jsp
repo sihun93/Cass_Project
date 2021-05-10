@@ -194,13 +194,13 @@ textarea {
 						</td>
 					</tr>
 					<tr>
-						<td><label class="input-file-button" for="bimg">이미지 업로드</label></td>
-						<td colspan="2"><input type="file" name="bimg" id="bimg"
+						<td colspan="2"><label class="input-file-button" for="bimg">로고 이미지 업로드</label></td>
+						<td><input type="file" name="bimg" id="bimg"
 							onchange="setBImg(event);" style="display: none;"></td>
 					</tr>
 					<tr>
-					<td><label class="input-file-button" for="mbimg">이미지 업로드</label></td>
-						<td colspan="2"><input type="file" name="mbimg" id="mbimg"
+					<td colspan="2"><label class="input-file-button" for="mbimg">게시글 이미지 업로드</label></td>
+						<td><input type="file" name="mbimg" id="mbimg"
 							required="required" onchange="setMbImg(event);"
 							style="display: none;"></td>
 					</tr>
