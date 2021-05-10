@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import com.work.model.biz.DataCenterBiz;
 import com.work.model.dto.BusinessMemberDto;
 import com.work.model.dto.DataDto;
+import com.work.model.dto.MasterMemberDto;
 
 /**
  * Servlet implementation class FrontControllerServlet
@@ -212,6 +213,12 @@ public class FrontControllerServlet extends HttpServlet {
 	 */
 	protected void jsonDown(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DataCenterBiz biz = new DataCenterBiz();
+		HttpSession session = request.getSession();
+		MasterMemberDto dto = (MasterMemberDto)session.getAttribute("dto");
+		if(!biz.checkboard(dto.getMemberId())) {
+			response.sendRedirect(CONTEXT_PATH + "/dataCenter.jsp?alram=on");
+			return;
+		}
 		biz.makeJson();
 	    String savePath = "C:\\student_ucamp33\\workspace_servlet";
 	    String filename = "DataCenter.json" ;

@@ -393,6 +393,28 @@ public class DataCenterDao {
 			JdbcTemplate.close(conn);
 		}
 		return null;
+	}
+	public boolean checkboard(String memberId) {
+			String sql = "select mboard_num from mainboard where BUSINESS_ID = ?";
+			Connection conn = null;
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			try {
+				conn= JdbcTemplate.getConnection();
+				stmt = conn.prepareStatement(sql);
+				stmt.setString(1, memberId);
+				rs = stmt.executeQuery();
+				if (rs.next()) {
+					return true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				JdbcTemplate.close(rs);
+				JdbcTemplate.close(stmt);
+				JdbcTemplate.close(conn);
+			}
+		return false;
 	};
 	
 }

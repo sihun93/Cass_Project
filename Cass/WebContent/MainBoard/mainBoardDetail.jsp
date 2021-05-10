@@ -299,7 +299,7 @@ ${fn:substring(detaildto.mboardContent,6,imglength) }
 </td>
 <td align="center" rowspan="2"  width="10%" >
 <c:choose>
-<c:when test="${review.memberId eq dto.memberId }">
+<c:when test="${review.memberId eq dto.memberId or dto.grade eq 'A'}">
 <input  type="button" value="수정" class="update"
 onclick="updatereviewform('${state.index}')"><br><br>
 <input  type="button" value="삭제" class="delete"
