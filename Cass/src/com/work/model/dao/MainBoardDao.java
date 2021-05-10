@@ -151,7 +151,7 @@ public class MainBoardDao {
 		}
 	}
 	/** 메인 카테고리 게시글 */
-	public void getBoardListForMc(Connection conn, HashMap<Integer, ArrayList<MainBoardDto>> boardAllList,
+	public void getBoardListForMc(Connection conn, ArrayList<MainBoardDto> allList,
 			String mcategoryNum) throws SQLException {
 		String sql = "SELECT mboard_num, business_id ,mcategory_num, scategory_num,mboard_title, mboard_score, mboard_img, mboard_info,mboard_content, NVL(score1,0) as score ,count "
 				+"FROM mainboard m "
@@ -159,21 +159,16 @@ public class MainBoardDao {
 				+"USING(mboard_num) "
 				+ "WHERE mcategory_Num = ? "
 				+"order by score desc, to_number(REGEXP_REPLACE(mboard_num,'[^0-9]+')) desc";
-				
-
-		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		MainBoardDto dto = null;
-		ArrayList<MainBoardDto> list = new ArrayList<MainBoardDto>();
+		ArrayList<MainBoardDto> frontlist = new ArrayList<MainBoardDto>();
+		ArrayList<MainBoardDto> backlist = new ArrayList<MainBoardDto>();
 		try {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, mcategoryNum);
 			rs = stmt.executeQuery();
-			int count = 0;
-			int key = 1;
 			while (rs.next()) {
-				if (count < 5) {
 					dto = new MainBoardDto();
 					dto.setMboardNum(rs.getString("mboard_Num"));
 					dto.setBusinessId(rs.getString("business_Id"));
@@ -184,36 +179,14 @@ public class MainBoardDao {
 					dto.setMboardInfo(rs.getString("mboard_Info"));
 					if(rs.getInt("count") >9) {
 						dto.setMboardScore(rs.getInt("score"));
+						frontlist.add(dto);
 					}else {
 						dto.setMboardScore(rs.getInt("mboard_Score"));
+						backlist.add(dto);
 					}
-					list.add(dto);
-					count += 1;
-				} else {
-					boardAllList.put(key, list);
-					key += 1;
-					count = 0;
-					list = new ArrayList<MainBoardDto>();
-					dto = new MainBoardDto();
-					dto.setMboardNum(rs.getString("mboard_Num"));
-					dto.setBusinessId(rs.getString("business_Id"));
-					dto.setMcategoryNum(rs.getString("mcategory_Num"));
-					dto.setScategoryNum(rs.getString("scategory_Num"));
-					dto.setMboardTitle(rs.getString("mboard_Title"));
-					dto.setMboardImg(rs.getString("mboard_Img"));
-					dto.setMboardInfo(rs.getString("mboard_Info"));
-					if(rs.getInt("count") >9) {
-						dto.setMboardScore(rs.getInt("score"));
-					}else {
-						dto.setMboardScore(rs.getInt("mboard_Score"));
-					}
-					list.add(dto);
-					count += 1;
-				}
 			}
-			if (list.size() != 0) {
-				boardAllList.put(key, list);
-			}
+			allList.addAll(frontlist);
+			allList.addAll(backlist);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
@@ -223,7 +196,7 @@ public class MainBoardDao {
 		}
 	}
 	/** 서브 카테고리 게시글 */
-	public void getBoardListForSc(Connection conn, HashMap<Integer, ArrayList<MainBoardDto>> boardAllList,
+	public void getBoardListForSc(Connection conn, ArrayList<MainBoardDto> allList,
 			String scategoryNum) throws SQLException {
 		String sql = "SELECT mboard_num, business_id ,mcategory_num, scategory_num,mboard_title, mboard_score, mboard_img, mboard_info,mboard_content, NVL(score1,0) as score ,count "
 				+"FROM mainboard m "
@@ -234,15 +207,13 @@ public class MainBoardDao {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		MainBoardDto dto = null;
-		ArrayList<MainBoardDto> list = new ArrayList<MainBoardDto>();
+		ArrayList<MainBoardDto> frontlist = new ArrayList<MainBoardDto>();
+		ArrayList<MainBoardDto> backlist = new ArrayList<MainBoardDto>();
 		try {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, scategoryNum);
 			rs = stmt.executeQuery();
-			int count = 0;
-			int key = 1;
 			while (rs.next()) {
-				if (count < 5) {
 					dto = new MainBoardDto();
 					dto.setMboardNum(rs.getString("mboard_Num"));
 					dto.setBusinessId(rs.getString("business_Id"));
@@ -253,36 +224,14 @@ public class MainBoardDao {
 					dto.setMboardInfo(rs.getString("mboard_Info"));
 					if(rs.getInt("count") >9) {
 						dto.setMboardScore(rs.getInt("score"));
+						frontlist.add(dto);
 					}else {
 						dto.setMboardScore(rs.getInt("mboard_Score"));
+						backlist.add(dto);
 					}
-					list.add(dto);
-					count += 1;
-				} else {
-					boardAllList.put(key, list);
-					key += 1;
-					count = 0;
-					list = new ArrayList<MainBoardDto>();
-					dto = new MainBoardDto();
-					dto.setMboardNum(rs.getString("mboard_Num"));
-					dto.setBusinessId(rs.getString("business_Id"));
-					dto.setMcategoryNum(rs.getString("mcategory_Num"));
-					dto.setScategoryNum(rs.getString("scategory_Num"));
-					dto.setMboardTitle(rs.getString("mboard_Title"));
-					dto.setMboardImg(rs.getString("mboard_Img"));
-					dto.setMboardInfo(rs.getString("mboard_Info"));
-					if(rs.getInt("count") >9) {
-						dto.setMboardScore(rs.getInt("score"));
-					}else {
-						dto.setMboardScore(rs.getInt("mboard_Score"));
-					}
-					list.add(dto);
-					count += 1;
-				}
 			}
-			if (list.size() != 0) {
-				boardAllList.put(key, list);
-			}
+			allList.addAll(frontlist);
+			allList.addAll(backlist);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
