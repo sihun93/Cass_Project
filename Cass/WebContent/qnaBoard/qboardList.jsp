@@ -27,6 +27,9 @@ $(function () {
 	text-align: center;
 	background-color: #D1DAE7;
 }
+table{
+	width:100px;
+}
 </style>
 </head>
 <body>
@@ -83,7 +86,7 @@ $(function () {
 						<option value="T">제목</option>
 						<option value="C">내용</option>
 					</select> 
-					<input id="txtKeyWord" name="txtKeyWord"/> <input type="submit" value="검색" id="btn"/>
+					<input id="txtKeyWord" name="txtKeyWord" type="text"/> <input type="submit" value="검색" id="btn"/>
 					</div>
 					</form>
 					<c:if test="${not empty dto}">
