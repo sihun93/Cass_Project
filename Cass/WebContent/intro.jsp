@@ -27,7 +27,7 @@ $(function () {
 	<jsp:include page="/inc/header_menu.jsp" />
 	<div id="container">
 		<div class="sky">
-			<table>
+			<table class="scroll">
 				<tr>
 					<td><a href="#">▲ 위로</a></td>
 				</tr>
