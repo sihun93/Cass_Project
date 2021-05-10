@@ -67,7 +67,7 @@ function idCheck(){
 		
 		<h4 class="TitleText">사업자 주소</h4>
 		<input type="text" class="input" name="businessAddr1" id="businessAddr1" size="70" readonly="readonly" placeholder="도로명주소" ><br>
-		<input type="text" class="input" name="businessAddr2" id="businessAddr2" size="70" placeholder="상세주소를 입력해주세요">
+		<input type="text" class="input" name="businessAddr2" id="businessAddr2" size="70" required="required" placeholder="상세주소를 입력해주세요">
 		
 		<h4 class="TitleText">전화번호</h4>
 		<input type="text" class="input" pattern="\d{3}-\d{4}-\d{4}" name="businessPhone" id="businessPhone" required="required" placeholder="ex)전화번호 : 010-1111-1111"><br>
