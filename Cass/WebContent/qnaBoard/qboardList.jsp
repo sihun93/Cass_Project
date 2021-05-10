@@ -68,7 +68,7 @@ $(function () {
 							<li><a href="${CONTEXT_PATH}/cass/qboardController?action=qboardDetail&qboardNum=${qboardList.qboardNum}">${qboardList.qboardTitle}</a></li>
 							<li>${qboardList.memberId}</li>
 							<li>${qboardList.qboardDate}</li>
-							<c:if test="${dto.grade eq 'A'}">
+							<c:if test="${dto.grade eq 'A' || dto.memberId eq qboardList.memberId}">
 							<li><form action="${CONTEXT_PATH}/cass/qboardController?action=deleteQboard&qboardNum=${qboardList.qboardNum}" method="post">
 								<input type="submit"  value="삭제" id="deletebtn"/></form></li>
 							</c:if>
