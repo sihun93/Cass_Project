@@ -45,7 +45,8 @@
 			<c:if test="${not empty qboardDetail.qboardImg}">
 			<img src="https://firebasestorage.googleapis.com/v0/b/clever-cass.appspot.com/o/qboard%2F${qboardDetail.qboardImg}?alt=media" width="300px" height="300px">
 			</c:if>
-			${qboardDetail.qboardContent}
+			<% pageContext.setAttribute("newLine", "\r\n"); %>
+			${fn:replace(qboardDetail.qboardContent, newLine, '<br>')}
 			</td>
 		</tr>
 		<c:if test="${dto.grade eq 'A'}">
