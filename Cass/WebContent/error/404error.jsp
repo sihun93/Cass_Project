@@ -2,22 +2,35 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/inc/taglib_menu.jsp" %>  
 <!DOCTYPE html>
-<html>
+<html style="height: 50%">
 <head>
 <meta charset="UTF-8">
 <title>찾을 수 없는 페이지</title>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
-<link type="text/css" rel="stylesheet" href="../css/pointPage.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/welcome.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/pointPage.css">
 <style type="text/css">
 #pre {
 	width: 500px;
 	margin: 0 auto;
-	font-size: 1.1em;
+	font-size: 1.5em;
 }
+
+pre {
+	font-family:'InkLipquid';
+}
+
+@font-face{
+	font-family:'InkLipquid';
+	font-weight:normal;
+	font-style:normal;
+	font-color:white;
+    src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff')format('woff');
+    }
 </style>
 </head>
 <body>
-<div id="wrapper">
+
 <jsp:include page="/inc/header_menu.jsp" />
 <div id="container">
 <div id="pre">
@@ -36,6 +49,6 @@
 </div>
 </div>
 <jsp:include page="/inc/footer_menu.jsp" />
-</div>
+
 </body>
 </html>

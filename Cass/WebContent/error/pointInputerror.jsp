@@ -64,9 +64,18 @@ $(function () {
 	img[src^="img/img"]{
 		width:400px; height:400px;
 	}
-	h2{
+	h1{
 	text-align: center;
+	font-family:'InkLipquid';
 	}
+	
+@font-face{
+	font-family:'InkLipquid';
+	font-weight:normal;
+	font-style:normal;
+	font-color:white;
+    src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff')format('woff');
+    }	
 </style>
 </head>
 <body>
@@ -79,20 +88,17 @@ $(function () {
   			<td><a href="#">▲ 위로</a></td>
   		</tr>
   		<tr>
-  			<td><a href="#">반려동물 서비스</a></td>
+  			<td><a href="${CONTEXT_PATH}/cass/MainBoard/mainboardController?action=boardList">반려동물 서비스</a></td>
   		</tr>
   		<tr>
   			<td><a href="${CONTEXT_PATH}/cass/qboardController?action=qboardList">Q&A 게시판</a></td>
   		</tr>
   		<tr>
-  			<td><a href="#">포인트 샵</a></td>
-  		</tr>
-  		<tr>
-  			<td><a href="#">데이터</a></td>
+  			<td><a href="${CONTEXT_PATH}/point/pointController?action=pointMain">포인트 샵</a></td>
   		</tr>
   	</table>
   </div>
-      <h2>관리자 전용 페이지입니다.</h2>
+      <h1>관리자 전용 페이지입니다.</h1>
    </div>
 
 <jsp:include page="/inc/footer_menu.jsp"/>
