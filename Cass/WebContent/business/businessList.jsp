@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사업자 리스트 페이지</title>
+<title>Companion Animal Service Site</title>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css">
 <style type="text/css">

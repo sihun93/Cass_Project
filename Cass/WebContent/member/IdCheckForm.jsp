@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디 중복체크</title>
+<title>Companion Animal Service Site</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <link type="text/css" rel="stylesheet" href="../css/checkForm.css">
 <style>

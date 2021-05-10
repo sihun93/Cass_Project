@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Q&A 게시글 수정</title>
+<title>Companion Animal Service Site</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-analytics.js"></script>

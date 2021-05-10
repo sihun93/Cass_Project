@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Cass 사업자 회원 정보 찾기 페이지</title>
+<title>Companion Animal Service Site</title>
 <link type="text/css" rel="stylesheet" href="../css/businessFind.css">
 </head>
 <body>

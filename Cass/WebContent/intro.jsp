@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Intro of CASS</title>
+<title>Companion Animal Service Site</title>
 <link type="text/css" rel="stylesheet" href="css/common.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
@@ -32,7 +32,7 @@ $(function () {
 					<td><a href="#">▲ 위로</a></td>
 				</tr>
 				<tr>
-					<td><a href="#">반려동물 서비스</a></td>
+					<td><a href="${CONTEXT_PATH}/MainBoard/mainboardController?action=mainbaordListform&pageNum=1">반려동물 서비스</a></td>
 				</tr>
 				<tr>
 					<td><a href="${CONTEXT_PATH}/cass/qboardController?action=qboardList">Q & A 게시판</a></td>

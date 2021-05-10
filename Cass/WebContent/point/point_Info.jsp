@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CASS 포인트 상품 상세조회</title>
+<title>Companion Animal Service Site</title>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/welcome.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/pointPage.css">

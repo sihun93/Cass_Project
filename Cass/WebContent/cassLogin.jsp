@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Cass 로그인 페이지입니다.</title>
+<title>Companion Animal Service Site</title>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/management.css">
 <style>
 @font-face{
