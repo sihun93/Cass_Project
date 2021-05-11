@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.work.model.dto.AboardDto;
+import com.work.model.dto.MasterMemberDto;
 import com.work.model.dto.QboardDto;;
 
 /**
@@ -133,11 +134,12 @@ public class QboardDao {
 	
 	/** Q&A 답글 등록
 	 * @param qboardNum 게시글 번호, aboardContent 답글 내용
+	 * @param dto 
 	 * @return ArrayList<AboardDto> 없으면 null
 	 */
-	public ArrayList<AboardDto> addAboard(String qboardNum, String aboardContent) {
+	public ArrayList<AboardDto> addAboard(String qboardNum, String aboardContent, MasterMemberDto dto) {
 		ArrayList<AboardDto> list = new ArrayList<AboardDto>();
-		String sql = "insert into A_board(Qboard_num, Aboard_content) values(?, ?)";
+		String sql = "insert into A_board values(?,?, ?,sysdate)";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -145,7 +147,8 @@ public class QboardDao {
 			conn = JdbcTemplate.getConnection();
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, qboardNum);
-			stmt.setString(2, aboardContent);
+			stmt.setString(2, dto.getMemberId());
+			stmt.setString(3, aboardContent);
 			rs = stmt.executeQuery();
 			JdbcTemplate.commit(conn);
 			return list;

@@ -215,10 +215,12 @@ public class FrontControllerServlet extends HttpServlet {
 		DataCenterBiz biz = new DataCenterBiz();
 		HttpSession session = request.getSession();
 		MasterMemberDto dto = (MasterMemberDto)session.getAttribute("dto");
-		if(!biz.checkboard(dto.getMemberId())) {
-			response.sendRedirect(CONTEXT_PATH + "/dataCenter.jsp?alram=on");
-			return;
-		}
+	      if(!dto.getGrade().equals("A")) {
+	          if(!biz.checkboard(dto.getMemberId())) {
+	             response.sendRedirect(CONTEXT_PATH + "/dataCenter.jsp?alram=on");
+	             return;
+	          }
+	       }
 		biz.makeJson();
 	    String savePath = "C:\\student_ucamp33\\workspace_servlet";
 	    String filename = "DataCenter.json" ;

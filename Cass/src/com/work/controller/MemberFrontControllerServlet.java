@@ -353,7 +353,6 @@ public class MemberFrontControllerServlet extends HttpServlet {
 			String memberAddr = addrCode + "/" + memberAddr1 + "/" + memberAddr2;
 			String memberEmail = request.getParameter("memberEmail");
 			String memberMobile = request.getParameter("memberMobile");
-			String email = request.getParameter("email");
 			String memberBirth = request.getParameter("memberBirth");
 			String grade = request.getParameter("grade");
 			MemberBiz biz = new MemberBiz();
@@ -363,7 +362,6 @@ public class MemberFrontControllerServlet extends HttpServlet {
 			dto.setMemberAddr(memberAddr);
 			dto.setMemberEmail(memberEmail);
 			dto.setMemberMobile(memberMobile);
-			dto.setMemberEmail(email);
 			dto.setMemberBirth(memberBirth);
 			dto.setGrade(grade);
 			try {

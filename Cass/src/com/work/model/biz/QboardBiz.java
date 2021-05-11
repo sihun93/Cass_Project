@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import com.work.model.dao.QboardDao;
 import com.work.model.dto.AboardDto;
+import com.work.model.dto.MasterMemberDto;
 import com.work.model.dto.QboardDto;
 
 /**
@@ -30,9 +31,10 @@ public class QboardBiz {
 		return dao.getAboardList(qboardNum);
 	}
 	
-	/** Q&A 답글 등록*/
-	public ArrayList<AboardDto> addAboard(String qboardNum, String aboardContent){
-		return dao.addAboard(qboardNum, aboardContent);
+	/** Q&A 답글 등록
+	 * @param dto */
+	public ArrayList<AboardDto> addAboard(String qboardNum, String aboardContent, MasterMemberDto dto){
+		return dao.addAboard(qboardNum, aboardContent,dto);
 	}
 	
 	/** Q&A 게시글 등록*/

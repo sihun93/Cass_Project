@@ -23,8 +23,16 @@ ALTER TABLE point_board
 create sequence pboard_num_seq
 start with 1
 increment by 1;
-insert into point_board values('p' || pboard_num_seq.nextval, 'mc8', '강아지안경', '강아지안경.jpg', '귀여운 강아지 안경', 4000);
-insert into point_board values('p' || pboard_num_seq.nextval, 'mc5', '고양이사료', '고양이사료.jpg', '전연령층이 먹을 수 있는 고양이 사료', 15000);
+INSERT INTO point_board VALUES('p41',	'mc5',	'고양이 고급 사료2',	'catEat.jpg',	'고오급 사료',	20000);
+INSERT INTO point_board VALUES('p22',	'mc7',	'반짝반짝',	'cat1.png',	'고양이',	15000);
+INSERT INTO point_board VALUES('p26',	'mc7',	'강아지 타이',	'강아지 타이.jpg',	'강아지용 타이 입니다.
+우리 강아지에게 멋드러짐을 선사 하세요',	8000);
+INSERT INTO point_board VALUES('p24',	'mc5',	'고양이 고급 사료',	'catEat.jpg',	'프리미엄 사료 고양이 버전 입니다.
+',	20000);
+INSERT INTO point_board VALUES('p27',	'mc8',	'강아지안경',	'강아지안경.jpg',	'귀여운 강아지 안경',	4000);
+INSERT INTO point_board VALUES('p29',	'mc8',	'강아지안경',	'강아지안경.jpg',	'귀여운 강아지 안경',	4000);
+INSERT INTO point_board VALUES('p30',	'mc5',	'고양이사료',	'고양이사료.jpg',	'전연령층이 먹을 수 있는 고양이 사료',	15000);
+
 
 ============================================================================================
 
@@ -66,11 +74,17 @@ create sequence q_num_seq
 	increment by 1
 	maxvalue 99999
 	nocycle;
-    
-insert into Q_board values('qb'||q_num_seq.nextval, '문의사항', '문의사항', '2020-03-18', 'qboard_img1.jpg', 'room93');
-insert into Q_board values('qb'||q_num_seq.nextval, '문의사항2', '문의사항2', '2021-02-22', null, 'okoo');
-insert into Q_board values('qb'||q_num_seq.nextval, '배송문의', '배송문의', '2018-07-02', null, 'money99');
-insert into Q_board values('qb'||q_num_seq.nextval, '배송문의2', '배송문의2', '2021-05-01', null, 'Rhdemr2');
+
+INSERT INTO q_board VALUES('qb21',	'문의사항',				'문의사항',	'20/03/18',	'qboard_img1.jpg',	'room93');
+INSERT INTO q_board VALUES('qb22',	'문의사항2',				'문의사항2',	'21/02/22',	'',	'okoo');
+INSERT INTO q_board VALUES('qb23',	'배송문의',				'배송문의',	'18/07/02',	'',	'money99');
+INSERT INTO q_board VALUES('qb24',	'배송문의2',				'배송문의2',	'21/05/01',	'',	'Rhdemr2');
+INSERT INTO q_board VALUES('qb26',	'관리자가 글쓰는거 처음보냐?',	'나도 처음본다',	'21/05/06',	'',	'money99');
+INSERT INTO q_board VALUES('qb31',	'테스트다 이놈아',			'아하하하하하하',	'21/05/06',	'cat1.png',	'money99');
+INSERT INTO q_board VALUES('qb29',	'나나나',	'너너넌이게무엇니야나도모른다배달똑바로해라',	'21/05/06',	'cat1.png',	'money99');
+INSERT INTO q_board VALUES('qb62',	'불량 상품이 온것 같아요 교환해주세요',	'넥타이를 샀는데 불량이 왔어요',	'21/05/10',	'강아지 타이.jpg',	'qortlgns');
+INSERT INTO q_board VALUES('qb63',	'교환해주세요',				'강아지타이 불량이왔어요',	'21/05/11',	'강아지 타이.jpg',	'ucamp22');
+
 
 ============================================================================================
 drop table review;
@@ -150,6 +164,33 @@ drop sequence seq_review;
 create sequence seq_review
 start with 1
 increment by 1;
+
+INSERT INTO review VALUES(6,	'mb23',	'sihun123',	6,	'저는 괜찮았습니다',			'\',	'21/05/09');
+INSERT INTO review VALUES(7,	'mb23',	'sihun123',	10,	'다시보니 너무 좋아요',		'\',	'21/05/09');
+INSERT INTO review VALUES(8,	'mb23',	'qortlgns',	7,	'사랑해요',				'\',	'21/05/09');
+INSERT INTO review VALUES(4,	'mb23',	'qortlgns',	7,	'사료 멋있어요!',			'\',	'21/05/09');
+INSERT INTO review VALUES(5,	'mb23',	'qortlgns',	1,	'저는 좋은 것 같아요!',		'\',	'21/05/09');
+INSERT INTO review VALUES(9,	'mb23',	'qortlgns',	1,	'10개를 채우기위한 댓글이요',	'\',	'21/05/09');
+INSERT INTO review VALUES(10,	'mb23',	'qortlgns',	7,	'너무해요',				'\',	'21/05/09');
+INSERT INTO review VALUES(11,	'mb23',	'qortlgns',	8,	'좋은 가게입니다',			'\',	'21/05/09');
+INSERT INTO review VALUES(12,	'mb23',	'qortlgns',	9,	'맛있어요',				'\',	'21/05/09');
+INSERT INTO review VALUES(13,	'mb23',	'qortlgns',	10,	'사랑해요',				'\',	'21/05/09');
+INSERT INTO review VALUES(14,	'mb23',	'qortlgns',	1,	'ㄴㅇ',					'\',	'21/05/09');
+INSERT INTO review VALUES(15,	'mb2',	'qortlgns',	1,	'아 그렇군요',				'\',	'21/05/09');
+INSERT INTO review VALUES(16,	'mb22',	'qortlgns',	10,	'배송이 정말 조용합니다',		'\',	'21/05/09');
+INSERT INTO review VALUES(17,	'mb22',	'sihun9393',9,	'배송좋아요',				'\',	'21/05/10');
+INSERT INTO review VALUES(18,	'mb22',	'qortlgns',	7,	'배송이 느낌있어요!!!!',		'catEat.jpg\',	'21/05/10');
+INSERT INTO review VALUES(19,	'mb22',	'qortlgns',	8,	'느낌이 쫌 있어요',			'\',	'21/05/10');
+INSERT INTO review VALUES(20,	'mb22',	'qortlgns',	9,	'괜찮았어요',				'\',	'21/05/10');
+INSERT INTO review VALUES(21,	'mb22',	'qortlgns',	6,	'나름 괜찮?',				'\',	'21/05/10');
+INSERT INTO review VALUES(22,	'mb22',	'qortlgns',	10,	'새벽배송이 된다니?!',		'\',	'21/05/10');
+INSERT INTO review VALUES(23,	'mb22',	'qortlgns',	10,	'너무괜찮아요',				'\',	'21/05/10');
+INSERT INTO review VALUES(24,	'mb22',	'qortlgns',	10,	'너무 만족합니다',			'\',	'21/05/10');
+INSERT INTO review VALUES(25,	'mb8',	'admin',	7,	'3434'	,				'\',	'21/05/10');
+INSERT INTO review VALUES(26,	'mb8',	'ucamp22',	1,	'아하?',					'\',	'21/05/11');
+INSERT INTO review VALUES(27,	'mb8',	'qortlgns',	10,	'dlalwldlqslek',		'\',	'21/05/11');
+INSERT INTO review VALUES(28,	'mb2',	'ucamp22',	10,	'리뷰ㅜ안',				'\',	'21/05/11');
+
 ===========================================================================================
 /* 매인서비스 글작성 테이블 */
 CREATE TABLE mainboard (
@@ -175,6 +216,16 @@ drop sequence seq_mainboard;
 create sequence seq_mainboard
 start with 1
 increment by 1;
+
+INSERT INTO mainboard VALUES('mb23',	'pethooh',		'mc4',	'sc10',	'맛있는 사료 판매합니다',		0,	'펫후 메인.png',		'펫후 \경기도 성남시 분당구 판교로 242 A동 702호\010-1577-2568\https://www.pethooh.com',	'/Image/펫후 사료.png');
+INSERT INTO mainboard VALUES('mb2',		'loveanimal',	'mc2',	'sc6',	'참사랑 동물병원',			0,	'도그마루 메인.png',		'참사랑동물병원 \서울특별시 마포구 독막로 331 마스터즈타워빌딩 1305호\010-6959-9155\http://www.animaldoctor.co.kr',	'/Image/참사랑 동물병원.jpg');
+INSERT INTO mainboard VALUES('mb3',		'catskingdom',	'mc1',	'sc1',	'고양이 용품은 고양이 왕국에서!',	0,	'고양이 왕국 메인.png',	'고양이 왕국\경기 파주시 평화로 266-11\070-1688-7079\https://www.catskingdom.co.kr/',	'/Image/고양이왕국 용품2.jpg');
+INSERT INTO mainboard VALUES('mb22',	'storebom',		'mc1',	'sc1',	'스토어봄 입니다.',			0,	'스토어봄.png',		'스토어봄\서울특별시 강남구 선릉로92길 42 세진빌딩 3층\010-1544-9667\http://freshbom.kr',	'/Image/스토어봄.jpg');
+INSERT INTO mainboard VALUES('mb1',		'varram',		'mc1',	'sc1',	'혼자 있는 우리 아이의 든든한 로봇 친구! 바램 펫 피트니스',	0,	'바램펫.png',	'바램펫\대전 유성구 테크노11로 57\070-8797-8923\https://www.varram.co.kr/',	'/Image/qkfoaxladydvna2.png');
+INSERT INTO mainboard VALUES('mb7',		'lovecoco',		'mc1',	'sc1',	'안녕하세요',				0,	'러브코코메인.png',		'러브코코\경기도 고양시 일산동구 풍동 1236-6 1층 101호\010-2354-9854\https://lovecoco.co.kr',	'""/text/안녕하십니까~ 러브코코입니다. 각종 애완용품을 판매중이니 많은 관심 부탁드립니다~""');
+INSERT INTO mainboard VALUES('mb5',		'lovecoco',		'mc1',	'sc3',	'강아지용품은 러브코코에서!',	0,	'러브코코메인.png',		'러브코코\경기도 고양시 일산동구 풍동 1236-6 1층 101호\010-2354-9854\https://lovecoco.co.kr',	'/Image/러브코코 용품.jpg');
+INSERT INTO mainboard VALUES('mb8',		'lovecoco',		'mc1',	'sc1',	'러브코코코코코',			0,	'도그마루 메인.png',		'러브코코\경기도 고양시 일산동구 풍동 1236-6 1층 101호\010-2354-9854\https://lovecoco.co.kr',	'/Image/qkfoaxladydvna2.png');
+
 ==========================================================================================
 /* 포인트 상품 구매내역 */
 CREATE TABLE point_buy (
@@ -192,9 +243,12 @@ create sequence buy_num_seq
 start with 1
 increment by 1;
 
-
-insert into point_buy values('b' || buy_num_seq.nextval, 'p1' , 'snssnskssk', '고양이 츄르' , '츄르.jpg' ,1, 2000, to_char(sysdate, 'yyyy-mm-dd'));
-insert into point_buy values('b' || buy_num_seq.nextval, 'p2' , 'engage', '강아지 장난감' , '강아지 장난감.jpg' ,1, 5000, to_char(sysdate, 'yyyy-mm-dd'));
+INSERT INTO point_buy VALUES('b21',	'p1',	'snssnskssk',	'고양이 츄르',		'츄르.jpg',		1,	2000,	'2021-05-06');
+INSERT INTO point_buy VALUES('b22',	'p2',	'engage',		'강아지 장난감',		'강아지 장난감.jpg',	1,	5000,	'2021-05-06');
+INSERT INTO point_buy VALUES('b41',	'p29',	'sihun9393',	'강아지안경',		'강아지안경.jpg',	1,	4000,	'2021-05-07');
+INSERT INTO point_buy VALUES('b61',	'p30',	'qortlgns',		'고양이사료',		'고양이사료.jpg',	1,	15000,	'2021-05-09');
+INSERT INTO point_buy VALUES('b62',	'p41',	'qortlgns',		'고양이 고급 사료2',	'catEat.jpg',	1,	20000,	'2021-05-10');
+INSERT INTO point_buy VALUES('b63',	'p41',	'ucamp22',		'고양이 고급 사료2',	'catEat.jpg',	1,	20000,	'2021-05-11');
 
 ===========================================================================================
 drop table business;

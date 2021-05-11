@@ -102,6 +102,8 @@ public class QboardControllerServlet extends HttpServlet {
 	
 	/** Q&A 게시판 답글 등록*/
 	protected void addAboard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		MasterMemberDto dto = (MasterMemberDto) session.getAttribute("dto");
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=UTF-8");
 		String qboardNum = request.getParameter("qboardNum");
@@ -120,7 +122,7 @@ public class QboardControllerServlet extends HttpServlet {
 			out.close();
 		}else {
 			ArrayList<QboardDto> list = biz.getQboardDetail(qboardNum);
-			ArrayList<AboardDto> list3 = biz.addAboard(qboardNum, aboardContent);
+			ArrayList<AboardDto> list3 = biz.addAboard(qboardNum, aboardContent,dto);
 			ArrayList<AboardDto> list2 = biz.getAboardList(qboardNum);
 			request.setAttribute("qboardDetail", list);
 			request.setAttribute("aboardList", list2);
