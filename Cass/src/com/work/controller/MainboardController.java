@@ -411,10 +411,12 @@ public class MainboardController extends HttpServlet {
 			response.sendRedirect(CONTEXT_PATH+"/MainBoard/mainboardController?action=mainbaordDetail&mBoardNum="+mboardNum+"&pageNum=1");
 			return;
 		}
-		if(!memberId.equals(masterDto.getMemberId())) {
-			response.sendRedirect(CONTEXT_PATH+"/MainBoard/mainboardController?action=mainbaordDetail&mBoardNum="+mboardNum+"&pageNum=1");
-			return;
-		}
+	      if(!grade.equals("A")) {
+	          if(!memberId.equals(masterDto.getMemberId())) {
+	             response.sendRedirect(CONTEXT_PATH+"/MainBoard/mainboardController?action=mainbaordDetail&mBoardNum="+mboardNum+"&pageNum=1");
+	             return;
+	          }
+	       }
 		int reviewNum = Integer.parseInt(request.getParameter("reviewNum"));
 		ReviewDto dto = new ReviewDto();
 		dto.setMboardNum(mboardNum);
